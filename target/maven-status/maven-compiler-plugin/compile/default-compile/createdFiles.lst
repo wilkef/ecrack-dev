@@ -1,5 +1,7 @@
 com\wilkef\ecrack\setup\controller\UnitController.class
+com\wilkef\ecrack\setup\util\ServiceOutputTransformer.class
+com\wilkef\ecrack\setup\controller\UnitController$1.class
+com\wilkef\ecrack\setup\constant\UnitConstants.class
 com\wilkef\ecrack\setup\EcrackSetupApplication.class
+com\wilkef\ecrack\setup\dao\UnitDao.class
 com\wilkef\ecrack\setup\dto\UnitDataDTO.class
-com\wilkef\ecrack\setup\dao\EcrackDao$1.class
-com\wilkef\ecrack\setup\dao\EcrackDao.class

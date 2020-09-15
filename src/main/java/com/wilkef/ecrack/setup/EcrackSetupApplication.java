@@ -1,5 +1,12 @@
 package com.wilkef.ecrack.setup;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -17,7 +24,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class EcrackSetupApplication {
 
 	
-	
+	public static final Logger LOG=Logger.getLogger(EcrackSetupApplication.class.getName());
 	
 	@Value("${app.datasourece.url}")
 	private String appDataSourceUrl;
@@ -31,10 +38,18 @@ public class EcrackSetupApplication {
 	@Value("${app.datasourece.driver.className}")
 	private String appDataSourceDriverClassName;
 	
-	public static void main(String[] args) {
-		SpringApplication.run(EcrackSetupApplication.class, args);
-		System.out.println("Project created successfully");
-	}
+	public static void main(String[] args) {SpringApplication.run(EcrackSetupApplication.class, args);
+	 try{
+		 LogManager.getLogManager().readConfiguration(new FileInputStream("myLogging.properties"));
+	 LOG.setLevel(Level.FINE);
+	 LOG.addHandler(new ConsoleHandler());
+            }
+         catch (SecurityException | IOException e) {
+            e.printStackTrace();
+        }
+    
+
+	LOG.info("Project created successfully");}
 	
 	
 	@Bean
