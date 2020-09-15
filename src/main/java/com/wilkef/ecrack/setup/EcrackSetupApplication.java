@@ -23,39 +23,37 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @SpringBootApplication
 public class EcrackSetupApplication {
 
-	
-	public static final Logger LOG=Logger.getLogger(EcrackSetupApplication.class.getName());
-	
+	public static final Logger LOG = Logger.getLogger(EcrackSetupApplication.class.getName());
+
 	@Value("${app.datasourece.url}")
 	private String appDataSourceUrl;
-	
+
 	@Value("${app.datasourece.userName}")
 	private String appDataSourceUserName;
-	
+
 	@Value("${app.datasourece.password}")
 	private String appDataSourcePswd;
-	
+
 	@Value("${app.datasourece.driver.className}")
 	private String appDataSourceDriverClassName;
-	
-	public static void main(String[] args) {SpringApplication.run(EcrackSetupApplication.class, args);
-	 try{
-		 LogManager.getLogManager().readConfiguration(new FileInputStream("myLogging.properties"));
-	 LOG.setLevel(Level.FINE);
-	 LOG.addHandler(new ConsoleHandler());
-            }
-         catch (SecurityException | IOException e) {
-            e.printStackTrace();
-        }
-    
 
-	LOG.info("Project created successfully");}
-	
-	
+	public static void main(String[] args) {
+		SpringApplication.run(EcrackSetupApplication.class, args);
+		try {
+			LogManager.getLogManager().readConfiguration(new FileInputStream("myLogging.properties"));
+			LOG.setLevel(Level.FINE);
+			LOG.addHandler(new ConsoleHandler());
+		} catch (SecurityException | IOException e) {
+			e.printStackTrace();
+		}
+
+		LOG.info("Project created successfully");
+	}
+
 	@Bean
 	@Qualifier("appDatasource")
 	public DataSource appDatasource() {
-		BasicDataSource dataSource= new BasicDataSource();
+		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setUrl(appDataSourceUrl);
 		dataSource.setUsername(appDataSourceUserName);
 		dataSource.setPassword(appDataSourcePswd);
@@ -63,24 +61,23 @@ public class EcrackSetupApplication {
 		dataSource.setMaxIdle(10);
 		dataSource.setInitialSize(50);
 		return dataSource;
-		
+
 	}
-	
-	
+
 	@Bean
 	@Qualifier("appJdbcTemplate")
 	JdbcTemplate customerJdbcTempalte(@Qualifier("appDatasource") DataSource appDatasource) {
-	return new JdbcTemplate(appDatasource);
+		return new JdbcTemplate(appDatasource);
 	}
-	
+
 	@Bean
 	public static PropertyPlaceholderConfigurer properties() {
-		PropertyPlaceholderConfigurer propConfig=new PropertyPlaceholderConfigurer();
-		Resource[] resources=new ClassPathResource[] {new ClassPathResource("application.properties")};
+		PropertyPlaceholderConfigurer propConfig = new PropertyPlaceholderConfigurer();
+		Resource[] resources = new ClassPathResource[] { new ClassPathResource("application.properties") };
 		propConfig.setLocations(resources);
 		propConfig.setIgnoreUnresolvablePlaceholders(true);
 		return propConfig;
-		
-	} 
+
+	}
 
 }
