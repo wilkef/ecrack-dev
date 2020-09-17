@@ -15,6 +15,8 @@ public final class WilkefConstants {
 
 	public static final String GET_UNIT_DETAIL = "Select UnitId ,UnitName ,SubjectId from Unit";
 	
-	public static final String GET_QUESTIONLEVEL_DETAIL = "Select DifficultyId,DifficultyCode from QuestionLevel";
+	public static final String GET_QUESTIONLEVEL_DETAIL = "SELECT DifficultyId,DifficultyCode from QuestionLevel";
+	
+	public static final String GET_SUBJECTBYGRADEID = "spGetAllSubjectByClassId";
 
 }

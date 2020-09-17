@@ -1,5 +1,12 @@
 package com.wilkef.ecrack.setup.dto;
 
+/**
+ * This Class is used QuestionLevel DTO Class
+ * 
+ * @author Satya
+ * Sep 16, 2020
+ */
+
 public class QuestionLevelDataDTO {
 	
 	private Integer difficultyId;

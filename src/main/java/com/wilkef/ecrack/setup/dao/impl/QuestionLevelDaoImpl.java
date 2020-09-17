@@ -16,6 +16,13 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.QuestionLevelDao;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 
+/**
+ * This Class is Used to execute QuestionLevel DB Operation 
+ * 
+ * @author Satya
+ * Sep 16, 2020
+ */
+
 @Repository
 @Transactional
 public class QuestionLevelDaoImpl implements QuestionLevelDao{
