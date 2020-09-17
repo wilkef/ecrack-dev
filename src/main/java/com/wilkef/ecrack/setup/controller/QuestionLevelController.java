@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wilkef.ecrack.setup.dao.QuestionLevelDao;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 
+
 /**
  * This Class is Used to execute DifficultyLevel Execution 
  * 
@@ -25,11 +26,13 @@ public class QuestionLevelController {
 
 	private static final Logger LOG = Logger.getLogger(QuestionLevelController.class.getName());
 	List<QuestionLevelDataDTO> allQuestionLevel = null;
+
 	
 	@Autowired
 	private QuestionLevelDao questionDao;
 
 	@GetMapping(value = "/getDifficultyCode")
+
 	public List<QuestionLevelDataDTO> findDifficultyCode(){
 		
 		LOG.info("Inside find difficulty code");
@@ -42,5 +45,6 @@ public class QuestionLevelController {
 			LOG.log(Level.SEVERE, () -> "somthing wrong while fetching the information : " + e.getMessage());
 		}
 		return  allQuestionLevel;
+
 	}
 }
