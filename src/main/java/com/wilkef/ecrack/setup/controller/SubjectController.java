@@ -27,7 +27,11 @@ import com.wilkef.ecrack.setup.service.SubjectService;
 public class SubjectController {
 
 	public static final Logger LOG = Logger.getLogger(SubjectController.class.getName());
+<<<<<<< Updated upstream
 
+=======
+	
+>>>>>>> Stashed changes
 	@Autowired
 	private SubjectService subjectService;
 
@@ -47,8 +51,12 @@ public class SubjectController {
 			} else {
 				response = new ResponseEntity<>("Record Not Found ", HttpStatus.OK);
 				return response;
+<<<<<<< Updated upstream
 			}
 
+=======
+			}	
+>>>>>>> Stashed changes
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,
 					() -> "something wrong while fetching the information based on gradeId : " + e.getMessage());
