@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.wilkef.ecrack.setup.controller;
 
 import java.util.List;
@@ -12,37 +15,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
-import com.wilkef.ecrack.setup.service.SubjectService;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
+import com.wilkef.ecrack.setup.service.LessionListService;
 
 /**
- * This Class is Used to execute Subject Execution
+ *  This Class is Identify to execute Lession Controller Operation
  * 
- * 
- * @author Satya Sep 16, 2020
+ * @author Satya
+ *Sep 18, 2020
  */
 
 @RestController
-@RequestMapping("/subject")
-public class SubjectController {
-
-	public static final Logger LOG = Logger.getLogger(SubjectController.class.getName());
+@RequestMapping("subject")
+public class LessionListController {
+	
+	public static final Logger LOG = Logger.getLogger(LessionListController.class.getName());
 
 	@Autowired
-	private SubjectService subjectService;
+	private LessionListService lessionService;
 
-	@GetMapping(value = "/subjectList/{GradeId}")
-	public ResponseEntity<?> findByGradeId(@PathVariable("GradeId") Integer gradeId) {
+	@GetMapping(value = "/lessionList/{UnitId}")
+	public ResponseEntity<?> findByGradeId(@PathVariable("UnitId") Integer unitId) {
 
 		ResponseEntity<?> response = null;
-		List<SubjectDataDTO> subjectDataList = null;
+		List<LessionListDataDTO> lessionList = null;
 
-		LOG.info("Inside find the Subject based on gradeId");
+		LOG.info("Inside find the Subject based on UnitId");
 		try {
-			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + gradeId);
-			subjectDataList = subjectService.getSubjectsByGradeId(gradeId);
-			if (!subjectDataList.isEmpty()) {
-				response = new ResponseEntity<>(subjectDataList, HttpStatus.OK);
+			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + unitId);
+			lessionList = lessionService.findByUnitId(unitId);
+			if (!lessionList.isEmpty()) {
+				response = new ResponseEntity<>(lessionList, HttpStatus.OK);
 				return response;
 			} else {
 				response = new ResponseEntity<>("Record Not Found ", HttpStatus.OK);
@@ -55,4 +58,5 @@ public class SubjectController {
 		}
 		return response;
 	}
+
 }

@@ -5,12 +5,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wilkef.ecrack.setup.dao.QuestionLevelDao;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
+import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
 
 /**
@@ -25,24 +27,31 @@ import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 public class QuestionLevelController {
 
 	private static final Logger LOG = Logger.getLogger(QuestionLevelController.class.getName());
-	List<QuestionLevelDataDTO> allQuestionLevel = null;
 	
 	@Autowired
-	private QuestionLevelDao questionDao;
+	private QuestionLevelService questionService;
 
 	@GetMapping(value = "/getDifficultyCode")
-	public List<QuestionLevelDataDTO> findDifficultyCode(){
+	public ResponseEntity<?> findDifficultyCode(){
 		
-		LOG.info("Inside find difficulty code");
+		ResponseEntity<?> response = null;
+		List<QuestionLevelDataDTO> questionLevelList = null;
+		LOG.info("Inside find the QuestionLevel ");
 		try {
-			LOG.log(Level.INFO,() -> "before geting question information ...");
-			if (allQuestionLevel == null) {
-				allQuestionLevel = questionDao.findQuestionLevel();
+			LOG.log(Level.INFO, () -> "Before geting QuestionLevel information : " );
+			questionLevelList = questionService.findQuestionLevel();
+			if (!questionLevelList.isEmpty()) {
+				response = new ResponseEntity<>(questionLevelList, HttpStatus.OK);
+				return response;
+			} else {
+				response = new ResponseEntity<>("Record Not Found ", HttpStatus.OK);
+				return response;
 			}
-		} catch (Exception e) {
-			LOG.log(Level.SEVERE, () -> "somthing wrong while fetching the information : " + e.getMessage());
+		}	
+		catch (Exception e) {
+			LOG.log(Level.SEVERE,
+					() -> "something wrong while fetching the Question Level information : " + e.getMessage());
 		}
-		return  allQuestionLevel;
-
+		return response;
 	}
 }

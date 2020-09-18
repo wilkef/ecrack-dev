@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.wilkef.ecrack.setup.dao.SubjectDao;
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
@@ -19,7 +19,7 @@ import com.wilkef.ecrack.setup.service.SubjectService;
  * This class provides implementation for SubjectService interface to get the subject details based on grade ID.
  *
  */
-@Component
+@Service
 public class SubjectServiceImpl implements SubjectService{
 	
 	public static final Logger LOG = Logger.getLogger(SubjectServiceImpl.class.getName());
@@ -27,11 +27,9 @@ public class SubjectServiceImpl implements SubjectService{
 	@Autowired
 	private SubjectDao subjectDao;
 	
-	List<SubjectDataDTO> subjectDataList = null;
-	
-
 	@Override
 	public List<SubjectDataDTO> getSubjectsByGradeId(Integer gradeId) {
+		List<SubjectDataDTO> subjectDataList = null;
 		try {
 		subjectDataList = subjectDao.findByGradeId(gradeId);
 		} catch(Exception exception) {
