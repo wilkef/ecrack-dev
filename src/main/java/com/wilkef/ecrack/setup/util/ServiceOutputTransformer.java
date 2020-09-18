@@ -1,6 +1,7 @@
 package com.wilkef.ecrack.setup.util;
 
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,13 @@ public class ServiceOutputTransformer {
 		response.put("status", code);
 		response.put("output", data);
 		response.put("message", "Data Retreved Successfully.");
+		return response;
+	}
+	
+	
+	public JSONObject responseOutput(String key,Object val) {
+		JSONObject response=new JSONObject();
+		response.put(key, val);
 		return response;
 	}
 }
