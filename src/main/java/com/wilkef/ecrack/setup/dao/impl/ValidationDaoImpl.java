@@ -34,7 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
-import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 
 // TODO: Auto-generated Javadoc
 /**

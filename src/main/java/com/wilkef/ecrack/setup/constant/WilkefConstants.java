@@ -33,6 +33,10 @@ public final class WilkefConstants {
 	
 	public static final String GET_LESSIONLISTBYUNITID = "spGetAllLessonByUnitId";
 
+	public static final String RESETPASSWORD = "spResetPassword";
+	
+	public static final String FORGOTPASSWORD = "spForgotPassword";
+	
 	/** The Constant VALIDATE_EMAIL. */
 	public static final String VALIDATE_EMAIL="spValidateEmailId";
 	
