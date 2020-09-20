@@ -26,7 +26,7 @@ import com.wilkef.ecrack.setup.service.LessionListService;
  */
 
 @RestController
-@RequestMapping("subject")
+@RequestMapping("/api.ecrack/api/subject")
 public class LessionListController {
 	
 	public static final Logger LOG = Logger.getLogger(LessionListController.class.getName());

@@ -23,7 +23,7 @@ import com.wilkef.ecrack.setup.service.SubjectService;
  */
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/api.ecrack/api/subject")
 public class SubjectController {
 
 	public static final Logger LOG = Logger.getLogger(SubjectController.class.getName());

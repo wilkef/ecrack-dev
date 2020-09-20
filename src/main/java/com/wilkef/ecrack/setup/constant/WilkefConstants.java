@@ -3,7 +3,7 @@
  */
 package com.wilkef.ecrack.setup.constant;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * *.
  *
@@ -28,7 +28,6 @@ public final class WilkefConstants {
 	/** The Constant GET_SUBJECTBYGRADEID. */
 	public static final String GET_SUBJECTBYGRADEID = "spGetAllSubjectByClassId";
 	
-
 	public static final String GET_UNITLISTBYSUBJECTID = "spGetAllUnitBySubjectId";
 	
 	public static final String GET_LESSIONLISTBYUNITID = "spGetAllLessonByUnitId";
@@ -36,6 +35,8 @@ public final class WilkefConstants {
 	public static final String RESETPASSWORD = "spResetPassword";
 	
 	public static final String FORGOTPASSWORD = "spForgotPassword";
+	
+	public static final String REGISTRATION = "spSignupUser";
 	
 	/** The Constant VALIDATE_EMAIL. */
 	public static final String VALIDATE_EMAIL="spValidateEmailId";

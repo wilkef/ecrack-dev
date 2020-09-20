@@ -24,7 +24,7 @@ import com.wilkef.ecrack.setup.service.UnitListService;
  */
 
 @RestController
-@RequestMapping("subject")
+@RequestMapping("/api.ecrack/api/subject")
 public class UnitListController {
 	
 	public static final Logger LOG = Logger.getLogger(UnitListController.class.getName());
