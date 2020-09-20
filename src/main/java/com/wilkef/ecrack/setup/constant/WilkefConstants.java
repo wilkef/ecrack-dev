@@ -25,6 +25,8 @@ public final class WilkefConstants {
 	/** The Constant GET_QUESTIONLEVEL_DETAIL. */
 	public static final String GET_QUESTIONLEVEL_DETAIL = "SELECT DifficultyId,DifficultyCode from QuestionLevel";
 	
+	/**#####Added By Satya**/
+	
 	/** The Constant GET_SUBJECTBYGRADEID. */
 	public static final String GET_SUBJECTBYGRADEID = "spGetAllSubjectByClassId";
 	
@@ -32,6 +34,10 @@ public final class WilkefConstants {
 	public static final String GET_UNITLISTBYSUBJECTID = "spGetAllUnitBySubjectId";
 	
 	public static final String GET_LESSIONLISTBYUNITID = "spGetAllLessonByUnitId";
+	
+	
+	
+	/**######Added By Rajni*/
 
 	/** The Constant VALIDATE_EMAIL. */
 	public static final String VALIDATE_EMAIL="spValidateEmailId";
@@ -44,6 +50,11 @@ public final class WilkefConstants {
 	
 	/** The Constant VERIFY_OTP. */
 	public static final String VERIFY_OTP="spVerifyOTP";
+	
+	
+
+	
+	
 
 
 }
