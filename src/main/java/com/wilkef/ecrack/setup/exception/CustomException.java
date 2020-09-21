@@ -16,15 +16,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * The Class RecordNotFoundException.
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class RecordNotFoundException extends RuntimeException{
+public class CustomException extends RuntimeException{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Instantiates a new record not found exception.
 	 *
 	 * @param exception the exception
 	 */
-	public RecordNotFoundException(String exception) {
+	public CustomException(String exception) {
         super(exception);
     }
 }

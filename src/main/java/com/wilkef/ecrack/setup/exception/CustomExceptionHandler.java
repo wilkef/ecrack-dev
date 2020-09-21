@@ -50,11 +50,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
     	 * @param ex the ex
     	 * @return the response entity
     	 */
-    	@ExceptionHandler(RecordNotFoundException.class)
-	    public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex) {
+    	@ExceptionHandler(CustomException.class)
+	    public final ResponseEntity<Object> handleUserNotFoundException(CustomException ex) {
 	        List<String> details = new ArrayList<>();
 	        details.add(ex.getLocalizedMessage());
-	        ErrorResponse error = new ErrorResponse("Record Not Found", details);
+	        ErrorResponse error = new ErrorResponse("Data Not Found", details);
 	        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
 	    }
 	 
