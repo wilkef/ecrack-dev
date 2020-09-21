@@ -34,9 +34,9 @@ public class ResetPasswordController {
 	public ResetPasswordService service;
 	
 	@PostMapping(value = "/resetPassword",consumes = "application/json")
-	public ResponseEntity<?> resetPwd(@RequestBody ResetPasswordDataDTO resetPwd) {
+	public ResponseEntity<Boolean> resetPwd(@RequestBody ResetPasswordDataDTO resetPwd) {
 		
-		ResponseEntity<?> response=null;
+		ResponseEntity<Boolean> response=null;
 		LOG.info("Inside ResetPassword ");
 		try {
 			LOG.log(Level.INFO, () -> "Before updating resetPassword : " );

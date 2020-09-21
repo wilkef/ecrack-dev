@@ -38,6 +38,12 @@ public final class WilkefConstants {
 	
 	public static final String REGISTRATION = "spSignupUser";
 	
+	public static final String TEST_TYPE_LIST = "spGetTestTypeList";
+	
+	public static final String ANSWER_STATUS_LIST = "spGetAnswerStatusList";
+	
+	public static final String PRACTICE_TEST_INFO = "spGetPracticeTestInfo";
+	
 	/** The Constant VALIDATE_EMAIL. */
 	public static final String VALIDATE_EMAIL="spValidateEmailId";
 	

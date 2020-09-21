@@ -163,6 +163,7 @@ public class ValidationDaoImpl implements ValidationDao{
 	 * @param mobileNo the mobile no
 	 * @return the list
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ValidationDTO> verifyOtp(String otp, String mobileNo) {
 		List<ValidationDTO> validList=new ArrayList<>();
