@@ -104,7 +104,7 @@ public class ValidationController {
 				response = new ResponseEntity<>(serviceOutput.responseOutput("isSuccess", true),HttpStatus.OK);
 			}
 			else {
-				throw new RecordNotFoundException("No Record Found");
+				//throw new RecordNotFoundException("No Record Found");
 			}
 
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class ValidationController {
 			if(!validDto.isEmpty()) { 
 				response = new ResponseEntity<>(serviceOutput.responseOutput("isSuccess", true),HttpStatus.OK); } 
 			else { 
-				throw new RecordNotFoundException("No Record Found"); 
+				//throw new RecordNotFoundException("No Record Found"); 
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> "something wrong while fetching the information  " + e.getMessage());
