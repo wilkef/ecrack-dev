@@ -23,6 +23,13 @@ import com.wilkef.ecrack.setup.service.AnswerStatusService;
 
 @Service
 public class AnswerStatusServiceImpl implements AnswerStatusService{
+
+	@SuppressWarnings("unused")
+	private AnswerStatusDao answerStatus;
+	
+	public void setAnswerStatusDao(AnswerStatusDao answerStatus) {
+		this.answerStatus = answerStatus;
+	}
 	
 	public static final Logger LOG = Logger.getLogger(AnswerStatusServiceImpl.class.getName());
 	

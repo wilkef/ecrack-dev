@@ -22,6 +22,8 @@ import com.wilkef.ecrack.setup.dao.PracticeTestInfoDao;
 import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
 
 /**
+ * This Class is Used to execute PracticeTestInfo DB Operation
+ * 
  * @author Satya
  *Sep 21, 2020
  */

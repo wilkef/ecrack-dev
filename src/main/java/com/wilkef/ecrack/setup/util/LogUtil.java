@@ -66,7 +66,6 @@ public class LogUtil {
 	public static String format(String message, Object object) {
 		String className = object.getClass().getName();
 		message = className + " - " + message;
-
 		return message;
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * The Class RecordNotFoundException.
  */
+@SuppressWarnings("serial")
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class CustomException extends RuntimeException{
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
+import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.LessionListService;
 
 /**
@@ -35,9 +36,9 @@ public class LessionListController {
 	private LessionListService lessionService;
 
 	@GetMapping(value = "/lessionList/{UnitId}")
-	public ResponseEntity<?> findByGradeId(@PathVariable("UnitId") Integer unitId) {
+	public ResponseEntity<Object> findByGradeId(@PathVariable("UnitId") Integer unitId) {
 
-		ResponseEntity<?> response = null;
+		ResponseEntity<Object> response = null;
 		List<LessionListDataDTO> lessionList = null;
 
 		LOG.info("Inside find the Subject based on UnitId");
@@ -48,8 +49,7 @@ public class LessionListController {
 				response = new ResponseEntity<>(lessionList, HttpStatus.OK);
 				return response;
 			} else {
-				response = new ResponseEntity<>("Record Not Found ", HttpStatus.OK);
-				return response;
+				throw new RecordNotFoundException("No Record Found");
 			}
 		}	
 		catch (Exception e) {
@@ -58,5 +58,4 @@ public class LessionListController {
 		}
 		return response;
 	}
-
 }

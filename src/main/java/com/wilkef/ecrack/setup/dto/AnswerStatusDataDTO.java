@@ -11,6 +11,10 @@ public class AnswerStatusDataDTO {
 	private Integer answerStatusId; 
 	private String status;
 	
+	/**
+	 * @param i
+	 * @param string
+	 */
 	public Integer getAnswerStatusId() {
 		return answerStatusId;
 	}

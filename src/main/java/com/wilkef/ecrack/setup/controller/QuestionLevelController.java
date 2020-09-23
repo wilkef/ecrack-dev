@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
+import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
 
@@ -32,9 +33,9 @@ public class QuestionLevelController {
 	private QuestionLevelService questionService;
 
 	@GetMapping(value = "/difficultyLevel")
-	public ResponseEntity<?> findDifficultyCode(){
+	public ResponseEntity<Object> findDifficultyCode(){
 		
-		ResponseEntity<?> response = null;
+		ResponseEntity<Object> response = null;
 		List<QuestionLevelDataDTO> questionLevelList = null;
 		LOG.info("Inside find the QuestionLevel ");
 		try {
@@ -44,8 +45,8 @@ public class QuestionLevelController {
 				response = new ResponseEntity<>(questionLevelList, HttpStatus.OK);
 				return response;
 			} else {
-				response = new ResponseEntity<>("Record Not Found ", HttpStatus.OK);
-				return response;
+				LOG.log(Level.INFO, () -> "QuestionLevel is Not There in DB " );
+				throw new RecordNotFoundException("No Record Found");
 			}
 		}	
 		catch (Exception e) {

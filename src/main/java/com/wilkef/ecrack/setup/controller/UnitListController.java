@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
+import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.UnitListService;
 
 /**
+ * This Class is Used to execute UnitList Execution
+ * 
  * @author Satya
  *Sep 18, 2020
  */
@@ -33,9 +36,9 @@ public class UnitListController {
 	private UnitListService unitListService;
 	
 	@GetMapping(value = "/unitList/{SubjectId}")	
-	public ResponseEntity<?> findByClassId(@PathVariable("SubjectId") Integer subjectId) {
+	public ResponseEntity<Object> findByClassId(@PathVariable("SubjectId") Integer subjectId) {
 
-		ResponseEntity<?> response = null;
+		ResponseEntity<Object> response = null;
 		List<UnitListDataDTO> unitListData = null;
 
 		LOG.info("Inside find the UnitList based on subjectId");
@@ -46,8 +49,8 @@ public class UnitListController {
 				response = new ResponseEntity<>(unitListData, HttpStatus.OK);
 				return response;
 			} else {
-				response = new ResponseEntity<>("Record Not Found ", HttpStatus.OK);
-				return response;
+				LOG.log(Level.INFO, () -> "UnitList Record is Not There in DB " );
+				throw new RecordNotFoundException("No Record Found");
 			}
 		}	
 		catch (Exception e) {

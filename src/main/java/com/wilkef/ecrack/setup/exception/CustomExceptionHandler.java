@@ -86,11 +86,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 	     * @return the response entity
 	     */
 	    @ExceptionHandler(NumberFormatException.class)
-	    public final ResponseEntity<Object> handleNumberFormatException(NumberFormatException ex) {
+	    public final ResponseEntity<Object> handleNumberFormatException() {
 	        List<String> details = new ArrayList<>();
-	        details.add(ex.getLocalizedMessage());
 	        ErrorResponse error = new ErrorResponse("Invalid Request Input", details);
-	        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+	        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	    }
 	 
 }

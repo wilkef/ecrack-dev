@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
 import com.wilkef.ecrack.setup.service.ForgotPasswordService;
+import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
  * This Class is Used to Execute ForgotPassword Execution
@@ -33,9 +34,12 @@ private static final Logger LOG = Logger.getLogger(ForgotPasswordController.clas
 	@Autowired
 	public ForgotPasswordService forgotservice;
 	
+	@Autowired
+	private ServiceOutputTransformer serviceOutputTransformer;
+
 	@PostMapping("/forgotPassword")
-	public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordDataDTO forgotPwd){
-		ResponseEntity<?> response=null;
+	public ResponseEntity<Object> forgotPassword(@RequestBody ForgotPasswordDataDTO forgotPwd){
+		ResponseEntity<Object> response=null;
 		LOG.info("Inside ForgotPassword ");
 		try {
 			LOG.log(Level.INFO, () -> "Before updating ForgotPassword : " );
@@ -54,7 +58,7 @@ private static final Logger LOG = Logger.getLogger(ForgotPasswordController.clas
 				}
 			}else {
 				LOG.log(Level.INFO, () -> "NewPasswor And ConformPassword Both Are not Same ");
-				response = new ResponseEntity<>("Please Enter NewPassword and ConformPassword Both are Same ",HttpStatus.BAD_REQUEST);
+				response = new ResponseEntity<>(serviceOutputTransformer.responseOutput("Please Enter NewPassword and ConformPassword Both are Same",false),HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,

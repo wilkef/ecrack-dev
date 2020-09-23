@@ -27,9 +27,9 @@ import com.wilkef.ecrack.setup.dto.AnswerStatusDataDTO;
  */
 
 @Repository
-public class AnswerStatusDaoIml implements AnswerStatusDao{
+public class AnswerStatusDaoImpl implements AnswerStatusDao{
 
-	public static final Logger LOG = Logger.getLogger(AnswerStatusDaoIml.class.getName());
+	public static final Logger LOG = Logger.getLogger(AnswerStatusDaoImpl.class.getName());
 
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
