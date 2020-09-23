@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.RegistrationService;
 
 /**
@@ -51,7 +51,7 @@ public class RegistrationController {
 				response=new ResponseEntity<>(save,HttpStatus.OK);
 			}else if(save.get(0).getMESSAGE_TEXT()!=null && save.get(0).getMESSAGE_TEXT().equals("User already exist.")) {		
 				LOG.log(Level.INFO, () -> "User Already Exists" );
-				throw new RecordNotFoundException("User Already Exists");
+				throw new CustomException("User Already Exists");
 			}
 			else {
 				LOG.log(Level.INFO, () -> "Some Problem Occored at the Registration Time" );

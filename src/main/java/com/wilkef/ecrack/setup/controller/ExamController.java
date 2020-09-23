@@ -146,8 +146,8 @@ public class ExamController {
 		try {
 			LOG.log(Level.INFO,() -> "Before geting  information ");
 			Integer count = examDao.saveStudentResult(result);
-			if(!testResultDTOList.isEmpty()) {
-			response = new ResponseEntity<>(testResultDTOList,HttpStatus.OK);
+			if(count>0) {
+			response = new ResponseEntity<>("Success",HttpStatus.OK);
 			}
 			else {
 				throw new CustomException("No Record Found");

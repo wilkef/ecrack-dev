@@ -77,7 +77,7 @@ public class UserProfileController {
 			LOG.log(Level.INFO,() -> "Before geting  information ");
 			userProfileDTOList = userProfileDao.viewProfile(userId);
 			if(!userProfileDTOList.get(0).getDataOutput().isEmpty()) {
-				responseDTO=serviceOutput.responseOutput(userProfileDTOList.get(0).getDataOutput(),"success",HttpStatus.OK,null);
+			//	responseDTO=serviceOutput.responseOutput(userProfileDTOList.get(0).getDataOutput(),"success",HttpStatus.OK,null);
 				response= ResponseEntity.ok(responseDTO);
 			}
 			else {

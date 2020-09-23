@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.PracticeTestInfoService;
 
 /**
@@ -51,7 +51,7 @@ public class PracticeTestInfoController {
 			}
 			else {
 				LOG.log(Level.INFO, () -> "PracticeTestInfo Record is Not Available in DB " );
-				throw new RecordNotFoundException("No Record Found ");
+				throw new CustomException("No Record Found ");
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,

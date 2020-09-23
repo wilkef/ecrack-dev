@@ -11,7 +11,7 @@ package com.wilkef.ecrack.setup.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class RecordNotFoundException.
  */

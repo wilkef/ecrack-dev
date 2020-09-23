@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.TestTypeListService;
 
 /**
@@ -47,7 +47,7 @@ public class TestTypeListController {
 				response = new ResponseEntity<>(findAllTestTypeList,HttpStatus.OK);
 			}else {
 				LOG.log(Level.INFO, () -> "TestType is Not There " );
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException("No Record Found");
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,

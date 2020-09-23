@@ -29,10 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
-// TODO: Auto-generated Javadoc
+
 
 /**
  * The Class ValidationController.
@@ -73,7 +73,7 @@ public class ValidationController {
 				response = new ResponseEntity<>(serviceOutput.responseOutput("isSuccess", true),HttpStatus.OK);
 			}
 			else {
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException("No Record Found");
 			}
 
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class ValidationController {
 			if(!validDto.isEmpty()) { 
 				response = new ResponseEntity<>(serviceOutput.responseOutput("isSuccess", true),HttpStatus.OK); } 
 			else { 
-				//throw new RecordNotFoundException("No Record Found"); 
+				//sthrow new RecordNotFoundException("No Record Found"); 
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> "something wrong while fetching the information  " + e.getMessage());
@@ -165,7 +165,7 @@ public class ValidationController {
 			if(!validDto.isEmpty()) { 
 				response = new ResponseEntity<>(serviceOutput.responseOutput("isSuccess", true),HttpStatus.OK); } 
 			else { 
-				throw new RecordNotFoundException("No Record Found"); 
+				throw new CustomException("No Record Found"); 
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> "something wrong while fetching the information  " + e.getMessage());

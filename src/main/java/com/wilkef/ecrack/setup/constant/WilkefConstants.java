@@ -63,7 +63,24 @@ public final class WilkefConstants {
 	public static final String VERIFY_OTP="spVerifyOTP";
 	
 	
+   public static final String GET_SCHLD_TEST="spGetScheduledTest";
+	
+	public static final String GET_QUIZ_QSTN="spGetQuizQuestions";
+	
+	public static final String GET_QUESTION="spGetQuestions";
+	
+	
+	
+	public static final String  STUDENT_RESULT_SUMRY="spGetStudentResultSummary";
+	
+	
+	public static final String UPDATE_PROFILE="spUpdateProfile";
+	
+	public static final String VIEW_PROFILE="spViewProfile";
 
+	public static final String SAVE_STUDENT_RESULT = "spSaveStudentTestResult";
+	
+	
 	
 	
 

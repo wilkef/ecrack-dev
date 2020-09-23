@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.dto.AnswerStatusDataDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
 import com.wilkef.ecrack.setup.service.AnswerStatusService;
 
 /**
@@ -46,7 +46,7 @@ public class AnswerStatusController {
 				response = new ResponseEntity<>(findAllAnswerStatus,HttpStatus.OK);
 			}else {
 				LOG.log(Level.INFO, () -> "answerStatus is Not There in DB " );
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException("No Record Found");
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,
