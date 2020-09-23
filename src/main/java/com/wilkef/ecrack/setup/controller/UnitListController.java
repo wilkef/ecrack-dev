@@ -24,15 +24,15 @@ import com.wilkef.ecrack.setup.service.UnitListService;
  */
 
 @RestController
-@RequestMapping("subject")
+@RequestMapping("/api.ecrack/api/subject")
 public class UnitListController {
 	
 	public static final Logger LOG = Logger.getLogger(UnitListController.class.getName());
 
 	@Autowired
-	private UnitListService subjectListService;
+	private UnitListService unitListService;
 	
-	@GetMapping(value = "/unitList/{SubjectId}")
+	@GetMapping(value = "/unitList/{SubjectId}")	
 	public ResponseEntity<?> findByClassId(@PathVariable("SubjectId") Integer subjectId) {
 
 		ResponseEntity<?> response = null;
@@ -41,7 +41,7 @@ public class UnitListController {
 		LOG.info("Inside find the UnitList based on subjectId");
 		try {
 			LOG.log(Level.INFO, () -> "Before geting UnitList information based on subjectId : " + subjectId);
-			unitListData = subjectListService.findBySubjectId(subjectId);
+			unitListData = unitListService.findBySubjectId(subjectId);
 			if (!unitListData.isEmpty()) {
 				response = new ResponseEntity<>(unitListData, HttpStatus.OK);
 				return response;

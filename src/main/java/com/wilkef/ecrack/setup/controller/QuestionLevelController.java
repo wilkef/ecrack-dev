@@ -23,7 +23,7 @@ import com.wilkef.ecrack.setup.service.QuestionLevelService;
  */
 
 @RestController
-@RequestMapping("/questionLevel")
+@RequestMapping("/api.ecrack/api/user")
 public class QuestionLevelController {
 
 	private static final Logger LOG = Logger.getLogger(QuestionLevelController.class.getName());
@@ -31,7 +31,7 @@ public class QuestionLevelController {
 	@Autowired
 	private QuestionLevelService questionService;
 
-	@GetMapping(value = "/getDifficultyCode")
+	@GetMapping(value = "/difficultyLevel")
 	public ResponseEntity<?> findDifficultyCode(){
 		
 		ResponseEntity<?> response = null;

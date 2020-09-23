@@ -1,7 +1,6 @@
 package com.wilkef.ecrack.setup.util;
 
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component

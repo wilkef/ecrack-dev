@@ -34,9 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
-import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ValidationDaoImpl.
  */
@@ -165,6 +163,7 @@ public class ValidationDaoImpl implements ValidationDao{
 	 * @param mobileNo the mobile no
 	 * @return the list
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ValidationDTO> verifyOtp(String otp, String mobileNo) {
 		List<ValidationDTO> validList=new ArrayList<>();
