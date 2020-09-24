@@ -1,3 +1,10 @@
+/**
+ * /***
+ * 
+ * @author Rajani Suprava This class is created to contain all the information
+ *        
+ *
+ */
 package com.wilkef.ecrack.setup.util;
 
 import org.json.JSONObject;

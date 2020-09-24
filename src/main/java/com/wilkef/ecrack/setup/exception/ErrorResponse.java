@@ -1,16 +1,20 @@
-/*
+/**
  * /***
  * 
  * @author Rajani Suprava This class is created to contain all the information
  *         related to creation of Error response
  *
  */
- 
+
 package com.wilkef.ecrack.setup.exception;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.springframework.http.HttpStatus;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 /**
@@ -19,59 +23,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "error")
 public class ErrorResponse {
 
-	/**
-	 * Instantiates a new error response.
-	 *
-	 * @param message the message
-	 * @param details the details
-	 */
-	public ErrorResponse(String message, List<String> details) {
-        super();
-        this.message = message;
-        this.details = details;
-    }
- 
-    /** The message. */
-    //General error message about nature of error
-    private String message;
- 
-    /** The details. */
-    //Specific errors in API request processing
-    private List<String> details;
-
-	/**
-	 * Gets the message.
-	 *
-	 * @return the message
-	 */
+	private HttpStatus status;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	private LocalDateTime timestamp;
+	private String message;
+	private String debugMessage;	
+	public HttpStatus getStatus() {
+		return status;
+	}
+	public void setStatus(HttpStatus status) {
+		this.status = status;
+	}
 	public String getMessage() {
 		return message;
 	}
-
-	/**
-	 * Sets the message.
-	 *
-	 * @param message the new message
-	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	/**
-	 * Gets the details.
-	 *
-	 * @return the details
-	 */
-	public List<String> getDetails() {
-		return details;
+	public String getDebugMessage() {
+		return debugMessage;
+	}
+	public void setDebugMessage(String debugMessage) {
+		this.debugMessage = debugMessage;
+	}
+	private ErrorResponse() {
+		timestamp = LocalDateTime.now();
+	}
+	ErrorResponse(HttpStatus status) {
+		this();
+		this.status = status;
 	}
 
-	/**
-	 * Sets the details.
-	 *
-	 * @param details the new details
-	 */
-	public void setDetails(List<String> details) {
-		this.details = details;
+	ErrorResponse(HttpStatus status, Throwable ex) {
+		this();
+		this.status = status;
+		this.message = "Unexpected error";
+		this.debugMessage = ex.getLocalizedMessage();
+	}
+
+	ErrorResponse(HttpStatus status, String message, Throwable ex) {
+		this();
+		this.status = status;
+		this.message = message;
+		this.debugMessage = ex.getLocalizedMessage();
 	}
 }

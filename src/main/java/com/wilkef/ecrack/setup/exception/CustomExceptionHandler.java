@@ -1,4 +1,4 @@
-/*
+/**
  * /***
  * 
  * @author Rajani Suprava This class is created to contain all the information
@@ -25,7 +25,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 /**
  * The Class CustomExceptionHandler.
  */
-@SuppressWarnings({"unchecked","rawtypes"})
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 
@@ -38,10 +37,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
  	 */
  	@ExceptionHandler(Exception.class)
 	    public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
-	        List<String> details = new ArrayList<>();
-	        details.add(ex.getLocalizedMessage());
-	        ErrorResponse error = new ErrorResponse("Server Error", details);
-	        return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	        String error = ex.getLocalizedMessage();
+	        return  buildResponseEntity(new ErrorResponse(HttpStatus.BAD_REQUEST, error, ex));
 	    }
 	 
 	    /**
@@ -52,10 +49,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
     	 */
     	@ExceptionHandler(CustomException.class)
 	    public final ResponseEntity<Object> handleUserNotFoundException(CustomException ex) {
-	        List<String> details = new ArrayList<>();
-	        details.add(ex.getLocalizedMessage());
-	        ErrorResponse error = new ErrorResponse("Data Not Found", details);
-	        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+    		String error = ex.getLocalizedMessage();
+	        return  buildResponseEntity(new ErrorResponse(HttpStatus.NOT_FOUND, error, ex));
 	    }
 	 
 	    /**
@@ -73,8 +68,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 	        for(ObjectError error : ex.getBindingResult().getAllErrors()) {
 	            details.add(error.getDefaultMessage());
 	        }
-	        ErrorResponse error = new ErrorResponse("Validation Failed", details);
-	        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+	        return  buildResponseEntity(new ErrorResponse(HttpStatus.EXPECTATION_FAILED, details.toString(), ex));
 	    }
 	    
 	    
@@ -85,10 +79,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
 	     * @return the response entity
 	     */
 	    @ExceptionHandler(NumberFormatException.class)
-	    public final ResponseEntity<Object> handleNumberFormatException() {
-	        List<String> details = new ArrayList<>();
-	        ErrorResponse error = new ErrorResponse("Invalid Request Input", details);
-	        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	    public final ResponseEntity<Object> handleNumberFormatException(Exception e) {
+	        String error = "Invalid Request Input";
+	        return  buildResponseEntity(new ErrorResponse(HttpStatus.METHOD_NOT_ALLOWED, error, e));
+	    }
+	    
+		private ResponseEntity<Object> buildResponseEntity(ErrorResponse apiError) {
+	        return new ResponseEntity<>(apiError, apiError.getStatus());
 	    }
 	 
 }

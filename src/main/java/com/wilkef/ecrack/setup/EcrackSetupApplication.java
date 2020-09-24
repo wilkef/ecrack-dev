@@ -46,7 +46,7 @@ public class EcrackSetupApplication {
 		SpringApplication.run(EcrackSetupApplication.class, args);
 		try {
 			LogManager.getLogManager().readConfiguration(new FileInputStream("myLogging.properties"));
-			LOG.setLevel(Level.FINER);
+			LOG.setLevel(Level.ALL);
 			LOG.addHandler(new ConsoleHandler());
 		} catch (SecurityException | IOException e) {
 			LOG.log(Level.WARNING, "Interrupted!", e);
