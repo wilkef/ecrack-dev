@@ -1,0 +1,53 @@
+[2020-09-24 17:22:55.874] - 13336 INFO [main] --- com.wilkef.ecrack.setup.EcrackSetupApplication: Ecrack Application Started
+[2020-09-24 17:23:10.789] - 13336 INFO [http-nio-9898-exec-2] --- org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api.ecrack/api]: Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2020-09-24 17:23:11.059] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: START-Inside ForgotPassword 
+[2020-09-24 17:23:11.061] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController:  forgotPassword Inputs forgotPwd: ForgotPasswordDataDTO [userName=700850893, newPassword=Satya1998!, confirmPassword=Satya1998!]
+[2020-09-24 17:23:11.065] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: Before updating ForgotPassword : 
+[2020-09-24 17:23:27.246] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: Invalid UserName 
+[2020-09-24 17:23:27.258] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: START-Inside ForgotPassword 
+[2020-09-24 17:23:43.373] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: START-Inside ForgotPassword 
+[2020-09-24 17:23:43.374] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController:  forgotPassword Inputs forgotPwd: ForgotPasswordDataDTO [userName=7008508931, newPassword=Satya1998@, confirmPassword=Satya1998!]
+[2020-09-24 17:23:43.375] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: Before updating ForgotPassword : 
+[2020-09-24 17:23:43.378] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: NewPasswor And ConformPassword Both Are not Same 
+[2020-09-24 17:23:43.462] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: START-Inside ForgotPassword 
+[2020-09-24 17:23:57.602] - 13336 INFO [http-nio-9898-exec-4] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: START-Inside ForgotPassword 
+[2020-09-24 17:23:57.603] - 13336 INFO [http-nio-9898-exec-4] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController:  forgotPassword Inputs forgotPwd: ForgotPasswordDataDTO [userName=7008508931, newPassword=Satya1998!, confirmPassword=Satya1998!]
+[2020-09-24 17:23:57.604] - 13336 INFO [http-nio-9898-exec-4] --- com.wilkef.ecrack.setup.controller.ForgotPasswordController: Before updating ForgotPassword : 
+[2020-09-24 17:25:34.509] - 13336 INFO [http-nio-9898-exec-6] --- com.wilkef.ecrack.setup.controller.PracticeTestInfoController: START-Inside getPracticeTestInfo 
+[2020-09-24 17:25:34.512] - 13336 INFO [http-nio-9898-exec-6] --- com.wilkef.ecrack.setup.controller.PracticeTestInfoController:  getPracticeTestInfo Inputs unitId praticeTest: {
+    "userId" : 1234784, 
+    "lessonId" : 5,
+    "testName" : "Practice",
+    "testLevelId" : 2
+}
+[2020-09-24 17:25:36.257] - 13336 INFO [http-nio-9898-exec-6] --- com.wilkef.ecrack.setup.controller.PracticeTestInfoController: END-Inside getPracticeTestInfo 
+[2020-09-24 17:26:30.436] - 13336 INFO [http-nio-9898-exec-8] --- com.wilkef.ecrack.setup.controller.QuestionLevelController: START-Inside findDifficultyCode 
+[2020-09-24 17:26:30.439] - 13336 INFO [http-nio-9898-exec-8] --- com.wilkef.ecrack.setup.controller.QuestionLevelController: No findDifficultyCode Inputs 
+[2020-09-24 17:26:30.440] - 13336 INFO [http-nio-9898-exec-8] --- com.wilkef.ecrack.setup.controller.QuestionLevelController: Inside find the QuestionLevel 
+[2020-09-24 17:26:30.441] - 13336 INFO [http-nio-9898-exec-8] --- com.wilkef.ecrack.setup.controller.QuestionLevelController: Before geting QuestionLevel information : 
+[2020-09-24 17:27:19.393] - 13336 INFO [http-nio-9898-exec-9] --- com.wilkef.ecrack.setup.controller.UnitListController: START-Inside findByClassId
+[2020-09-24 17:27:19.397] - 13336 INFO [http-nio-9898-exec-9] --- com.wilkef.ecrack.setup.controller.UnitListController:  findByClassId Inputs subjectId: 1
+[2020-09-24 17:27:19.398] - 13336 INFO [http-nio-9898-exec-9] --- com.wilkef.ecrack.setup.controller.UnitListController: Inside find the UnitList based on subjectId
+[2020-09-24 17:27:19.406] - 13336 INFO [http-nio-9898-exec-9] --- com.wilkef.ecrack.setup.controller.UnitListController: Before geting UnitList information based on subjectId : 1
+[2020-09-24 17:29:48.726] - 13336 INFO [http-nio-9898-exec-1] --- com.wilkef.ecrack.setup.controller.AnswerStatusController: START-Inside findAllTestTypeList 
+[2020-09-24 17:29:48.729] - 13336 INFO [http-nio-9898-exec-1] --- com.wilkef.ecrack.setup.controller.AnswerStatusController: No updateProfile Inputs: 
+[2020-09-24 17:29:51.305] - 13336 INFO [http-nio-9898-exec-1] --- com.wilkef.ecrack.setup.controller.AnswerStatusController: END-Inside findAllTestTypeList 
+[2020-09-24 17:30:40.111] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.UnitListController: START-Inside findByClassId
+[2020-09-24 17:30:40.112] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.UnitListController:  findByClassId Inputs subjectId: 1
+[2020-09-24 17:30:40.112] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.UnitListController: Inside find the UnitList based on subjectId
+[2020-09-24 17:30:40.113] - 13336 INFO [http-nio-9898-exec-3] --- com.wilkef.ecrack.setup.controller.UnitListController: Before geting UnitList information based on subjectId : 1
+[2020-09-24 17:32:05.635] - 13336 INFO [http-nio-9898-exec-5] --- com.wilkef.ecrack.setup.controller.TestTypeListController: START-Inside findAllTestTypeList
+[2020-09-24 17:32:05.638] - 13336 INFO [http-nio-9898-exec-5] --- com.wilkef.ecrack.setup.controller.TestTypeListController: No findAllTestTypeList Inputs gradeId
+[2020-09-24 17:32:05.641] - 13336 INFO [http-nio-9898-exec-5] --- com.wilkef.ecrack.setup.controller.TestTypeListController: Before Fetching TestTypeList : 
+[2020-09-24 17:32:14.361] - 13336 INFO [http-nio-9898-exec-5] --- com.wilkef.ecrack.setup.controller.TestTypeListController: START-Inside findAllTestTypeList
+[2020-09-24 17:35:05.339] - 13336 INFO [http-nio-9898-exec-9] --- com.wilkef.ecrack.setup.controller.LessionListController: START-Inside findByGradeId 
+[2020-09-24 17:35:05.341] - 13336 INFO [http-nio-9898-exec-9] --- com.wilkef.ecrack.setup.controller.LessionListController: updateProfile Inputs unitId: 1
+[2020-09-24 17:37:49.171] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.SubjectController: START-Inside findByGradeId
+[2020-09-24 17:37:49.173] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.SubjectController:  findByGradeId Inputs gradeId:1
+[2020-09-24 17:37:49.175] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.SubjectController: Before geting Subject information based on gradeId : 1
+[2020-09-24 17:37:50.634] - 13336 INFO [http-nio-9898-exec-2] --- com.wilkef.ecrack.setup.controller.SubjectController: END-Inside findByGradeId
+[2020-09-24 17:40:22.744] - 13336 INFO [RMI TCP Connection(8)-127.0.0.1] --- org.apache.coyote.http11.Http11NioProtocol: Pausing ProtocolHandler ["http-nio-9898"]
+[2020-09-24 17:40:23.219] - 13336 INFO [RMI TCP Connection(8)-127.0.0.1] --- org.apache.catalina.core.StandardService: Stopping service [Tomcat]
+[2020-09-24 17:40:23.248] - 13336 INFO [RMI TCP Connection(8)-127.0.0.1] --- org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api.ecrack/api]: Destroying Spring FrameworkServlet 'dispatcherServlet'
+[2020-09-24 17:40:23.277] - 13336 INFO [RMI TCP Connection(8)-127.0.0.1] --- org.apache.coyote.http11.Http11NioProtocol: Stopping ProtocolHandler ["http-nio-9898"]
+[2020-09-24 17:40:23.285] - 13336 INFO [RMI TCP Connection(8)-127.0.0.1] --- org.apache.coyote.http11.Http11NioProtocol: Destroying ProtocolHandler ["http-nio-9898"]

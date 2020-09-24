@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.LessionListService;
 
 
@@ -55,7 +56,6 @@ public class LessionListController {
 			lessionList = lessionService.findByUnitId(unitId);
 			if (!lessionList.isEmpty()) {
 				response = new ResponseEntity<>(lessionList, HttpStatus.OK);
-				return response;
 			} else {
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
@@ -63,6 +63,7 @@ public class LessionListController {
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,
 					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("START-Inside findByGradeId ");
 		return response;
