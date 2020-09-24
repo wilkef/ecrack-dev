@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
 
@@ -56,7 +57,6 @@ public class QuestionLevelController {
 			questionLevelList = questionService.findQuestionLevel();
 			if (!questionLevelList.isEmpty()) {
 				response = new ResponseEntity<>(questionLevelList, HttpStatus.OK);
-				return response;
 			} else {
 				LOG.log(Level.INFO, () -> "QuestionLevel is Not There in DB " );
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
@@ -64,6 +64,7 @@ public class QuestionLevelController {
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findDifficultyCode ");
 		return response;

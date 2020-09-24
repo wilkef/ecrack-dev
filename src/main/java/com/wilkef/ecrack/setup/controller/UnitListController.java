@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.UnitListService;
 
 
@@ -58,7 +59,6 @@ public class UnitListController {
 			unitListData = unitListService.findBySubjectId(subjectId);
 			if (!unitListData.isEmpty()) {
 				response = new ResponseEntity<>(unitListData, HttpStatus.OK);
-				return response;
 			} else {
 				LOG.log(Level.INFO, () -> "UnitList Record is Not There in DB " );
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
@@ -66,6 +66,7 @@ public class UnitListController {
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findByClassId");
 		return response;

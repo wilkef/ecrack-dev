@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.ForgotPasswordService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
@@ -31,17 +32,17 @@ import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 @RestController
 @RequestMapping("/user")
 public class ForgotPasswordController {
-	
-/** The Constant LOG. */
-private static final Logger LOG = Logger.getLogger(ForgotPasswordController.class.getName());
-	
+
+	/** The Constant LOG. */
+	private static final Logger LOG = Logger.getLogger(ForgotPasswordController.class.getName());
+
 	/** The forgotservice. */
 	@Autowired
 	public ForgotPasswordService forgotservice;
-	
-	/** The service output transformer. */
+
+	/** The service output. */
 	@Autowired
-	private ServiceOutputTransformer serviceOutputTransformer;
+	private ServiceOutputTransformer serviceOutput;
 
 	/**
 	 * Forgot password.
@@ -58,21 +59,29 @@ private static final Logger LOG = Logger.getLogger(ForgotPasswordController.clas
 			LOG.log(Level.INFO, () -> "Before updating ForgotPassword : " );
 			String newPassword = forgotPwd.getNewPassword();
 			String confirmPassword = forgotPwd.getConfirmPassword();
-			
+
 			if (newPassword.equals(confirmPassword)) {
 				Integer forgotPassword = forgotservice.forgotPassword(forgotPwd);
 				if (forgotPassword!=null) {
-					response =new ResponseEntity<>(true,HttpStatus.OK);
+					response = ResponseEntity.status(HttpStatus.OK)
+							.contentType(MediaType.APPLICATION_JSON_UTF8)
+							.body(serviceOutput.responseOutput("isSuccess", true));
 					return response;
 				}else {
-					throw new CustomException(ErrorConstants.INVALID_CUSTOMER);
+					LOG.log(Level.INFO, () -> ErrorConstants.INVALID_USER);
+					response = ResponseEntity.status(HttpStatus.OK)
+							.contentType(MediaType.APPLICATION_JSON_UTF8)
+							.body(serviceOutput.responseOutput("isSuccess", false));
 				}
 			}else {
 				LOG.log(Level.INFO, () -> ErrorConstants.PASSWORD_MISMATCH);
-				response = new ResponseEntity<>(serviceOutputTransformer.responseOutput(ErrorConstants.PROMPT_VALID_PASSWORD,false),HttpStatus.BAD_REQUEST);
+				response = ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput("Status", ErrorConstants.PROMPT_VALID_PASSWORD));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("START-Inside ForgotPassword ");
 		return response;

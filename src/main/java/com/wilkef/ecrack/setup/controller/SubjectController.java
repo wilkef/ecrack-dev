@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.SubjectService;
 
 
@@ -65,6 +66,7 @@ public class SubjectController {
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,
 					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findByGradeId");
 		return response;

@@ -3,13 +3,9 @@ package com.wilkef.ecrack.setup;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import javax.sql.DataSource;
 
@@ -32,7 +28,7 @@ public class EcrackSetupApplication {
 	@Value("${app.datasourece.url}")
 	private String appDataSourceUrl;
 
-	@Value("${app.datasourece.userName}")
+	@Value("${app.datasourece.userName}")	
 	private String appDataSourceUserName;
 
 	@Value("${app.datasourece.password}")
