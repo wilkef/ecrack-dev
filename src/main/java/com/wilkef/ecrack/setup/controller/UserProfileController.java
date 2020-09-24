@@ -100,7 +100,8 @@ public class UserProfileController {
 		try {
 			userProfileDTOList = userProfileDao.viewProfile(userId);
 			if(!userProfileDTOList.get(0).getDataOutput().isEmpty()) {
-				response= new ResponseEntity<>(userProfileDTOList,HttpStatus.OK);
+				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+				        .body(userProfileDTOList.get(0).getDataOutput());
 			}
 			else {
 				throw new CustomException(ErrorConstants.USER_NOT_EXISTS);

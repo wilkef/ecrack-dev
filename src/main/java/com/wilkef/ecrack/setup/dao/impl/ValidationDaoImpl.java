@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONObject;
+import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,9 +32,12 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 
 
 /**
@@ -49,6 +53,10 @@ public class ValidationDaoImpl implements ValidationDao{
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
+	
+	
+	@Autowired
+	private Environment env;
 
 	/**
 	 * Validate email.
@@ -93,9 +101,6 @@ public class ValidationDaoImpl implements ValidationDao{
 							BeanPropertyRowMapper.newInstance(ValidationDTO.class));
 
 			Map<String, Object> execute = simpleJdbcCall.execute(mobileNo);
-			//ValidationDTO vldt=new ValidationDTO();
-			//vldt.setP_isValidMobile((Integer)execute.get("p_isValidMobile"));
-			//validList.add(vldt);
 			validList= (List<ValidationDTO>) execute.get("ValidMobileResultSet");
 
 		} catch (Exception e) {
@@ -112,37 +117,15 @@ public class ValidationDaoImpl implements ValidationDao{
 	 */
 	@Override
 	public List<ValidationDTO> saveOtp(String mobileNo) {
-
-		List<ValidationDTO> validList=new ArrayList<>();
 		Random num=new Random();
+		List<ValidationDTO> validList=new ArrayList<>();
 		String samplOtp=String.valueOf(num.nextInt((999999 - 100000) + 1) + 100000);
 		try {
-			String msg=URLEncoder.encode("Your verification code is "+samplOtp+".Happy Learning !! Wilkef","UTF-8"); 
-			String number=mobileNo;
-			String apiKey = "apikey=" + "npbfUqDdwaY-GIODIBC1Hpu2wJphYOSCRfeMK1Fe09";
-			String message = "&message=" + msg;
-			String sender = "&sender=" + "PCHOAS";
-			String numbers = "&numbers=" + number;
-
-			// Send data
-			HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
-			String data = apiKey + numbers + message + sender;
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Length", "20");
-			conn.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
-			final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			final StringBuffer stringBuffer = new StringBuffer();
-			String line;
-			while ((line = rd.readLine()) != null) {
-				stringBuffer.append(line);
-			}
-			rd.close();
+			StringBuffer stringBuffer=sendOtpToNum(mobileNo,samplOtp);
            //save data to Db
-
 			JSONObject obj=new JSONObject(stringBuffer.toString());
 			if (!obj.isEmpty() && obj.has("status") && obj.opt("status").toString().equals("success")){
-				SqlParameterSource in = new MapSqlParameterSource().addValue("p_mobileNo", number).addValue("p_otp", samplOtp);
+				SqlParameterSource in = new MapSqlParameterSource().addValue("p_mobileNo", mobileNo).addValue("p_otp", samplOtp);
 				SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 						.withProcedureName(WilkefConstants.SAVE_OTP)
 						.returningResultSet("ValidotpResultSet",
@@ -181,5 +164,36 @@ public class ValidationDaoImpl implements ValidationDao{
 			LOG.log(Level.SEVERE,e.getMessage());
 		}
 		return validList;	
+	}
+	
+	private StringBuffer sendOtpToNum(String mobileNo, String samplOtp) {
+		final StringBuffer stringBuffer = new StringBuffer();
+		
+		try {
+			String msg=URLEncoder.encode(WilkefConstants.OTP_MSG_1+samplOtp+WilkefConstants.OTP_MSG_2,"UTF-8"); 
+		String apiKey = "apikey=" + env.getProperty("app.otp.api.key");
+		String message = "&message=" + msg;
+		String sender = "&sender=" + env.getProperty("app.otp.api.sender");
+		String numbers = "&numbers=" + mobileNo;
+
+		// Send data
+		HttpURLConnection conn = (HttpURLConnection) new URL(env.getProperty("app.otp.api.url")).openConnection();
+		String data = apiKey + numbers + message + sender;
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Length", "20");
+		conn.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
+		final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		
+		String line;
+		while ((line = rd.readLine()) != null) {
+			stringBuffer.append(line);
+		}
+		rd.close();
+		}
+		catch(Exception e){
+			throw new CustomException(ErrorConstants.OTP_ERROR);
+		}
+		return stringBuffer;
 	}
 }

@@ -81,6 +81,10 @@ public final class WilkefConstants {
 	public static final String SAVE_STUDENT_RESULT = "spSaveStudentTestResult";
 	
 	
+	public static final String OTP_MSG_1="Your verification code is ";
+	public static final String OTP_MSG_2=".Happy Learning !! Wilkef";
+	
+	
 	
 	
 

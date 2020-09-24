@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,9 @@ public class ExamController {
 	@Autowired 
 	private ExamDao examDao;
 	
+	/** The service output. */
+	@Autowired
+	private ServiceOutputTransformer serviceOutput;
 
 	/**
 	 * Scheduled test.
@@ -194,8 +198,8 @@ public class ExamController {
 		try {
 			Integer count = examDao.saveStudentResult(result);
 			if(count>0) {
-				response = new ResponseEntity<>("Success",HttpStatus.OK);
-			}
+				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+				        .body(serviceOutput.responseOutput("isSuccess", true));			}
 			else {
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
