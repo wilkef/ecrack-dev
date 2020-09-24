@@ -16,9 +16,10 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ResetPasswordDao;
 import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 
+
 /**
- * This Class is Used to implement DB Operation in ResetPassword
- * 
+ * This Class is Used to implement DB Operation in ResetPassword.
+ *
  * @author Satya
  * Sep 19, 2020
  */
@@ -26,11 +27,19 @@ import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 @Repository
 public class ResetPasswordDaoImpl implements ResetPasswordDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(ResetPasswordDaoImpl.class.getName());
 	
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 	
+	/**
+	 * Reset password.
+	 *
+	 * @param resetPwd the reset pwd
+	 * @return the integer
+	 */
 	@Override
 	public Integer resetPassword(ResetPasswordDataDTO resetPwd) {
 		

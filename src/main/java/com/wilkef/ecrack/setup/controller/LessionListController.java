@@ -1,5 +1,8 @@
 /**
+ *  This Class is Identify to execute Lession Controller Operation
  * 
+ * @author Satya
+ *Sep 18, 2020
  */
 package com.wilkef.ecrack.setup.controller;
 
@@ -15,47 +18,53 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.service.LessionListService;
 
-/**
- *  This Class is Identify to execute Lession Controller Operation
- * 
- * @author Satya
- *Sep 18, 2020
- */
 
+
+/**
+ * The Class LessionListController.
+ */
 @RestController
-@RequestMapping("/api.ecrack/api/subject")
+@RequestMapping("/subject")
 public class LessionListController {
 	
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(LessionListController.class.getName());
 
+	/** The lession service. */
 	@Autowired
 	private LessionListService lessionService;
 
+	/**
+	 * Find by grade id.
+	 *
+	 * @param unitId the unit id
+	 * @return the response entity
+	 */
 	@GetMapping(value = "/lessionList/{UnitId}")
 	public ResponseEntity<Object> findByGradeId(@PathVariable("UnitId") Integer unitId) {
-
+		LOG.info("START-Inside findByGradeId ");
+		LOG.log(Level.INFO, () -> "updateProfile Inputs unitId: "+unitId); 
 		ResponseEntity<Object> response = null;
 		List<LessionListDataDTO> lessionList = null;
-
-		LOG.info("Inside find the Subject based on UnitId");
 		try {
-			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + unitId);
 			lessionList = lessionService.findByUnitId(unitId);
 			if (!lessionList.isEmpty()) {
 				response = new ResponseEntity<>(lessionList, HttpStatus.OK);
 				return response;
 			} else {
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,
-					() -> "something wrong while fetching the information based on gradeId : " + e.getMessage());
+					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 		}
+		LOG.info("START-Inside findByGradeId ");
 		return response;
 	}
 }

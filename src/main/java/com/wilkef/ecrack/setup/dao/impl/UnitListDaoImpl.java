@@ -19,21 +19,30 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UnitListDao;
 import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
 
+
 /**
- *  This Class is Used to execute UnitList DB Operation
- * 
+ *  This Class is Used to execute UnitList DB Operation.
+ *
  * @author Satya
- *Sep 18, 2020
+ * Sep 18, 2020
  */
 
 @Repository
 public class UnitListDaoImpl implements UnitListDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitListDaoImpl.class.getName());
 	
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 	
+	/**
+	 * Find by subject id.
+	 *
+	 * @param subjectId the subject id
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UnitListDataDTO> findBySubjectId(Integer subjectId) {

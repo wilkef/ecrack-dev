@@ -1,3 +1,11 @@
+
+/**
+ * This Class is Used to execute DifficultyLevel Execution 
+ * 
+ * @author Satya
+ *Sep 16, 2020
+ */
+
 package com.wilkef.ecrack.setup.controller;
 
 import java.util.List;
@@ -11,30 +19,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
 
 /**
- * This Class is Used to execute DifficultyLevel Execution 
- * 
- * @author Satya
- *Sep 16, 2020
+ * The Class QuestionLevelController.
  */
-
 @RestController
-@RequestMapping("/api.ecrack/api/user")
+@RequestMapping("/user")
 public class QuestionLevelController {
 
+	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(QuestionLevelController.class.getName());
 	
+	/** The question service. */
 	@Autowired
 	private QuestionLevelService questionService;
 
+	/**
+	 * Find difficulty code.
+	 *
+	 * @return the response entity
+	 */
 	@GetMapping(value = "/difficultyLevel")
 	public ResponseEntity<Object> findDifficultyCode(){
-		
+		LOG.info("START-Inside findDifficultyCode ");
+		LOG.log(Level.INFO, () -> "No findDifficultyCode Inputs "); 
 		ResponseEntity<Object> response = null;
 		List<QuestionLevelDataDTO> questionLevelList = null;
 		LOG.info("Inside find the QuestionLevel ");
@@ -46,13 +59,13 @@ public class QuestionLevelController {
 				return response;
 			} else {
 				LOG.log(Level.INFO, () -> "QuestionLevel is Not There in DB " );
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		}	
 		catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> "something wrong while fetching the Question Level information : " + e.getMessage());
+			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 		}
+		LOG.info("END-Inside findDifficultyCode ");
 		return response;
 	}
 }

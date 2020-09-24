@@ -13,9 +13,10 @@ import com.wilkef.ecrack.setup.dao.ForgotPasswordDao;
 import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
 import com.wilkef.ecrack.setup.service.ForgotPasswordService;
 
+
 /**
- * This Class is Used to Execute Forgot Password Service Class Implementation
- * 
+ * This Class is Used to Execute Forgot Password Service Class Implementation.
+ *
  * @author Satya
  * Sep 19, 2020
  */
@@ -23,11 +24,19 @@ import com.wilkef.ecrack.setup.service.ForgotPasswordService;
 @Service
 public class ForgotPasswordServiceImpl implements ForgotPasswordService{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(ForgotPasswordServiceImpl.class.getName());
 	
+	/** The forgotpwd. */
 	@Autowired
 	private ForgotPasswordDao forgotpwd;
 	
+	/**
+	 * Forgot password.
+	 *
+	 * @param forgotPwd the forgot pwd
+	 * @return the integer
+	 */
 	@Override
 	public Integer forgotPassword(ForgotPasswordDataDTO forgotPwd) {
 		Integer forgotPassword=null;

@@ -20,15 +20,28 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UnitDao;
 import com.wilkef.ecrack.setup.dto.UnitDataDTO;
 
+
+/**
+ * The Class UnitDaoImpl.
+ */
 @Repository
 public class UnitDaoImpl implements UnitDao {
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitDaoImpl.class.getName());
+	
+	/** The unit data list. */
 	List<UnitDataDTO> unitDataList = new ArrayList<>();
 
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
+	/**
+	 * Gets the unit details.
+	 *
+	 * @return the unit details
+	 */
 	@Override
 	public List<UnitDataDTO> getUnitDetails() {
 		LOG.fine("get Unit details ");

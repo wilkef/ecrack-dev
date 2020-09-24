@@ -15,6 +15,7 @@ import com.wilkef.ecrack.setup.dao.RegistrationDao;
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 import com.wilkef.ecrack.setup.service.RegistrationService;
 
+
 /**
  * This class provides implementation for Registration interface to store the user details.
  * 
@@ -25,11 +26,19 @@ import com.wilkef.ecrack.setup.service.RegistrationService;
 @Service
 public class RegistrationServiceImpl implements RegistrationService{
 	
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class.getName());
 	
+	/** The register dao. */
 	@Autowired
 	private RegistrationDao registerDao;
 
+	/**
+	 * Save.
+	 *
+	 * @param obj the obj
+	 * @return the list
+	 */
 	@Override
 	public List<RegistrationDataDTO> save(JSONObject obj) {
 		List<RegistrationDataDTO> save=null;

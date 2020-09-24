@@ -1,3 +1,11 @@
+
+/**
+ * This Class is Used to execute Subject Execution
+ * 
+ * 
+ * @author Satya 
+ * Sep 16, 2020
+ */
 package com.wilkef.ecrack.setup.controller;
 
 import java.util.List;
@@ -12,34 +20,38 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.service.SubjectService;
 
-/**
- * This Class is Used to execute Subject Execution
- * 
- * 
- * @author Satya 
- * Sep 16, 2020
- */
 
+/**
+ * The Class SubjectController.
+ */
 @RestController
-@RequestMapping("/api.ecrack/api/subject")
+@RequestMapping("/subject")
 public class SubjectController {
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(SubjectController.class.getName());
 
+	/** The subject service. */
 	@Autowired
 	private SubjectService subjectService;
 
+	/**
+	 * Find by grade id.
+	 *
+	 * @param gradeId the grade id
+	 * @return the response entity
+	 */
 	@GetMapping(value = "/subjectList/{GradeId}")
 	public ResponseEntity<Object> findByGradeId(@PathVariable("GradeId") Integer gradeId) {
-
+		LOG.info("START-Inside findByGradeId");
+		LOG.log(Level.INFO, () -> " findByGradeId Inputs gradeId:"+gradeId); 
 		ResponseEntity<Object> response = null;
 		List<SubjectDataDTO> subjectDataList = null;
-
-		LOG.info("Inside find the Subject based on gradeId");
 		try {
 			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + gradeId);
 			subjectDataList = subjectService.getSubjectsByGradeId(gradeId);
@@ -47,13 +59,14 @@ public class SubjectController {
 				response = new ResponseEntity<>(subjectDataList, HttpStatus.OK);
 			} else {
 				LOG.log(Level.INFO, () -> "Subject Record is Not There in DB " );
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,
-					() -> "something wrong while fetching the information based on gradeId : " + e.getMessage());
+					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 		}
+		LOG.info("END-Inside findByGradeId");
 		return response;
 	}
 }

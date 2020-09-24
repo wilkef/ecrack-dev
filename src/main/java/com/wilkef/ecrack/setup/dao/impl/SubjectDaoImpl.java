@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.wilkef.ecrack.setup.dao.impl;
 
 import java.util.ArrayList;
@@ -19,10 +22,10 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.SubjectDao;
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
 
+
 /**
- * This Class is Used to execute Subject DB Operation
- * 
- * 
+ * This Class is Used to execute Subject DB Operation.
+ *
  * @author Satya
  * Sep 16, 2020
  */
@@ -31,12 +34,22 @@ import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
 @Transactional
 public class SubjectDaoImpl implements SubjectDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(SubjectDaoImpl.class.getName());
+	
+	/** The subject data list. */
 	List<SubjectDataDTO> subjectDataList = new ArrayList<>();
 	
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 	
+	/**
+	 * Find by grade id.
+	 *
+	 * @param gradeId the grade id
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<SubjectDataDTO> findByGradeId(Integer gradeId) {

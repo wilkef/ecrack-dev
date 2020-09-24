@@ -1,3 +1,10 @@
+/**
+ * /***
+ * 
+ * @author Rajani Suprava This class is created to contain all the information
+ *         related to User Profile
+ *
+ */
 package com.wilkef.ecrack.setup.dao.impl;
 
 import java.util.ArrayList;
@@ -21,16 +28,29 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
+
+
+/**
+ * The Class UserProfileDaoImpl.
+ */
 @Repository
 @Transactional
 public class UserProfileDaoImpl implements UserProfileDao {
 	
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UserProfileDaoImpl.class.getName());
 	
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
+	/**
+	 * Update profile.
+	 *
+	 * @param input the input
+	 * @param userId the user id
+	 * @return the list
+	 */
 	@Override
 	public List<UserProfileDTO> updateProfile(@Valid String input, @Valid int userId) {
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
@@ -52,6 +72,12 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		return userProfileDTOList;	
 	}
 
+	/**
+	 * View profile.
+	 *
+	 * @param userId the user id
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserProfileDTO> viewProfile(int userId) {

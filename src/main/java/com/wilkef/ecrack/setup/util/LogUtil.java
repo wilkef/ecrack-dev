@@ -7,17 +7,29 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
- * @author chinmaya.dehury
+ * The Class LogUtil.
  *
+ * @author chinmaya.dehury
  */
 public class LogUtil {
 
+	/** The Constant loggerThread. */
 	public static final ThreadLocal<Logger> loggerThread = new ThreadLocal<>();
 
+	/**
+	 * Instantiates a new log util.
+	 */
 	private LogUtil() {
 	}
 
+	/**
+	 * Debug.
+	 *
+	 * @param message the message
+	 * @param object the object
+	 */
 	public static synchronized void debug(String message, Object object) {
 		message = format(message, object);
 		Logger log = getLogger(object);
@@ -25,6 +37,12 @@ public class LogUtil {
 
 	}
 
+	/**
+	 * Info.
+	 *
+	 * @param message the message
+	 * @param object the object
+	 */
 	public static synchronized void info(String message, Object object) {
 		message = format(message, object);
 		Logger log = getLogger(object);
@@ -32,6 +50,12 @@ public class LogUtil {
 
 	}
 
+	/**
+	 * Error.
+	 *
+	 * @param message the message
+	 * @param object the object
+	 */
 	public static synchronized void error(String message, Object object) {
 		message = format(message, object);
 		Logger log = getLogger(object);
@@ -40,6 +64,13 @@ public class LogUtil {
 
 	}
 
+	/**
+	 * Error.
+	 *
+	 * @param message the message
+	 * @param exception the exception
+	 * @param object the object
+	 */
 	public static synchronized void error(String message, Exception exception, Object object) {
 		message = format(message, object);
 		Logger log = getLogger(object);
@@ -48,6 +79,12 @@ public class LogUtil {
 
 	}
 
+	/**
+	 * Gets the logger.
+	 *
+	 * @param object the object
+	 * @return the logger
+	 */
 	public static synchronized Logger getLogger(Object object) {
 		Logger log = loggerThread.get();
 		if (log == null) {
@@ -58,11 +95,24 @@ public class LogUtil {
 		return log;
 	}
 
+	/**
+	 * Gets the level.
+	 *
+	 * @param object the object
+	 * @return the level
+	 */
 	public static Level getLevel(Object object) {
 		Logger log = getLogger(object.getClass());
 		return log.getLevel();
 	}
 
+	/**
+	 * Format.
+	 *
+	 * @param message the message
+	 * @param object the object
+	 * @return the string
+	 */
 	public static String format(String message, Object object) {
 		String className = object.getClass().getName();
 		message = className + " - " + message;

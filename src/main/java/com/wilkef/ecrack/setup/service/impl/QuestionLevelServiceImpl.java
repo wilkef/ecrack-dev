@@ -14,6 +14,7 @@ import com.wilkef.ecrack.setup.dao.QuestionLevelDao;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
+
 /**
  * This class provides implementation for QuestionLevelService interface to get the Question Level details.
  * 
@@ -24,11 +25,18 @@ import com.wilkef.ecrack.setup.service.QuestionLevelService;
 @Service
 public class QuestionLevelServiceImpl implements QuestionLevelService{
 
+/** The Constant LOG. */
 public static final Logger LOG = Logger.getLogger(QuestionLevelServiceImpl.class.getName());
 	
+	/** The question level dao. */
 	@Autowired
 	private QuestionLevelDao questionLevelDao;
 	
+	/**
+	 * Find question level.
+	 *
+	 * @return the list
+	 */
 	@Override
 	public List<QuestionLevelDataDTO> findQuestionLevel() {
 		List<QuestionLevelDataDTO> questionLevelList = null;

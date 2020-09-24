@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
  
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class CustomExceptionHandler.
  */
@@ -82,7 +82,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
     	/**
 	     * Handle number format exception.
 	     *
-	     * @param ex the ex
 	     * @return the response entity
 	     */
 	    @ExceptionHandler(NumberFormatException.class)

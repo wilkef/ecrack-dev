@@ -1,5 +1,8 @@
 /**
+ * This Class is Used to Execute ForgotPassword Execution
  * 
+ * @author Satya
+ * Sep 19, 2020
  */
 package com.wilkef.ecrack.setup.controller;
 
@@ -14,33 +17,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.service.ForgotPasswordService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
-/**
- * This Class is Used to Execute ForgotPassword Execution
- * 
- * @author Satya
- * Sep 19, 2020
- */
 
+
+/**
+ * The Class ForgotPasswordController.
+ */
 @RestController
-@RequestMapping("/api.ecrack/api/user")
+@RequestMapping("/user")
 public class ForgotPasswordController {
 	
+/** The Constant LOG. */
 private static final Logger LOG = Logger.getLogger(ForgotPasswordController.class.getName());
 	
+	/** The forgotservice. */
 	@Autowired
 	public ForgotPasswordService forgotservice;
 	
+	/** The service output transformer. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutputTransformer;
 
+	/**
+	 * Forgot password.
+	 *
+	 * @param forgotPwd the forgot pwd
+	 * @return the response entity
+	 */
 	@PostMapping("/forgotPassword")
 	public ResponseEntity<Object> forgotPassword(@RequestBody ForgotPasswordDataDTO forgotPwd){
+		LOG.info("START-Inside ForgotPassword ");
+		LOG.log(Level.INFO, () -> " forgotPassword Inputs forgotPwd: "+forgotPwd); 
 		ResponseEntity<Object> response=null;
-		LOG.info("Inside ForgotPassword ");
 		try {
 			LOG.log(Level.INFO, () -> "Before updating ForgotPassword : " );
 			String newPassword = forgotPwd.getNewPassword();
@@ -52,18 +65,16 @@ private static final Logger LOG = Logger.getLogger(ForgotPasswordController.clas
 					response =new ResponseEntity<>(true,HttpStatus.OK);
 					return response;
 				}else {
-					LOG.log(Level.INFO, () -> "Invalid UserName ");
-					response = new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
-					return response;
+					throw new CustomException(ErrorConstants.INVALID_CUSTOMER);
 				}
 			}else {
-				LOG.log(Level.INFO, () -> "NewPasswor And ConformPassword Both Are not Same ");
-				response = new ResponseEntity<>(serviceOutputTransformer.responseOutput("Please Enter NewPassword and ConformPassword Both are Same",false),HttpStatus.BAD_REQUEST);
+				LOG.log(Level.INFO, () -> ErrorConstants.PASSWORD_MISMATCH);
+				response = new ResponseEntity<>(serviceOutputTransformer.responseOutput(ErrorConstants.PROMPT_VALID_PASSWORD,false),HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> "something wrong while Updating the Password : " + e.getMessage());
+			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 		}
+		LOG.info("START-Inside ForgotPassword ");
 		return response;
 	}
 }

@@ -1,5 +1,8 @@
 /**
+ * This Class is Identify to execute Registration Controller
  * 
+ * @author Satya
+ *Sep 20, 2020
  */
 package com.wilkef.ecrack.setup.controller;
 
@@ -16,58 +19,64 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.RegistrationService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
-/**
- * This Class is Identify to execute Registration Controller
- * 
- * @author Satya
- *Sep 20, 2020
- */
 
+
+/**
+ * The Class RegistrationController.
+ */
 @RestController
-@RequestMapping("/api.ecrack/api/user")
+@RequestMapping("/user")
 public class RegistrationController {
 
+	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(RegistrationController.class.getName());
 
+	/** The registeration service. */
 	@Autowired
 	private RegistrationService registerationService;
 
+	/** The service output transformer. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutputTransformer;
 
+	/**
+	 * Save user.
+	 *
+	 * @param register the register
+	 * @return the response entity
+	 */
 	@PostMapping("/register")
 	public ResponseEntity<Object> saveUser(@RequestBody String register) {
-		LOG.info("Inside Registration Controller ");
+		LOG.info("START-Inside saveUser");
+		LOG.log(Level.INFO, () -> " getPracticeTestInfo Inputs unitId register: "+register); 
 		ResponseEntity<Object> response=null;
 		List<RegistrationDataDTO> save = null;
 		try {
-			LOG.log(Level.INFO, () -> "Before Registration : " );
 			JSONObject obj = new JSONObject(register);
 			save = registerationService.save(obj);
 
 			if (save.get(0).getMESSAGE_TEXT()==null) {
 				response=new ResponseEntity<>(save,HttpStatus.OK);
 			}else if(save.get(0).getMESSAGE_TEXT()!=null && save.get(0).getMESSAGE_TEXT().equals("User already exist.")) {		
-				LOG.log(Level.INFO, () -> "User Already Exists" );
-				throw new CustomException("User Already Exists");
+				throw new CustomException(ErrorConstants.USER_ALREADY_EXISTS);
 			}
 			else {
 				LOG.log(Level.INFO, () -> "Some Problem Occored at the Registration Time" );
-				response = new ResponseEntity<>
-				(serviceOutputTransformer.responseOutput("Unable to Store Record",false),
-						HttpStatus.BAD_REQUEST);
+				response = new ResponseEntity<>(serviceOutputTransformer.responseOutput(ErrorConstants.UNABLE_TO_STORE,false),HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,
-					() -> "something wrong while Registration Process : " + e.getMessage());
+					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
+		LOG.info("END-Inside saveUser");
 		return response;
 	}
 }

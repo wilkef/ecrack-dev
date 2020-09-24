@@ -1,3 +1,10 @@
+/**
+ * /***
+ * 
+ * @author Rajani Suprava This class is created to contain all the information
+ *         related 
+ *
+ */
 package com.wilkef.ecrack.setup.dao.impl;
 
 import java.util.ArrayList;
@@ -22,18 +29,30 @@ import com.wilkef.ecrack.setup.dao.ExamDao;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
+
+
+/**
+ * The Class ExamDaoImpl.
+ */
 @Repository
 @Transactional
 public class ExamDaoImpl implements ExamDao{
 
 	
-	public static final Logger LOG = Logger.getLogger(ValidationDaoImpl.class.getName());
+	/** The Constant LOG. */
+	public static final Logger LOG = Logger.getLogger(ExamDaoImpl.class.getName());
 
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 	
 	
+	/**
+	 * Gets the scheduled test.
+	 *
+	 * @param gradeId the grade id
+	 * @return the scheduled test
+	 */
 	@Override
 	public List<QuizTestDTO> getScheduledTest( Integer gradeId) {
 
@@ -59,6 +78,14 @@ public class ExamDaoImpl implements ExamDao{
 	}
 
 
+	/**
+	 * Gets the quiz questions.
+	 *
+	 * @param lessonId the lesson id
+	 * @param noOfQuestion the no of question
+	 * @param questionLevel the question level
+	 * @return the quiz questions
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<QuizQuestionDTO> getQuizQuestions( Integer lessonId,  Integer noOfQuestion, Integer questionLevel) {
@@ -82,6 +109,14 @@ public class ExamDaoImpl implements ExamDao{
 	}
 
 
+	/**
+	 * Gets the questions.
+	 *
+	 * @param lessonId the lesson id
+	 * @param noOfQuestion the no of question
+	 * @param questionLevel the question level
+	 * @return the questions
+	 */
 	@Override
 	public List<QuizQuestionDTO> getQuestions( Integer lessonId,  Integer noOfQuestion,Integer questionLevel) {
 		List<QuizQuestionDTO> quizTestDTOList=new ArrayList<>();
@@ -104,6 +139,12 @@ public class ExamDaoImpl implements ExamDao{
 	}
 
 
+	/**
+	 * Gets the student result summary.
+	 *
+	 * @param testId the test id
+	 * @return the student result summary
+	 */
 	@Override
 	public List<TestResultDTO> getStudentResultSummary(@Valid Integer testId) {
 		List<TestResultDTO> testResultDTOList=new ArrayList<>();
@@ -125,6 +166,12 @@ public class ExamDaoImpl implements ExamDao{
 	}
 
 
+	/**
+	 * Save student result.
+	 *
+	 * @param result the result
+	 * @return the integer
+	 */
 	@Override
 	public Integer saveStudentResult(String result) {
 		List<TestResultDTO> testResultDTOList=new ArrayList<>();

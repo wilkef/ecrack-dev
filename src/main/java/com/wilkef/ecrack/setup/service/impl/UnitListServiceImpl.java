@@ -14,6 +14,7 @@ import com.wilkef.ecrack.setup.dao.UnitListDao;
 import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
 import com.wilkef.ecrack.setup.service.UnitListService;
 
+
 /**
  * This class provides implementation for UnitListService interface to get the unitList details based on subjectId ID.
  * 
@@ -24,11 +25,19 @@ import com.wilkef.ecrack.setup.service.UnitListService;
 @Service
 public class UnitListServiceImpl implements UnitListService{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitListServiceImpl.class.getName());
 
+	/** The unit list dao. */
 	@Autowired
 	private UnitListDao unitListDao;
 	
+	/**
+	 * Find by subject id.
+	 *
+	 * @param subjectId the subject id
+	 * @return the list
+	 */
 	@Override
 	public List<UnitListDataDTO> findBySubjectId(Integer subjectId) {
 		List<UnitListDataDTO> unitListData = null;

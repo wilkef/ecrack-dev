@@ -21,21 +21,30 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.PracticeTestInfoDao;
 import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
 
+
 /**
- * This Class is Used to execute PracticeTestInfo DB Operation
- * 
+ * This Class is Used to execute PracticeTestInfo DB Operation.
+ *
  * @author Satya
- *Sep 21, 2020
+ * Sep 21, 2020
  */
 
 @Repository
 public class PracticeTestInfoDaoImpl implements PracticeTestInfoDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(PracticeTestInfoDaoImpl.class.getName());
 
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
+	/**
+	 * Find practice test info.
+	 *
+	 * @param obj the obj
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PracticeTestInfoDTO> findPracticeTestInfo(JSONObject obj) {

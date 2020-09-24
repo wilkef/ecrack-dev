@@ -19,9 +19,10 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.RegistrationDao;
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 
+
 /**
- * This Class is Used to execute Registration DB Operation
- * 
+ * This Class is Used to execute Registration DB Operation.
+ *
  * @author Satya
  * Sep 20, 2020
  */
@@ -29,11 +30,19 @@ import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 @Repository
 public class RegistrationDaoImpl implements RegistrationDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(RegistrationDaoImpl.class.getName());
 
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
+	/**
+	 * Save.
+	 *
+	 * @param obj the obj
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RegistrationDataDTO> save(JSONObject obj) {

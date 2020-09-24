@@ -15,6 +15,7 @@ import com.wilkef.ecrack.setup.dao.PracticeTestInfoDao;
 import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
 import com.wilkef.ecrack.setup.service.PracticeTestInfoService;
 
+
 /**
  * This class provides implementation for PracticeTestInfoService interface to get the PracticeTestInfo details .
  * 
@@ -25,11 +26,19 @@ import com.wilkef.ecrack.setup.service.PracticeTestInfoService;
 @Service
 public class PracticeTestInfoServiceImpl implements PracticeTestInfoService{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(PracticeTestInfoServiceImpl.class.getName());
 	
+	/** The practice test info dao. */
 	@Autowired
 	private PracticeTestInfoDao practiceTestInfoDao;
 	
+	/**
+	 * Find practice test info.
+	 *
+	 * @param obj the obj
+	 * @return the list
+	 */
 	@Override
 	public List<PracticeTestInfoDTO> findPracticeTestInfo(JSONObject obj) {
 		List<PracticeTestInfoDTO> practiceTestInfo = null;

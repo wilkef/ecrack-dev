@@ -14,6 +14,7 @@ import com.wilkef.ecrack.setup.dao.LessionListDao;
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 import com.wilkef.ecrack.setup.service.LessionListService;
 
+
 /**
  *  This class provides implementation for LessionService interface to get the Lession details based on UnitId.
  * 
@@ -24,11 +25,19 @@ import com.wilkef.ecrack.setup.service.LessionListService;
 @Service
 public class LessionListServiceImpl implements LessionListService{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(LessionListServiceImpl.class.getName());
 
+	/** The lession dao. */
 	@Autowired
 	private LessionListDao lessionDao;
 
+	/**
+	 * Find by unit id.
+	 *
+	 * @param unitId the unit id
+	 * @return the list
+	 */
 	@Override
 	public List<LessionListDataDTO> findByUnitId(Integer unitId) {
 		List<LessionListDataDTO> lessionList = null;

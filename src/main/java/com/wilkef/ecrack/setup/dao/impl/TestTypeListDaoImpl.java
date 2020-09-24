@@ -19,9 +19,10 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.TestTypeListDao;
 import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
 
+
 /**
- * This Class is Used to execute DB operation of TestTypeList
- * 
+ * This Class is Used to execute DB operation of TestTypeList.
+ *
  * @author Satya
  * Sep 20, 2020
  */
@@ -29,11 +30,18 @@ import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
 @Repository
 public class TestTypeListDaoImpl implements TestTypeListDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(TestTypeListDaoImpl.class.getName());
 	
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
+	/**
+	 * Find all test type list.
+	 *
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TestTypeListDataDTO> findAllTestTypeList() {

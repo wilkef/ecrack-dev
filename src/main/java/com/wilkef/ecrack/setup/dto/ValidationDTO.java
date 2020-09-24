@@ -9,7 +9,7 @@
 
 package com.wilkef.ecrack.setup.dto;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ValidationDTO.
  */
@@ -30,7 +30,14 @@ public class ValidationDTO {
 	
 	/** The p msg. */
 	private String p_msg;
+	
+	
+	private Boolean isSuccess=Boolean.TRUE;
 
+
+	public Boolean getIsSuccess() {
+		return isSuccess;
+	}
 
 	/**
 	 * Gets the p msg.

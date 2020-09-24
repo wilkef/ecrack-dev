@@ -16,15 +16,43 @@ import org.springframework.stereotype.Repository;
 
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 
+/**
+ * The Interface ValidationDao.
+ */
 @Repository
 public interface ValidationDao {
 
+	/**
+	 * Validate email.
+	 *
+	 * @param email the email
+	 * @return the list
+	 */
 	List<ValidationDTO> validateEmail(String email);
 
+	/**
+	 * Validate mobile no.
+	 *
+	 * @param mobileNo the mobile no
+	 * @return the list
+	 */
 	List<ValidationDTO> validateMobileNo(String mobileNo);
 	
+	/**
+	 * Save otp.
+	 *
+	 * @param mobileNo the mobile no
+	 * @return the list
+	 */
 	List<ValidationDTO> saveOtp(String mobileNo);
 
+	/**
+	 * Verify otp.
+	 *
+	 * @param otp the otp
+	 * @param mobileNo the mobile no
+	 * @return the list
+	 */
 	List<ValidationDTO> verifyOtp(String otp, String mobileNo);
 	
 	

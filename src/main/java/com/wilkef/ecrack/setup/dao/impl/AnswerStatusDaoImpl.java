@@ -19,21 +19,29 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.AnswerStatusDao;
 import com.wilkef.ecrack.setup.dto.AnswerStatusDataDTO;
 
+
 /**
- * This Class is Used to execute DB operation of AnswerStatus
- * 
+ * This Class is Used to execute DB operation of AnswerStatus.
+ *
  * @author Satya
- *Sep 20, 2020
+ * Sep 20, 2020
  */
 
 @Repository
 public class AnswerStatusDaoImpl implements AnswerStatusDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(AnswerStatusDaoImpl.class.getName());
 
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 	
+	/**
+	 * Find all answer status.
+	 *
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AnswerStatusDataDTO> findAllAnswerStatus() {

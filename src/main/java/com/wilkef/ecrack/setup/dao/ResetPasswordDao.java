@@ -7,11 +7,21 @@ import java.util.List;
 
 import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 
+
 /**
+ * The Interface ResetPasswordDao.
+ *
  * @author Satya
- *Sep 19, 2020
+ * Sep 19, 2020
  */
 
 public interface ResetPasswordDao {
+	
+	/**
+	 * Reset password.
+	 *
+	 * @param resetPwd the reset pwd
+	 * @return the integer
+	 */
 	public Integer resetPassword(ResetPasswordDataDTO resetPwd);
 }

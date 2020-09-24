@@ -3,9 +3,13 @@ package com.wilkef.ecrack.setup;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.sql.DataSource;
 
@@ -38,16 +42,17 @@ public class EcrackSetupApplication {
 	private String appDataSourceDriverClassName;
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(EcrackSetupApplication.class, args);
 		try {
 			LogManager.getLogManager().readConfiguration(new FileInputStream("myLogging.properties"));
-			LOG.setLevel(Level.FINE);
+			LOG.setLevel(Level.FINER);
 			LOG.addHandler(new ConsoleHandler());
 		} catch (SecurityException | IOException e) {
-			e.printStackTrace();
+			LOG.log(Level.WARNING, "Interrupted!", e);
+			    Thread.currentThread().interrupt();
 		}
-
-		LOG.info("Project created successfully");
+		LOG.info("Ecrack Application Started");
 	}
 
 	@Bean

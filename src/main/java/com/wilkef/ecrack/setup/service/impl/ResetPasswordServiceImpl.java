@@ -13,9 +13,10 @@ import com.wilkef.ecrack.setup.dao.ResetPasswordDao;
 import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 import com.wilkef.ecrack.setup.service.ResetPasswordService;
 
+
 /**
- * This Class is Used to Execute Reset Password Service Class Implementation
- * 
+ * This Class is Used to Execute Reset Password Service Class Implementation.
+ *
  * @author Satya
  * Sep 19, 2020
  */
@@ -23,11 +24,19 @@ import com.wilkef.ecrack.setup.service.ResetPasswordService;
 @Service
 public class ResetPasswordServiceImpl implements ResetPasswordService{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(ResetPasswordServiceImpl.class.getName());
 	
+	/** The reset dao. */
 	@Autowired
 	public ResetPasswordDao resetDao;
 	
+	/**
+	 * Reset password.
+	 *
+	 * @param resetPwd the reset pwd
+	 * @return the integer
+	 */
 	@Override
 	public Integer resetPassword(ResetPasswordDataDTO resetPwd) {
 		Integer resetPasswords=null;

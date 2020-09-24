@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 
+
 /**
  * This interface will be holding all the service methods related to Registration.
  * 
@@ -16,5 +17,12 @@ import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
  * Sep 20, 2020
  */
 public interface RegistrationService {
+	
+	/**
+	 * Save.
+	 *
+	 * @param obj the obj
+	 * @return the list
+	 */
 	public List<RegistrationDataDTO> save(JSONObject obj);
 }

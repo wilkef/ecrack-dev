@@ -18,20 +18,29 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.LessionListDao;
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 
+
 /**
- *  This Class is Used to execute Lession DB Operation
- * 
+ *  This Class is Used to execute Lession DB Operation.
+ *
  * @author Satya
  * Sep 18, 2020
  */
 @Repository
 public class LessionListDaoImpl implements LessionListDao{
 
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(LessionListDaoImpl.class.getName());
 	
+	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 	
+	/**
+	 * Find by unit id.
+	 *
+	 * @param unitId the unit id
+	 * @return the list
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<LessionListDataDTO> findByUnitId(Integer unitId) {

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 
+
 /**
  * This interface will be holding all the service methods related to LessionList.
  * 
@@ -15,5 +16,12 @@ import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
  */
 
 public interface LessionListService {
+	
+	/**
+	 * Find by unit id.
+	 *
+	 * @param unitId the unit id
+	 * @return the list
+	 */
 	public List<LessionListDataDTO> findByUnitId(Integer unitId);
 }

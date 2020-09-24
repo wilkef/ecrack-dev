@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
 
+
 /**
  * This interface will be holding all the service methods related to PracticeTestInfo.
  * 
@@ -16,5 +17,12 @@ import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
  *Sep 21, 2020
  */
 public interface PracticeTestInfoService {
+	
+	/**
+	 * Find practice test info.
+	 *
+	 * @param obj the obj
+	 * @return the list
+	 */
 	public List<PracticeTestInfoDTO> findPracticeTestInfo(JSONObject obj);
 }

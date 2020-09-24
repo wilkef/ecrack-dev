@@ -1,6 +1,10 @@
 /**
+ * This Class is Used to execute UnitList Execution
  * 
+ * @author Satya
+ *Sep 18, 2020
  */
+
 package com.wilkef.ecrack.setup.controller;
 
 import java.util.List;
@@ -15,29 +19,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
-import com.wilkef.ecrack.setup.exception.RecordNotFoundException;
+import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.service.UnitListService;
 
-/**
- * This Class is Used to execute UnitList Execution
- * 
- * @author Satya
- *Sep 18, 2020
- */
 
+/**
+ * The Class UnitListController.
+ */
 @RestController
-@RequestMapping("/api.ecrack/api/subject")
+@RequestMapping("/subject")
 public class UnitListController {
 	
+	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitListController.class.getName());
 
+	/** The unit list service. */
 	@Autowired
 	private UnitListService unitListService;
 	
+	/**
+	 * Find by class id.
+	 *
+	 * @param subjectId the subject id
+	 * @return the response entity
+	 */
 	@GetMapping(value = "/unitList/{SubjectId}")	
 	public ResponseEntity<Object> findByClassId(@PathVariable("SubjectId") Integer subjectId) {
-
+		LOG.info("START-Inside findByClassId");
+		LOG.log(Level.INFO, () -> " findByClassId Inputs subjectId: "+subjectId); 
 		ResponseEntity<Object> response = null;
 		List<UnitListDataDTO> unitListData = null;
 
@@ -50,13 +61,13 @@ public class UnitListController {
 				return response;
 			} else {
 				LOG.log(Level.INFO, () -> "UnitList Record is Not There in DB " );
-				throw new RecordNotFoundException("No Record Found");
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		}	
 		catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> "something wrong while fetching the information based on subjectId : " + e.getMessage());
+			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 		}
+		LOG.info("END-Inside findByClassId");
 		return response;
 	}
 }
