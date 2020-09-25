@@ -24,8 +24,6 @@ import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.ForgotPasswordService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
-
-
 /**
  * The Class ForgotPasswordController.
  */
@@ -69,15 +67,15 @@ public class ForgotPasswordController {
 					return response;
 				}else {
 					LOG.log(Level.INFO, () -> ErrorConstants.INVALID_USER);
-					response = ResponseEntity.status(HttpStatus.OK)
+					response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
 							.contentType(MediaType.APPLICATION_JSON_UTF8)
 							.body(serviceOutput.responseOutput("isSuccess", false));
 				}
 			}else {
 				LOG.log(Level.INFO, () -> ErrorConstants.PASSWORD_MISMATCH);
-				response = ResponseEntity.status(HttpStatus.OK)
+				response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(serviceOutput.responseOutput("Status", ErrorConstants.PROMPT_VALID_PASSWORD));
+						.body(serviceOutput.responseOutput("StatusMessage", ErrorConstants.PROMPT_VALID_PASSWORD));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

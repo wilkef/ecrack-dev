@@ -210,8 +210,4 @@ public class ExamController {
 		LOG.info("END-Inside getStudentResultSummary");
 		return  response;
 	}
-
-
-
-
 }

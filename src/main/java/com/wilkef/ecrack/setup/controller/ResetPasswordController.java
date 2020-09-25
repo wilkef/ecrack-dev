@@ -65,7 +65,7 @@ public class ResetPasswordController {
 				return response;
 			}else {
 				LOG.log(Level.INFO, () -> "UserId And OldPassword is InValid" );
-				response = ResponseEntity.status(HttpStatus.OK)
+				response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput("isSuccess", false));
 			}

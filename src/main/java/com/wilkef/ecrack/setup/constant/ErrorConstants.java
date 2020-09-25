@@ -21,9 +21,10 @@ public class ErrorConstants {
 	
 	public static final String ANSWER_STATUS_FAILED="answerStatus is Not There in DB ";
 	
-	public static final String PASSWORD_MISMATCH="NewPasswor And ConformPassword Both Are not Same ";
+	public static final String PASSWORD_MISMATCH="NewPasswor And ConformPassword Does not Same ";
 	
 	public static final String PROMPT_VALID_PASSWORD="Please Enter NewPassword and ConformPassword Both are Same";
 	
 	public static final String OTP_ERROR="something wrong while sending OTP";
+
 }

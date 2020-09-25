@@ -1,8 +1,5 @@
 package com.wilkef.ecrack.setup.dto;
 
-import org.json.JSONObject;
-
-
 /**
  * The Class UserProfileDTO.
  */
