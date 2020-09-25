@@ -31,7 +31,16 @@ public class ValidationDTO {
 	/** The p msg. */
 	private String p_msg;
 	
+	private String p_UserId;
 	
+	public String getP_UserId() {
+		return p_UserId;
+	}
+
+	public void setP_UserId(String p_UserId) {
+		this.p_UserId = p_UserId;
+	}
+
 	private Boolean isSuccess=Boolean.TRUE;
 
 

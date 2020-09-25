@@ -53,7 +53,9 @@ public interface ValidationDao {
 	 * @param mobileNo the mobile no
 	 * @return the list
 	 */
-	List<ValidationDTO> verifyOtp(String otp, String mobileNo);
+	String verifyOtp(String otp, String mobileNo);
+
+	List<ValidationDTO> validateLogin( String input);
 	
 	
 

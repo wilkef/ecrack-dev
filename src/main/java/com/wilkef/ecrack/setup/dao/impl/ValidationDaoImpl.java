@@ -21,6 +21,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.validation.Valid;
+
 import org.json.JSONObject;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +151,8 @@ public class ValidationDaoImpl implements ValidationDao{
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ValidationDTO> verifyOtp(String otp, String mobileNo) {
+	public String verifyOtp(String otp, String mobileNo) {
+		 String msgTOUse="";
 		List<ValidationDTO> validList=new ArrayList<>();
 		try {
 			SqlParameterSource in = new MapSqlParameterSource().addValue("p_mobileNo", mobileNo).addValue("p_otp", otp);
@@ -158,12 +161,12 @@ public class ValidationDaoImpl implements ValidationDao{
 					.returningResultSet("VerifyResultSet",
 							BeanPropertyRowMapper.newInstance(ValidationDTO.class));
 			Map<String, Object> execute = simpleJdbcCall.execute(in);
-			validList= (List<ValidationDTO>) execute.get("VerifyResultSet");
+			msgTOUse= execute.get("p_msg").toString();
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,e.getMessage());
 		}
-		return validList;	
+		return msgTOUse;	
 	}
 	
 	private StringBuffer sendOtpToNum(String mobileNo, String samplOtp) {
@@ -195,5 +198,27 @@ public class ValidationDaoImpl implements ValidationDao{
 			throw new CustomException(ErrorConstants.OTP_ERROR);
 		}
 		return stringBuffer;
+	}
+
+	@Override
+	public List<ValidationDTO> validateLogin(@Valid String input) {
+		
+		List<ValidationDTO> validList=new ArrayList<>();
+		try {
+			JSONObject obj=new JSONObject(input);
+			SqlParameterSource in = new MapSqlParameterSource().addValue("p_userName",obj.get ("user")).
+					addValue("p_password",obj.get("password"));
+			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
+					.withProcedureName(WilkefConstants.VALIDATE_LOGIN)
+					.returningResultSet("ResultSet",
+							BeanPropertyRowMapper.newInstance(ValidationDTO.class));
+
+			Map<String, Object> execute = simpleJdbcCall.execute(in);
+			validList= (List<ValidationDTO>) execute.get("ResultSet");
+
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE,e.getMessage());
+		}
+		return validList;			
 	}
 }

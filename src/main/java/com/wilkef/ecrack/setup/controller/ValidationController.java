@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.AuthDataDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
@@ -166,15 +167,14 @@ public class ValidationController {
 		LOG.log(Level.INFO, () -> "verifyOtp Inputs otp: " + otp); 
 		LOG.log(Level.INFO, () -> "verifyOtp Inputs mobileNo: " + mobileNo); 
 		ResponseEntity<Object> response=null;
-		List<ValidationDTO> validDto=new ArrayList<>();
 		try {
 			LOG.log(Level.INFO,() -> "Before geting verifyOtp information ");
-			validDto = validationDao.verifyOtp(otp,mobileNo);
-			if(!validDto.isEmpty()) { 
+			String msg = validationDao.verifyOtp(otp,mobileNo);
+			if(msg.contains("OTP Verified")) { 
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(serviceOutput.responseOutput("isValidOTP", true));} 
 			else { 
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND); 
+				throw new CustomException(msg); 
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
@@ -184,5 +184,27 @@ public class ValidationController {
 		return  response;
 	}
 
-
+	@PostMapping("/validateLogin")
+	public ResponseEntity<Object> validateLogin(@Valid @RequestBody String input) {
+		LOG.info("START-Inside validateLogin");
+		LOG.log(Level.INFO, () -> "validateLogin Inputs input: " + input); 
+		ResponseEntity<Object> response=null;
+		List<ValidationDTO> validDto=new ArrayList<>();
+		try {
+			LOG.log(Level.INFO,() -> "Before geting validateLogin information ");
+			validDto = validationDao.validateLogin(input);
+			if(!validDto.isEmpty()) { 
+				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+				        .body(serviceOutput.responseOutput("isValid", true));} 
+			else { 
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND); 
+			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
+		}
+		LOG.info("END-Inside validateLogin");
+		return  response;
+		
+	}
 }
