@@ -1,9 +1,6 @@
 /**
- * /***
  * 
- * @author Rajani Suprava This class is created to contain all the information
- *      
- *
+ * @author Satya This class is created to contain all the information
  */
 package com.wilkef.ecrack.setup.EcrackSetup;
 
@@ -137,7 +134,7 @@ public class EcrackSetupApplicationTests {
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	public void examTest() {
+	public void scheduledTest() {
 		List<QuizTestDTO> quizTestList=new ArrayList<QuizTestDTO>();
 
 		QuizTestDTO quizTest = new QuizTestDTO();

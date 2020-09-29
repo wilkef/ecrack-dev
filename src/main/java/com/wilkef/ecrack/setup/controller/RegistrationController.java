@@ -55,7 +55,7 @@ public class RegistrationController {
 	@PostMapping("/register")
 	public ResponseEntity<Object> saveUser(@RequestBody String register) {
 		LOG.info("START-Inside saveUser");
-		LOG.log(Level.INFO, () -> " getPracticeTestInfo Inputs unitId register: "+register); 
+		LOG.log(Level.INFO, () -> " get All User Details to register: "+register); 
 		ResponseEntity<Object> response=null;
 		List<RegistrationDataDTO> save = null;
 		try {

@@ -23,14 +23,17 @@ import com.wilkef.ecrack.setup.controller.ForgotPasswordController;
 import com.wilkef.ecrack.setup.controller.QuestionLevelController;
 import com.wilkef.ecrack.setup.controller.ResetPasswordController;
 import com.wilkef.ecrack.setup.controller.UserProfileController;
+import com.wilkef.ecrack.setup.controller.ValidationController;
 import com.wilkef.ecrack.setup.dao.ForgotPasswordDao;
 import com.wilkef.ecrack.setup.dao.QuestionLevelDao;
 import com.wilkef.ecrack.setup.dao.ResetPasswordDao;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
+import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
+import com.wilkef.ecrack.setup.dto.ValidationDTO;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -66,7 +69,7 @@ public class UserTestCase {
 	 * This Test Method to Identify ResetPassword TestCase Method
 	 */
 
-	
+
 	/** The ResetPassword status controller. */
 	@Autowired
 	private ResetPasswordController resetPwdController; 
@@ -93,8 +96,8 @@ public class UserTestCase {
 	/**
 	 * This Test Method to Identify ForgotPassword TestCase Method
 	 */
-	
-	
+
+
 	/** The ForgotPassword status controller. */
 	@Autowired
 	private ForgotPasswordController forgotPwdController;
@@ -115,14 +118,14 @@ public class UserTestCase {
 
 		Mockito.when(forgotPwdDao.forgotPassword(forgotPwdDto)).thenReturn(1);
 		assertEquals(200, ((ResponseEntity<Object>)forgotPwdController.forgotPassword(forgotPwdDto)).getStatusCodeValue());
-	
+
 	}
-	
-	
+
+
 	/**
 	 * This Test Method to Identify UserProfile TestCase Method
 	 */
-	
+
 	/** The UserProfile status controller. */
 	@Autowired
 	private UserProfileController userProfileController;
@@ -137,17 +140,72 @@ public class UserTestCase {
 	@Test
 	public void updateProfile() {
 		List<UserProfileDTO> userProfileList = new ArrayList<>();
-		
+
 		UserProfileDTO userProfile = new UserProfileDTO();
 		userProfile.setUpdateCount(1);
-	
+
 		userProfileList.add(userProfile);
-		
+
 		String emailId= "satya.patra@wilkef.com";
 		Long userName = 7008508931l;
 
 		Mockito.when(userProfileDao.updateProfile(emailId, userName)).thenReturn(userProfileList);
 		assertEquals(200, ((ResponseEntity<Object>)userProfileController.updateProfile(emailId, userName)).getStatusCodeValue());
-	
+
 	}
+
+	@Autowired
+	private ValidationController validationController ;
+
+	@MockBean
+	private ValidationDao validationDao;
+
+	/**
+	 * Test ValidMobileNo test.
+	 */
+	@Test
+	public void validMobileNo() {
+		List<ValidationDTO> validMobileList = new ArrayList<>();
+		ValidationDTO validMobile = new ValidationDTO();
+		validMobile.setP_isValidMobile(1);
+
+		validMobileList.add(validMobile);
+		String mobileNo = "7008508931";
+
+		Mockito.when(validationDao.validateMobileNo(mobileNo)).thenReturn(validMobileList);
+		assertEquals(200, ((ResponseEntity<Object>)validationController.validateMobileNo(mobileNo)).getStatusCodeValue());
+	}
+
+	
+	/**
+	 * Test VarifyOtp test.
+	 */
+	@Test
+	public void varifyOtp() {
+		String msg = "OTP Verified";
+
+		String mobileNo = "7008508931";
+		String otp = "897345";
+
+		Mockito.when(validationDao.verifyOtp(otp, mobileNo)).thenReturn(msg);
+		assertEquals(200, ((ResponseEntity<Object>)validationController.verifyOtp(otp, mobileNo)).getStatusCodeValue());
+	}
+
+	/**
+	 * Test SendOtp test.
+	 */
+	@Test
+	public void sendOtp() {
+		List<ValidationDTO> saveOtpList = new ArrayList<>();
+		ValidationDTO valid = new ValidationDTO();
+		valid.setP_otp("234567");
+		saveOtpList.add(valid);
+
+		String mobileNo = "7008508931";
+
+		Mockito.when(validationDao.saveOtp(mobileNo)).thenReturn(saveOtpList);
+		assertEquals(200, ((ResponseEntity<Object>)validationController.sendOTP(mobileNo)).getStatusCodeValue());
+	}
+	
 }
+

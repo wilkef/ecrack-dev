@@ -74,7 +74,4 @@ public class AuthenticationController {
 
 		return "Bearer " + token;
 	}
-	
-	
-	
 }

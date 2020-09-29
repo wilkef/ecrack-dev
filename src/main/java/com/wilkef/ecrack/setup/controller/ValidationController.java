@@ -136,7 +136,7 @@ public class ValidationController {
 			LOG.log(Level.INFO,() -> "Before geting sendOTP information ");
 			validDto = validationDao.saveOtp(mobileNo);
 
-			if(!validDto.isEmpty()) { 
+			if(!validDto.isEmpty()) {
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(serviceOutput.responseOutput("status", "success")); } 
 			else { 
