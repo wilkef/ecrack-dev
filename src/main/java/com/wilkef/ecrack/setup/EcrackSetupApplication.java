@@ -49,7 +49,7 @@ public class EcrackSetupApplication {
 		
 		SpringApplication.run(EcrackSetupApplication.class, args);
 		try {
-			LogManager.getLogManager().readConfiguration(new FileInputStream("myLogging.properties"));
+			LogManager.getLogManager().readConfiguration();
 			LOG.setLevel(Level.ALL);
 			LOG.addHandler(new ConsoleHandler());
 		} catch (SecurityException | IOException e) {
@@ -82,7 +82,7 @@ public class EcrackSetupApplication {
 	@Bean
 	public static PropertyPlaceholderConfigurer properties() {
 		PropertyPlaceholderConfigurer propConfig = new PropertyPlaceholderConfigurer();
-		Resource[] resources = new ClassPathResource[] { new ClassPathResource("application.properties") };
+		Resource[] resources = new ClassPathResource[] { new ClassPathResource("application.properties"),new ClassPathResource("myLogging.properties") };
 		propConfig.setLocations(resources);
 		propConfig.setIgnoreUnresolvablePlaceholders(true);
 		return propConfig;
