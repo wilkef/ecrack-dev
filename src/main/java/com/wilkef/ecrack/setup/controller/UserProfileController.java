@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
-import com.wilkef.ecrack.setup.dto.CommonResponseDTO;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
@@ -61,7 +60,7 @@ public class UserProfileController {
 	 * @return the response entity
 	 */
 	@PutMapping(value = "/updateProfile/{userId}")
-	public ResponseEntity<Object> updateProfile(@RequestBody String input,@Valid @PathVariable int userId){
+	public ResponseEntity<Object> updateProfile(@RequestBody String input,@Valid @PathVariable Long userId){
 		LOG.info("START-Inside updateProfile");
 		LOG.log(Level.INFO, () -> " updateProfile Inputs: " + input+ "User"+userId); 
 		ResponseEntity<Object> response=null;

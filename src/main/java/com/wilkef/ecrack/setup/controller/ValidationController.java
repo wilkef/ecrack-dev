@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
-import com.wilkef.ecrack.setup.dto.AuthDataDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
@@ -137,7 +136,7 @@ public class ValidationController {
 			LOG.log(Level.INFO,() -> "Before geting sendOTP information ");
 			validDto = validationDao.saveOtp(mobileNo);
 
-			if(!validDto.isEmpty()) { 
+			if(!validDto.isEmpty()) {
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(serviceOutput.responseOutput("status", "success")); } 
 			else { 

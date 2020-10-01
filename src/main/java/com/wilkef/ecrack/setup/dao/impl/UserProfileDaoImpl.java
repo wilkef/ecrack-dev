@@ -15,9 +15,7 @@ import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -52,7 +50,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	 * @return the list
 	 */
 	@Override
-	public List<UserProfileDTO> updateProfile(@Valid String input, @Valid int userId) {
+	public List<UserProfileDTO> updateProfile(@Valid String input, @Valid Long userId) {
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
 		UserProfileDTO dto=new UserProfileDTO();
 		try {
@@ -83,13 +81,11 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	public List<UserProfileDTO> viewProfile(int userId) {
 		List<Map<String,Object>> list=new ArrayList<>();
 		UserProfileDTO dto=new UserProfileDTO();
-		List<UserProfileDTO> userProfileDTOList=new ArrayList<UserProfileDTO>();
+		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
 		
 		try {
-			
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-					.withProcedureName(WilkefConstants.VIEW_PROFILE);
-					
+					.withProcedureName(WilkefConstants.VIEW_PROFILE);		
 
 			Map<String, Object> execute = simpleJdbcCall.execute(userId);
 			list= (List<Map<String,Object>>) execute.get("#result-set-1");
@@ -104,5 +100,4 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		}
 		return userProfileDTOList;	
 	}
-
 }
