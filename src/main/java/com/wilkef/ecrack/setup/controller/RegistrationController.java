@@ -9,6 +9,7 @@ package com.wilkef.ecrack.setup.controller;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,25 @@ public class RegistrationController {
 		List<RegistrationDataDTO> save = null;
 		try {
 			JSONObject obj = new JSONObject(register);
-			save = registerationService.save(obj);
+			
+			String fname = (String) obj.get("FirstName");
+			String strGender = (String)obj.get("Gender");
+
+			if (!fname.equals("")) {
+				if (!strGender.equals("")) {
+					boolean name = Pattern.compile("[A-Za-z]{2,15}").matcher(fname).matches();
+					boolean gender = Pattern.compile("[A-Za-z]{2,6}").matcher(strGender).matches();
+					if (name) {
+						if (gender) {
+							save = registerationService.save(obj);
+						}else
+							throw new CustomException("Please Enter a Valid Gender");
+					}else
+						throw new CustomException("Please Enter a Valid Name");
+				}else
+					throw new CustomException("Please Enter Gender");
+			}else
+				throw new CustomException("Please Enter Name");
 
 			if (save.get(0).getMESSAGE_TEXT()==null) {
 				response=new ResponseEntity<>(save,HttpStatus.OK);

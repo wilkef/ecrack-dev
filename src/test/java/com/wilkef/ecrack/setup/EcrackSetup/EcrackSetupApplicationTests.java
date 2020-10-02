@@ -147,10 +147,10 @@ public class EcrackSetupApplicationTests {
 		quizTest.setIsScheduled("");
 		quizTest.setNegativeMark("");
 		quizTest.setScheduledDateTime("");
-		quizTest.setTestId("1");
+		quizTest.setTestId(1);
 		quizTest.setTestName("");
-		quizTest.setTotalMark("");
-		quizTest.setTotalQuestion("");
+		quizTest.setTotalMark(100);
+		quizTest.setTotalQuestion(50);
 
 		quizTestList.add(quizTest);
 		int gradeId=1;
