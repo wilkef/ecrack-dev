@@ -36,6 +36,7 @@ import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 /**
  * The Class ValidationController.
  */
+
 @RestController
 @RequestMapping("/user")
 public class ValidationController {

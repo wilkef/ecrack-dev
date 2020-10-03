@@ -1,6 +1,5 @@
 package com.wilkef.ecrack.setup;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -19,13 +18,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.wilkef.ecrack.setup.constant.UnAutherziedApiConstant;
 import com.wilkef.ecrack.setup.util.AuthorizationFilter;
 
 @SpringBootApplication
@@ -46,7 +45,7 @@ public class EcrackSetupApplication {
 	private String appDataSourceDriverClassName;
 
 	public static void main(String[] args) {
-		
+
 		SpringApplication.run(EcrackSetupApplication.class, args);
 		try {
 			LogManager.getLogManager().readConfiguration();
@@ -54,7 +53,7 @@ public class EcrackSetupApplication {
 			LOG.addHandler(new ConsoleHandler());
 		} catch (SecurityException | IOException e) {
 			LOG.log(Level.WARNING, "Interrupted!", e);
-			    Thread.currentThread().interrupt();
+			Thread.currentThread().interrupt();
 		}
 		LOG.info("Ecrack Application Started");
 	}
@@ -70,7 +69,6 @@ public class EcrackSetupApplication {
 		dataSource.setMaxIdle(10);
 		dataSource.setInitialSize(50);
 		return dataSource;
-
 	}
 
 	@Bean
@@ -86,10 +84,8 @@ public class EcrackSetupApplication {
 		propConfig.setLocations(resources);
 		propConfig.setIgnoreUnresolvablePlaceholders(true);
 		return propConfig;
-
 	}
-	
-	
+
 	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -97,13 +93,13 @@ public class EcrackSetupApplication {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
-				.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/getAuthToken")
-				.permitAll()
-				.anyRequest().authenticated();
+			.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+			.authorizeRequests()
+			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,"/getAuthToken",UnAutherziedApiConstant.GET_BOARD,
+					UnAutherziedApiConstant.GET_VALIDMAILID,UnAutherziedApiConstant.GET_VALIDATELOGIN,UnAutherziedApiConstant.GET_VERIFYOTP,
+					UnAutherziedApiConstant.GET_VALIDMOBILENO,UnAutherziedApiConstant.GET_SENDOTP,UnAutherziedApiConstant.GET_FORGOTPWD)
+			.permitAll()
+			.anyRequest().authenticated();
 		}
 	}
-
-
 }

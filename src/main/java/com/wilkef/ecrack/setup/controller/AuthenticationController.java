@@ -39,13 +39,11 @@ public class AuthenticationController {
 	 */
 	@PostMapping("/getAuthToken")
 	public AuthDataDTO login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-		
 		String token = getJWTToken(username);
 		AuthDataDTO user = new AuthDataDTO();
 		user.setUser(username);
 		user.setToken(token);		
 		return user;
-		
 	}
 
 	/**
@@ -68,10 +66,10 @@ public class AuthenticationController {
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.setExpiration(new Date(System.currentTimeMillis() + 43200000))
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
-
+		
 		return "Bearer " + token;
 	}
 }

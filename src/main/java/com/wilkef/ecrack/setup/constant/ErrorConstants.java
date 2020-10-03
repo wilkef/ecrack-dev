@@ -26,5 +26,7 @@ public class ErrorConstants {
 	public static final String PROMPT_VALID_PASSWORD="Please Enter NewPassword and ConformPassword Both are Same";
 	
 	public static final String OTP_ERROR="something wrong while sending OTP";
+	
+	public static final String BOARD_STATUS ="Board is Not There in DB ";
 
 }

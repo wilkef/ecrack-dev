@@ -50,6 +50,8 @@ public final class WilkefConstants {
 	
 	public static final String PRACTICE_TEST_INFO = "spGetPracticeTestInfo";
 	
+	public static final String BOARD_INFO = "spGetBoard";
+	
 	/** The Constant VALIDATE_EMAIL. */
 	public static final String VALIDATE_EMAIL="spValidateEmailId";
 	

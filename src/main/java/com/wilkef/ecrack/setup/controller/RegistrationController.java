@@ -64,14 +64,20 @@ public class RegistrationController {
 			
 			String fname = (String) obj.get("FirstName");
 			String strGender = (String)obj.get("Gender");
-
-			if (!fname.equals("")) {
-				if (!strGender.equals("")) {
-					boolean name = Pattern.compile("[A-Za-z]{2,15}").matcher(fname).matches();
+			String mobile = (String)obj.get("MobileNumber");
+			
+			if (!fname.equals("") && !fname.isEmpty()) {
+				if (!strGender.equals("") && !strGender.isEmpty()) {
+					boolean name = Pattern.compile("[A-Za-z]*").matcher(fname).matches();
 					boolean gender = Pattern.compile("[A-Za-z]{2,6}").matcher(strGender).matches();
+					boolean mobileNo = Pattern.compile("\\d{10}").matcher(mobile).matches();
+					
 					if (name) {
 						if (gender) {
-							save = registerationService.save(obj);
+							if (mobileNo) {
+								save = registerationService.save(obj);
+							}else
+								throw new CustomException("Please Enter a Valid Mobile No.");
 						}else
 							throw new CustomException("Please Enter a Valid Gender");
 					}else
