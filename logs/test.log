@@ -1,4 +1,4 @@
-2020-10-02 18:39:39.962  INFO 1272 --- [main] o.s.boot.SpringApplication               : 
+2020-10-03 13:54:00.626  INFO 10432 --- [main] o.s.boot.SpringApplication               : 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -8,32 +8,7 @@
 [32m :: Spring Boot :: [39m     [2m (v2.1.13.RELEASE)[0;39m
 
 
-2020-10-02 18:39:40.741  INFO 1272 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 1272 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
-2020-10-02 18:39:40.743  INFO 1272 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
-2020-10-02 18:39:54.380  INFO 1272 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
-2020-10-02 18:39:54.622  INFO 1272 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-10-02 18:39:54.623  INFO 1272 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2020-10-02 18:39:55.528  INFO 1272 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
-2020-10-02 18:39:55.530  INFO 1272 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 14433 ms
-2020-10-02 18:39:59.580  INFO 1272 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 567ed73c-503a-4e3b-8309-2f33af3fd263
-
-2020-10-02 18:40:00.613  INFO 1272 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@646427f7, org.springframework.security.web.context.SecurityContextPersistenceFilter@110e9982, org.springframework.security.web.header.HeaderWriterFilter@4fa86cb8, org.springframework.security.web.authentication.logout.LogoutFilter@5fffb692, com.wilkef.ecrack.setup.util.AuthorizationFilter@31efacad, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5eb0a686, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5a1dddba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@380ce5a3, org.springframework.security.web.session.SessionManagementFilter@6c3f1658, org.springframework.security.web.access.ExceptionTranslationFilter@cbd40c1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4844930a]
-2020-10-02 18:40:00.748  INFO 1272 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2020-10-02 18:40:01.380  INFO 1272 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-10-02 18:40:02.316  INFO 1272 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-10-02 18:40:02.495  INFO 1272 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-10-02 18:40:02.723  INFO 1272 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-10-02 18:40:03.491  INFO 1272 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
-2020-10-02 18:40:03.498  INFO 1272 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
-2020-10-02 18:40:03.756  INFO 1272 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
-2020-10-02 18:40:03.770  INFO 1272 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 26.232 seconds (JVM running for 33.341)
-2020-10-02 18:42:21.311  INFO 1272 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-10-02 18:42:21.371  INFO 1272 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 51 ms
-2020-10-02 19:17:14.415  INFO 1272 --- [RMI TCP Connection(5)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-10-02 19:17:19.485  INFO 1272 --- [RMI TCP Connection(5)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:18:03.567  INFO 8332 --- [main] o.s.boot.SpringApplication               : 
+2020-10-03 13:54:00.623  INFO 7108 --- [main] o.s.boot.SpringApplication               : 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -43,32 +18,100 @@ Using generated security password: 567ed73c-503a-4e3b-8309-2f33af3fd263
 [32m :: Spring Boot :: [39m     [2m (v2.1.13.RELEASE)[0;39m
 
 
-2020-10-02 19:18:06.012  INFO 8332 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 8332 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
-2020-10-02 19:18:06.013  INFO 8332 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
-2020-10-02 19:18:32.745  INFO 8332 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
-2020-10-02 19:18:33.070  INFO 8332 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-10-02 19:18:33.071  INFO 8332 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2020-10-02 19:18:34.598  INFO 8332 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
-2020-10-02 19:18:34.599  INFO 8332 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 27921 ms
-2020-10-02 19:18:40.797  INFO 8332 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+2020-10-03 13:54:02.305  INFO 7108 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 7108 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
+2020-10-03 13:54:02.305  INFO 10432 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 10432 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
+2020-10-03 13:54:02.307  INFO 7108 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
+2020-10-03 13:54:02.307  INFO 10432 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
+2020-10-03 13:54:24.483  INFO 7108 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
+2020-10-03 13:54:24.483  INFO 10432 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
+2020-10-03 13:54:24.807  INFO 10432 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-10-03 13:54:24.808  INFO 10432 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-10-03 13:54:24.815  INFO 7108 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-10-03 13:54:24.816  INFO 7108 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-10-03 13:54:25.732  INFO 10432 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
+2020-10-03 13:54:25.733  INFO 10432 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 22718 ms
+2020-10-03 13:54:25.733  INFO 7108 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
+2020-10-03 13:54:25.734  INFO 7108 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 22740 ms
+2020-10-03 13:54:30.105  INFO 7108 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: ebe8efcd-bde8-4675-a3c1-3e91c55eb46e
+Using generated security password: b9080464-d75a-4005-ab98-9b3875f2c61a
 
-2020-10-02 19:18:43.271  INFO 8332 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@21edd891, org.springframework.security.web.context.SecurityContextPersistenceFilter@58a765ce, org.springframework.security.web.header.HeaderWriterFilter@5ec6fede, org.springframework.security.web.authentication.logout.LogoutFilter@764a3e5d, com.wilkef.ecrack.setup.util.AuthorizationFilter@de579ff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a642e4b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@269222ae, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7971c2a9, org.springframework.security.web.session.SessionManagementFilter@361cd35c, org.springframework.security.web.access.ExceptionTranslationFilter@437c4b25, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4a216eb4]
-2020-10-02 19:18:43.531  INFO 8332 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2020-10-02 19:18:44.260  INFO 8332 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:18:46.222  INFO 8332 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-10-02 19:18:46.522  INFO 8332 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-10-02 19:18:46.948  INFO 8332 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-10-02 19:18:48.575  INFO 8332 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
-2020-10-02 19:18:48.581  INFO 8332 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
-2020-10-02 19:18:49.797  INFO 8332 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
-2020-10-02 19:18:49.877  INFO 8332 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 48.118 seconds (JVM running for 52.151)
-2020-10-02 19:19:07.443  INFO 8332 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-10-02 19:19:07.474  INFO 8332 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 30 ms
-2020-10-02 19:26:12.853  INFO 8332 --- [RMI TCP Connection(4)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-10-02 19:26:12.879  INFO 8332 --- [RMI TCP Connection(4)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:26:39.602  INFO 2076 --- [main] o.s.boot.SpringApplication               : 
+2020-10-03 13:54:30.107  INFO 10432 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: cb642152-1c78-4001-9beb-719bea44cfa4
+
+2020-10-03 13:54:31.250  INFO 7108 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@aaa0f76, org.springframework.security.web.context.SecurityContextPersistenceFilter@6edf29c1, org.springframework.security.web.header.HeaderWriterFilter@68868328, org.springframework.security.web.authentication.logout.LogoutFilter@74e6094b, com.wilkef.ecrack.setup.util.AuthorizationFilter@340a8894, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@66b59b7d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31c628e7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a8b9166, org.springframework.security.web.session.SessionManagementFilter@7c8c70d6, org.springframework.security.web.access.ExceptionTranslationFilter@29149030, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2b960a7]
+2020-10-03 13:54:31.251  INFO 10432 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2da3b078, org.springframework.security.web.context.SecurityContextPersistenceFilter@7ab34619, org.springframework.security.web.header.HeaderWriterFilter@10f7918f, org.springframework.security.web.authentication.logout.LogoutFilter@79a04e5f, com.wilkef.ecrack.setup.util.AuthorizationFilter@544e8149, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@363c4251, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@38b8b6c0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7fb66650, org.springframework.security.web.session.SessionManagementFilter@1f346ad2, org.springframework.security.web.access.ExceptionTranslationFilter@2bc378f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f254608]
+2020-10-03 13:54:31.374  INFO 10432 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-10-03 13:54:31.381  INFO 7108 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-10-03 13:54:32.468  INFO 7108 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:54:32.481  INFO 10432 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:54:33.718  INFO 7108 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-10-03 13:54:33.719  INFO 10432 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-10-03 13:54:33.817  INFO 10432 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-10-03 13:54:33.829  INFO 7108 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-10-03 13:54:34.023  INFO 10432 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-10-03 13:54:34.031  INFO 7108 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-10-03 13:54:34.901  INFO 7108 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
+2020-10-03 13:54:34.898  INFO 10432 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
+2020-10-03 13:54:34.909  INFO 7108 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
+2020-10-03 13:54:34.911  INFO 10432 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
+2020-10-03 13:54:35.370 ERROR 7108 --- [main] org.apache.catalina.util.LifecycleBase   : Failed to start component [Connector[HTTP/1.1-9898]]
+
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1038) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227) [tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:297) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:163) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552) [spring-context-5.1.14.RELEASE.jar:5.1.14.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204) [spring-boot-2.1.13.RELEASE.jar:2.1.13.RELEASE]
+	at com.wilkef.ecrack.setup.EcrackSetupApplication.main(EcrackSetupApplication.java:49) [classes/:na]
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method) ~[na:1.8.0_131]
+	at sun.nio.ch.Net.bind(Net.java:433) ~[na:1.8.0_131]
+	at sun.nio.ch.Net.bind(Net.java:425) ~[na:1.8.0_131]
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223) ~[na:1.8.0_131]
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74) ~[na:1.8.0_131]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:229) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:212) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1141) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1227) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:592) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1035) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
+	... 14 common frames omitted
+
+2020-10-03 13:54:35.407  INFO 7108 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-10-03 13:54:35.415  INFO 10432 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
+2020-10-03 13:54:35.428  INFO 10432 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 39.071 seconds (JVM running for 48.489)
+2020-10-03 13:54:35.498  INFO 7108 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-10-03 13:54:35.514 ERROR 7108 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 9898 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 9898, or configure this application to listen on another port.
+
+2020-10-03 13:54:35.542  INFO 7108 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:54:42.770  INFO 10432 --- [RMI TCP Connection(3)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-10-03 13:54:42.781  INFO 10432 --- [RMI TCP Connection(3)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:55:01.512  INFO 10148 --- [main] o.s.boot.SpringApplication               : 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -78,32 +121,32 @@ Using generated security password: ebe8efcd-bde8-4675-a3c1-3e91c55eb46e
 [32m :: Spring Boot :: [39m     [2m (v2.1.13.RELEASE)[0;39m
 
 
-2020-10-02 19:26:39.914  INFO 2076 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 2076 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
-2020-10-02 19:26:39.917  INFO 2076 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
-2020-10-02 19:26:46.052  INFO 2076 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
-2020-10-02 19:26:46.170  INFO 2076 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-10-02 19:26:46.171  INFO 2076 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2020-10-02 19:26:46.627  INFO 2076 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
-2020-10-02 19:26:46.628  INFO 2076 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6551 ms
-2020-10-02 19:26:49.228  INFO 2076 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+2020-10-03 13:55:01.780  INFO 10148 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 10148 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
+2020-10-03 13:55:01.786  INFO 10148 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
+2020-10-03 13:55:09.797  INFO 10148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
+2020-10-03 13:55:09.986  INFO 10148 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-10-03 13:55:09.987  INFO 10148 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-10-03 13:55:10.778  INFO 10148 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
+2020-10-03 13:55:10.780  INFO 10148 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 8778 ms
+2020-10-03 13:55:14.287  INFO 10148 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 3ad83388-b5ab-4e48-ad1e-24dda1641ae4
+Using generated security password: 07922bdc-b087-4ec8-9397-207c413c592d
 
-2020-10-02 19:26:49.814  INFO 2076 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@33e0c716, org.springframework.security.web.context.SecurityContextPersistenceFilter@377949f1, org.springframework.security.web.header.HeaderWriterFilter@4f363abd, org.springframework.security.web.authentication.logout.LogoutFilter@798cb6d9, com.wilkef.ecrack.setup.util.AuthorizationFilter@1d6a8386, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@9df564f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@622d7e4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6274f21c, org.springframework.security.web.session.SessionManagementFilter@2f995afc, org.springframework.security.web.access.ExceptionTranslationFilter@3fdcde7a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5234b61a]
-2020-10-02 19:26:49.900  INFO 2076 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2020-10-02 19:26:50.428  INFO 2076 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:26:51.142  INFO 2076 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-10-02 19:26:51.221  INFO 2076 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-10-02 19:26:51.371  INFO 2076 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-10-02 19:26:51.950  INFO 2076 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
-2020-10-02 19:26:51.958  INFO 2076 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
-2020-10-02 19:26:52.292  INFO 2076 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
-2020-10-02 19:26:52.306  INFO 2076 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 13.949 seconds (JVM running for 17.15)
-2020-10-02 19:27:00.640  INFO 2076 --- [http-nio-9898-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-10-02 19:27:00.671  INFO 2076 --- [http-nio-9898-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 30 ms
-2020-10-02 19:33:14.898  INFO 2076 --- [RMI TCP Connection(5)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-10-02 19:33:15.095  INFO 2076 --- [RMI TCP Connection(5)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:33:51.368  INFO 7752 --- [main] o.s.boot.SpringApplication               : 
+2020-10-03 13:55:14.661  INFO 10148 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@26d41711, org.springframework.security.web.context.SecurityContextPersistenceFilter@68868328, org.springframework.security.web.header.HeaderWriterFilter@7ab34619, org.springframework.security.web.authentication.logout.LogoutFilter@58434b19, com.wilkef.ecrack.setup.util.AuthorizationFilter@298f0a0b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a22e0ef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1ab5f08a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2b960a7, org.springframework.security.web.session.SessionManagementFilter@29149030, org.springframework.security.web.access.ExceptionTranslationFilter@1f346ad2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7fb66650]
+2020-10-03 13:55:15.047  INFO 10148 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-10-03 13:55:15.869  INFO 10148 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:55:16.644  INFO 10148 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-10-03 13:55:16.749  INFO 10148 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-10-03 13:55:16.930  INFO 10148 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-10-03 13:55:17.614  INFO 10148 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
+2020-10-03 13:55:17.625  INFO 10148 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
+2020-10-03 13:55:18.126  INFO 10148 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
+2020-10-03 13:55:18.175  INFO 10148 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 17.766 seconds (JVM running for 20.864)
+2020-10-03 13:56:02.518  INFO 10148 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-10-03 13:56:02.545  INFO 10148 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 25 ms
+2020-10-03 13:58:01.652  INFO 10148 --- [RMI TCP Connection(3)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-10-03 13:58:01.720  INFO 10148 --- [RMI TCP Connection(3)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:58:35.945  INFO 7200 --- [main] o.s.boot.SpringApplication               : 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -113,32 +156,32 @@ Using generated security password: 3ad83388-b5ab-4e48-ad1e-24dda1641ae4
 [32m :: Spring Boot :: [39m     [2m (v2.1.13.RELEASE)[0;39m
 
 
-2020-10-02 19:33:51.885  INFO 7752 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 7752 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
-2020-10-02 19:33:51.888  INFO 7752 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
-2020-10-02 19:34:08.372  INFO 7752 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
-2020-10-02 19:34:09.069  INFO 7752 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-10-02 19:34:09.070  INFO 7752 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2020-10-02 19:34:11.588  INFO 7752 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
-2020-10-02 19:34:11.589  INFO 7752 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 19385 ms
-2020-10-02 19:34:16.551  INFO 7752 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+2020-10-03 13:58:36.157  INFO 7200 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 7200 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
+2020-10-03 13:58:36.158  INFO 7200 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
+2020-10-03 13:58:40.738  INFO 7200 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
+2020-10-03 13:58:40.867  INFO 7200 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-10-03 13:58:40.868  INFO 7200 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-10-03 13:58:41.268  INFO 7200 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
+2020-10-03 13:58:41.269  INFO 7200 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4995 ms
+2020-10-03 13:58:43.311  INFO 7200 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 6b441923-433b-41b6-a5f1-e020e87bdb28
+Using generated security password: 827a0c13-3e92-4674-a147-5d10acdb04e6
 
-2020-10-02 19:34:17.539  INFO 7752 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5aa76ad2, org.springframework.security.web.context.SecurityContextPersistenceFilter@7c7e73c5, org.springframework.security.web.header.HeaderWriterFilter@6a98f353, org.springframework.security.web.authentication.logout.LogoutFilter@5d71b500, com.wilkef.ecrack.setup.util.AuthorizationFilter@590d6c76, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@13cc0b90, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@691541bc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25791d40, org.springframework.security.web.session.SessionManagementFilter@5d9618f2, org.springframework.security.web.access.ExceptionTranslationFilter@209f3887, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@79ecc507]
-2020-10-02 19:34:17.689  INFO 7752 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2020-10-02 19:34:18.482  INFO 7752 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:34:19.927  INFO 7752 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-10-02 19:34:20.188  INFO 7752 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-10-02 19:34:20.533  INFO 7752 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-10-02 19:34:21.709  INFO 7752 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
-2020-10-02 19:34:21.760  INFO 7752 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
-2020-10-02 19:34:22.552  INFO 7752 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
-2020-10-02 19:34:22.571  INFO 7752 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 33.027 seconds (JVM running for 38.204)
-2020-10-02 19:34:28.581  INFO 7752 --- [http-nio-9898-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-10-02 19:34:28.642  INFO 7752 --- [http-nio-9898-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 60 ms
-2020-10-02 19:44:28.691  INFO 7752 --- [RMI TCP Connection(6)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-10-02 19:44:28.786  INFO 7752 --- [RMI TCP Connection(6)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:46:47.612  INFO 2456 --- [main] o.s.boot.SpringApplication               : 
+2020-10-03 13:58:43.806  INFO 7200 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d5c2745, org.springframework.security.web.context.SecurityContextPersistenceFilter@1e1e9ef3, org.springframework.security.web.header.HeaderWriterFilter@623ebac7, org.springframework.security.web.authentication.logout.LogoutFilter@648d0e6d, com.wilkef.ecrack.setup.util.AuthorizationFilter@44b29496, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31c628e7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d3ef181, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1947596f, org.springframework.security.web.session.SessionManagementFilter@2e645fbd, org.springframework.security.web.access.ExceptionTranslationFilter@1f9f381d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3650d4fc]
+2020-10-03 13:58:43.882  INFO 7200 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-10-03 13:58:44.281  INFO 7200 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-10-03 13:58:44.814  INFO 7200 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-10-03 13:58:44.894  INFO 7200 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-10-03 13:58:44.996  INFO 7200 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-10-03 13:58:45.428  INFO 7200 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
+2020-10-03 13:58:45.434  INFO 7200 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
+2020-10-03 13:58:45.653  INFO 7200 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
+2020-10-03 13:58:45.663  INFO 7200 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 10.641 seconds (JVM running for 13.196)
+2020-10-03 13:59:03.137  INFO 7200 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-10-03 13:59:03.158  INFO 7200 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 20 ms
+2020-10-03 14:06:06.295  INFO 7200 --- [RMI TCP Connection(4)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-10-03 14:06:27.826  INFO 7200 --- [RMI TCP Connection(4)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-10-03 14:21:29.828  INFO 6276 --- [main] o.s.boot.SpringApplication               : 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -148,61 +191,24 @@ Using generated security password: 6b441923-433b-41b6-a5f1-e020e87bdb28
 [32m :: Spring Boot :: [39m     [2m (v2.1.13.RELEASE)[0;39m
 
 
-2020-10-02 19:46:47.969  INFO 2456 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 2456 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
-2020-10-02 19:46:47.970  INFO 2456 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
-2020-10-02 19:46:56.557  INFO 2456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
-2020-10-02 19:46:56.696  INFO 2456 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-10-02 19:46:56.697  INFO 2456 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2020-10-02 19:46:57.244  INFO 2456 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
-2020-10-02 19:46:57.264  INFO 2456 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9045 ms
-2020-10-02 19:47:00.133  INFO 2456 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+2020-10-03 14:21:30.137  INFO 6276 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 6276 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
+2020-10-03 14:21:30.142  INFO 6276 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
+2020-10-03 14:21:41.820  INFO 6276 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
+2020-10-03 14:21:42.082  INFO 6276 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-10-03 14:21:42.084  INFO 6276 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2020-10-03 14:21:44.772  INFO 6276 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
+2020-10-03 14:21:44.774  INFO 6276 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 14498 ms
+2020-10-03 14:21:48.531  INFO 6276 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 039b7877-fcd5-4762-a46c-901f9be560fa
+Using generated security password: ca3f4100-c9e4-4287-bded-f63867f8fe0e
 
-2020-10-02 19:47:00.767  INFO 2456 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@443a53df, org.springframework.security.web.context.SecurityContextPersistenceFilter@489bc8fd, org.springframework.security.web.header.HeaderWriterFilter@415d88de, org.springframework.security.web.authentication.logout.LogoutFilter@c1e14f, com.wilkef.ecrack.setup.util.AuthorizationFilter@6c33da7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ac53c06, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3c25cfe1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@69aabcb0, org.springframework.security.web.session.SessionManagementFilter@4c531172, org.springframework.security.web.access.ExceptionTranslationFilter@124d26ba, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3b9ac754]
-2020-10-02 19:47:00.856  INFO 2456 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2020-10-02 19:47:01.472  INFO 2456 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:47:02.282  INFO 2456 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-10-02 19:47:02.381  INFO 2456 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-10-02 19:47:02.550  INFO 2456 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-10-02 19:47:03.160  INFO 2456 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
-2020-10-02 19:47:03.168  INFO 2456 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
-2020-10-02 19:47:03.486  INFO 2456 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
-2020-10-02 19:47:03.500  INFO 2456 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 17.412 seconds (JVM running for 21.444)
-2020-10-02 19:47:11.007  INFO 2456 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-10-02 19:47:11.049  INFO 2456 --- [http-nio-9898-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 41 ms
-2020-10-02 19:52:24.311  INFO 2456 --- [RMI TCP Connection(5)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2020-10-02 19:52:24.339  INFO 2456 --- [RMI TCP Connection(5)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:52:45.059  INFO 10256 --- [main] o.s.boot.SpringApplication               : 
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-[32m :: Spring Boot :: [39m     [2m (v2.1.13.RELEASE)[0;39m
-
-
-2020-10-02 19:52:45.377  INFO 10256 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Starting EcrackSetupApplication on SAT32 with PID 10256 (C:\Users\Satya\Desktop\E-Creack\ecrack-dev\target\classes started by Satya in C:\Users\Satya\Desktop\E-Creack\ecrack-dev)
-2020-10-02 19:52:45.379  INFO 10256 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : No active profile set, falling back to default profiles: default
-2020-10-02 19:52:51.308  INFO 10256 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9898 (http)
-2020-10-02 19:52:51.485  INFO 10256 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-10-02 19:52:51.486  INFO 10256 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2020-10-02 19:52:51.978  INFO 10256 --- [main] o.a.c.c.C.[.[.[/api.ecrack/api]          : Initializing Spring embedded WebApplicationContext
-2020-10-02 19:52:51.979  INFO 10256 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6433 ms
-2020-10-02 19:52:54.864  INFO 10256 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
-
-Using generated security password: 3abeab33-aa0a-476d-9c67-e4a92a5319ad
-
-2020-10-02 19:52:55.609  INFO 10256 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@d5e575c, org.springframework.security.web.context.SecurityContextPersistenceFilter@14b31e37, org.springframework.security.web.header.HeaderWriterFilter@2ee39e73, org.springframework.security.web.authentication.logout.LogoutFilter@552fee7a, com.wilkef.ecrack.setup.util.AuthorizationFilter@7742a45c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1142d377, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@48cb2d73, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7ca492d9, org.springframework.security.web.session.SessionManagementFilter@4cffd3fd, org.springframework.security.web.access.ExceptionTranslationFilter@59018eed, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3c88191b]
-2020-10-02 19:52:55.711  INFO 10256 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
-2020-10-02 19:52:56.365  INFO 10256 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-10-02 19:52:57.282  INFO 10256 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2020-10-02 19:52:57.394  INFO 10256 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2020-10-02 19:52:57.553  INFO 10256 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2020-10-02 19:52:58.297  INFO 10256 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
-2020-10-02 19:52:58.305  INFO 10256 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
-2020-10-02 19:52:58.734  INFO 10256 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
-2020-10-02 19:52:58.750  INFO 10256 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 14.941 seconds (JVM running for 18.094)
-2020-10-02 19:53:06.404  INFO 10256 --- [http-nio-9898-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-10-02 19:53:06.447  INFO 10256 --- [http-nio-9898-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 42 ms
+2020-10-03 14:21:49.054  INFO 6276 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@33063f5b, org.springframework.security.web.context.SecurityContextPersistenceFilter@2d64160c, org.springframework.security.web.header.HeaderWriterFilter@7b122839, org.springframework.security.web.authentication.logout.LogoutFilter@2b960a7, com.wilkef.ecrack.setup.util.AuthorizationFilter@15405bd6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2eeb0f9b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2da3b078, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@352ed70d, org.springframework.security.web.session.SessionManagementFilter@6cd3ad8a, org.springframework.security.web.access.ExceptionTranslationFilter@512d6e60, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2e869098]
+2020-10-03 14:21:49.461  INFO 6276 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-10-03 14:21:50.058  INFO 6276 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-10-03 14:21:50.832  INFO 6276 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-10-03 14:21:50.916  INFO 6276 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-10-03 14:21:51.108  INFO 6276 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-10-03 14:21:51.722  INFO 6276 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findByGradeIdUsingGET_1
+2020-10-03 14:21:51.729  INFO 6276 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: findAllTestTypeListUsingGET_1
+2020-10-03 14:21:52.134  INFO 6276 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9898 (http) with context path '/api.ecrack/api'
+2020-10-03 14:21:52.149  INFO 6276 --- [main] c.w.ecrack.setup.EcrackSetupApplication  : Started EcrackSetupApplication in 23.275 seconds (JVM running for 26.886)
