@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -95,10 +96,13 @@ public class EcrackSetupApplication {
 			http.csrf().disable()
 			.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,"/getAuthToken",UnAutherziedApiConstant.GET_BOARD,
+			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,UnAutherziedApiConstant.GET_BOARD,
 					UnAutherziedApiConstant.GET_VALIDMAILID,UnAutherziedApiConstant.GET_VALIDATELOGIN,UnAutherziedApiConstant.GET_VERIFYOTP,
-					UnAutherziedApiConstant.GET_VALIDMOBILENO,UnAutherziedApiConstant.GET_SENDOTP,UnAutherziedApiConstant.GET_FORGOTPWD)
+					UnAutherziedApiConstant.GET_VALIDMOBILENO,UnAutherziedApiConstant.GET_SENDOTP,UnAutherziedApiConstant.GET_FORGOTPWD, UnAutherziedApiConstant.GET_GRADE_INFO)
 			.permitAll()
+			.antMatchers("/swagger-ui.html").permitAll()
+			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
+			.antMatchers("/webjars/**").permitAll()
 			.anyRequest().authenticated();
 		}
 	}

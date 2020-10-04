@@ -30,4 +30,6 @@ public class UnAutherziedApiConstant {
 	public static final String GET_SENDOTP = "/user/SendOTP/{mobileNo}";
 
 	public static final String GET_FORGOTPWD = "/user/forgotPassword";
+	
+	public static final String GET_GRADE_INFO = "/grade/gradeInfo/{boardId}";
 }
