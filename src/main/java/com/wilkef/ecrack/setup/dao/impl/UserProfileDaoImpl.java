@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -50,12 +51,12 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	 * @return the list
 	 */
 	@Override
-	public List<UserProfileDTO> updateProfile(@Valid String input, @Valid Long userId) {
+	public List<UserProfileDTO> updateProfile(@Valid String input) {
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
 		UserProfileDTO dto=new UserProfileDTO();
 		try {
-			
-			SqlParameterSource in = new MapSqlParameterSource().addValue("p_profile_data", input).addValue("p_user_id", userId);
+			JSONObject object =new JSONObject(input);
+			SqlParameterSource in = new MapSqlParameterSource().addValue("p_profile_data", input).addValue("p_user_id", object.getLong("userId"));
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.UPDATE_PROFILE);
 			Map<String, Object> execute = simpleJdbcCall.execute(in);

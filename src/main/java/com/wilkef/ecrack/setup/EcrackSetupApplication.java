@@ -21,9 +21,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.wilkef.ecrack.setup.constant.UnAutherziedApiConstant;
 import com.wilkef.ecrack.setup.util.AuthorizationFilter;
@@ -73,6 +76,16 @@ public class EcrackSetupApplication {
 	}
 
 	@Bean
+	public WebMvcConfigurer configure() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/*").allowedOrigins("*");
+			}
+		};
+	}
+
+	@Bean
 	@Qualifier("appJdbcTemplate")
 	JdbcTemplate customerJdbcTempalte(@Qualifier("appDatasource") DataSource appDatasource) {
 		return new JdbcTemplate(appDatasource);
@@ -87,6 +100,9 @@ public class EcrackSetupApplication {
 		return propConfig;
 	}
 
+
+
+
 	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -97,14 +113,25 @@ public class EcrackSetupApplication {
 			.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
 			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,UnAutherziedApiConstant.GET_BOARD,
-					UnAutherziedApiConstant.GET_VALIDMAILID,UnAutherziedApiConstant.GET_VALIDATELOGIN,UnAutherziedApiConstant.GET_VERIFYOTP,
-					UnAutherziedApiConstant.GET_VALIDMOBILENO,UnAutherziedApiConstant.GET_SENDOTP,
-					UnAutherziedApiConstant.GET_FORGOTPWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
+					UnAutherziedApiConstant.GET_VALID_EMAIL_ID,UnAutherziedApiConstant.GET_VALIDATE_LOGIN,UnAutherziedApiConstant.GET_VERIFY_OTP,
+					UnAutherziedApiConstant.GET_VALIDMOBILE_NO,UnAutherziedApiConstant.GET_SEND_OTP,
+					UnAutherziedApiConstant.GET_FORGOT_PWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
 			.permitAll()
-			.antMatchers("/swagger-ui.html").permitAll()
+			//.antMatchers("/swagger-ui.html").permitAll()
 			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
-			.antMatchers("/webjars/**").permitAll()
+			//.antMatchers("/webjars/**").permitAll()
 			.anyRequest().authenticated();
+		}
+
+		@Override
+		public void configure(WebSecurity web) throws Exception {
+			
+			 web.ignoring().antMatchers("/v2/api-docs",
+					"/configuration/ui",
+					"/swagger-resources/**",
+					"/configuration/security",
+					"/swagger-ui.html",
+					"/webjars/**");
 		}
 	}
 }

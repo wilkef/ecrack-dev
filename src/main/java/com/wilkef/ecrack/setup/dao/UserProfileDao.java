@@ -18,7 +18,7 @@ public interface UserProfileDao {
 	 * @param userId the user id
 	 * @return the list
 	 */
-	List<UserProfileDTO> updateProfile(@Valid String input, @Valid Long userId);
+	List<UserProfileDTO> updateProfile(@Valid String input);
 
 	/**
 	 * View profile.

@@ -59,14 +59,15 @@ public class UserProfileController {
 	 * @param userId the user id
 	 * @return the response entity
 	 */
-	@PutMapping(value = "/updateProfile/{userId}")
-	public ResponseEntity<Object> updateProfile(@RequestBody String input,@Valid @PathVariable Long userId){
+	
+	@PutMapping(value = "/updateProfile")
+	public ResponseEntity<Object> updateProfile(@Valid @RequestBody String input){
 		LOG.info("START-Inside updateProfile");
-		LOG.log(Level.INFO, () -> " updateProfile Inputs: " + input+ "User"+userId); 
+		LOG.log(Level.INFO, () -> " updateProfile Inputs: " + input); 
 		ResponseEntity<Object> response=null;
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
 		try {
-			userProfileDTOList = userProfileDao.updateProfile(input,userId);
+			userProfileDTOList = userProfileDao.updateProfile(input);
 			if(userProfileDTOList.get(0).getUpdateCount().equals(1)) {
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(serviceOutput.responseOutput("isSuccess", true));

@@ -10,8 +10,6 @@ package com.wilkef.ecrack.setup.dao;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Repository;
 
 import com.wilkef.ecrack.setup.dto.ValidationDTO;

@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 import javax.validation.Valid;
 
 import org.json.JSONObject;
-import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -39,7 +39,6 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
-import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 
 
 /**
@@ -206,7 +205,7 @@ public class ValidationDaoImpl implements ValidationDao{
 		List<ValidationDTO> validList=new ArrayList<>();
 		try {
 			JSONObject obj=new JSONObject(input);
-			SqlParameterSource in = new MapSqlParameterSource().addValue("p_userName",obj.get ("user")).
+			SqlParameterSource in = new MapSqlParameterSource().addValue("p_userName",obj.get("user")).
 					addValue("p_password",obj.get("password"));
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.VALIDATE_LOGIN)

@@ -146,11 +146,10 @@ public class UserTestCase {
 
 		userProfileList.add(userProfile);
 
-		String emailId= "satya.patra@wilkef.com";
-		Long userName = 7008508931l;
+		String input= "satya.patra@wilkef.com";
 
-		Mockito.when(userProfileDao.updateProfile(emailId, userName)).thenReturn(userProfileList);
-		assertEquals(200, ((ResponseEntity<Object>)userProfileController.updateProfile(emailId, userName)).getStatusCodeValue());
+		Mockito.when(userProfileDao.updateProfile(input)).thenReturn(userProfileList);
+		assertEquals(200, ((ResponseEntity<Object>)userProfileController.updateProfile(input)).getStatusCodeValue());
 
 	}
 
