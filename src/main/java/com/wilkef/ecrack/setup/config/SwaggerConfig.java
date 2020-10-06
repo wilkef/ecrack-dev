@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -28,7 +29,8 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2) 
 				.select()
 				.apis(RequestHandlerSelectors
-						.basePackage("com.wilkef.ecrack.setup.controller")) 
+						.any()) 
+				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(apiInfo());
 	}
@@ -36,9 +38,9 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Wilkef Application", "SAMPLE APP", "3.2GA", 
 				"https://wilkef.com/",
-				new Contact("WILKEF", "https://www.facebook.com/wilkef.com/",
+				new Contact("WILKEF", "https://www.wilkef.com/",
 						"wilkef.com"),
-				"Wilkef Licence", "https://wilkef.com/", 
+				"Wilkef Licence", "https://www.wilkef.com/",
 				new ArrayList<VendorExtension>());
 	}
 }

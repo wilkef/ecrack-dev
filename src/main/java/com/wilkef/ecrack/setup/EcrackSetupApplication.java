@@ -98,7 +98,8 @@ public class EcrackSetupApplication {
 			.authorizeRequests()
 			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,UnAutherziedApiConstant.GET_BOARD,
 					UnAutherziedApiConstant.GET_VALIDMAILID,UnAutherziedApiConstant.GET_VALIDATELOGIN,UnAutherziedApiConstant.GET_VERIFYOTP,
-					UnAutherziedApiConstant.GET_VALIDMOBILENO,UnAutherziedApiConstant.GET_SENDOTP,UnAutherziedApiConstant.GET_FORGOTPWD, UnAutherziedApiConstant.GET_GRADE_INFO)
+					UnAutherziedApiConstant.GET_VALIDMOBILENO,UnAutherziedApiConstant.GET_SENDOTP,
+					UnAutherziedApiConstant.GET_FORGOTPWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
 			.permitAll()
 			.antMatchers("/swagger-ui.html").permitAll()
 			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
