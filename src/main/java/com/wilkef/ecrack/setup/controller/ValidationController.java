@@ -127,21 +127,44 @@ public class ValidationController {
 	 * @param mobileNo the mobile no
 	 * @return the response entity
 	 */
-	@PostMapping(value = "/SendOTP/{mobileNo}")
-	public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo")String mobileNo ){
+	@PostMapping(value = "/SendOTP/{mobileNo}/{purpose}")
+	public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo")String mobileNo, @Valid @PathVariable("purpose")String purpose){
 		LOG.info("START-Inside sendOTP");
 		LOG.log(Level.INFO, () -> "sendOTP Inputs mobileNumber: " + mobileNo); 
 		ResponseEntity<Object> response=null;
 		List<ValidationDTO> validDto=new ArrayList<>();
 		try {
 			LOG.log(Level.INFO,() -> "Before geting sendOTP information ");
-			validDto = validationDao.saveOtp(mobileNo);
+			if(purpose.equals("RGSTRN")) {
+				validDto = validationDao.validateMobileNo(mobileNo);
+				if(validDto.get(0).getP_isValidMobile()>0) {
+					throw new CustomException(ErrorConstants.USER_ALREADY_EXISTS); 
+				}
+				else {
+					LOG.info(ErrorConstants.NO_RECORD_FOUND);
+					validDto = validationDao.saveOtp(mobileNo);
 
-			if(!validDto.isEmpty()) {
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("status", "success")); } 
-			else { 
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND); 
+					if(!validDto.isEmpty()) {
+						response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						        .body(serviceOutput.responseOutput("status", "success")); } 
+					else { 
+						throw new CustomException(ErrorConstants.OTP_ERROR); 
+					}
+				}
+			}
+			else if(purpose.equals("FRGTPWD")){
+
+				validDto = validationDao.saveOtp(mobileNo);
+
+				if(!validDto.isEmpty()) {
+					response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					        .body(serviceOutput.responseOutput("status", "success")); } 
+				else { 
+					throw new CustomException(ErrorConstants.OTP_ERROR); 
+				}
+			}
+			else {
+				throw new CustomException(ErrorConstants.PURPOSE_NOT_VALID); 
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

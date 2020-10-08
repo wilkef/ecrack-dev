@@ -28,5 +28,16 @@ public class ErrorConstants {
 	public static final String OTP_ERROR="something wrong while sending OTP";
 	
 	public static final String BOARD_STATUS ="Board is Not There in DB ";
+	
+	public static final String SESSION_NOT_CREATED = "Session not created";
+	
+	
+	public static final String SESSION_INACTIVE_FAIL = "Session Logout not Successful";
+	
+	
+	public static final String PURPOSE_NOT_VALID = "Purpose code is not valid";
+	
+	
+	
 
 }
