@@ -100,9 +100,6 @@ public class EcrackSetupApplication {
 		return propConfig;
 	}
 
-
-
-
 	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -117,15 +114,12 @@ public class EcrackSetupApplication {
 					UnAutherziedApiConstant.GET_VALIDMOBILE_NO,UnAutherziedApiConstant.GET_SEND_OTP,
 					UnAutherziedApiConstant.GET_FORGOT_PWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
 			.permitAll()
-			//.antMatchers("/swagger-ui.html").permitAll()
 			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
-			//.antMatchers("/webjars/**").permitAll()
 			.anyRequest().authenticated();
 		}
 
 		@Override
 		public void configure(WebSecurity web) throws Exception {
-			
 			 web.ignoring().antMatchers("/v2/api-docs",
 					"/configuration/ui",
 					"/swagger-resources/**",

@@ -81,8 +81,7 @@ public final class WilkefConstants {
 	public static final String OTP_MSG_2 = ".Happy Learning !! Wilkef";
 	
 	public static final String GRADE_INFO_BY_BOARDID = "select GradeCode, GradeId, GradeName from Grade where BoardId = ?;";
-	
-	
+		
 	public static final String SESSION_LOGIN = "spSessionLogin";
 	
 	public static final String SESSION_LOGOUT = "spSessionLogout";

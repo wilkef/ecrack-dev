@@ -70,12 +70,11 @@ public class UserProfileController {
 			userProfileDTOList = userProfileDao.updateProfile(input);
 			if(userProfileDTOList.get(0).getUpdateCount().equals(1)) {
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("isSuccess", true));
+				        .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 			}
 			else {
 				throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
 			}
-
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);

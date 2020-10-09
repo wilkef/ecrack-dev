@@ -201,10 +201,9 @@ public class UserTestCase {
 		saveOtpList.add(valid);
 
 		String mobileNo = "7008508931";
-		String purpose = "RGSTRN";
 
 		Mockito.when(validationDao.saveOtp(mobileNo)).thenReturn(saveOtpList);
-		assertEquals(200, ((ResponseEntity<Object>)validationController.sendOTP(mobileNo,purpose)).getStatusCodeValue());
+		assertEquals(200, ((ResponseEntity<Object>)validationController.sendOTP(mobileNo)).getStatusCodeValue());
 	}
 	
 }
