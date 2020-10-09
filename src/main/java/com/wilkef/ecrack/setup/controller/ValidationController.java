@@ -32,7 +32,6 @@ import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
-
 /**
  * The Class ValidationController.
  */
@@ -44,12 +43,10 @@ public class ValidationController {
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(ValidationController.class.getName());
 
-
 	/** The validation dao. */
 	@Autowired
 	private ValidationDao validationDao;
-	
-	
+
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
@@ -61,21 +58,20 @@ public class ValidationController {
 	 * @return the response entity
 	 */
 	@PostMapping(value = "/validateEmailId")
-	public ResponseEntity<Object> validateEmailId(@Valid @RequestBody String email ){
+	public ResponseEntity<Object> validateEmailId(@Valid @RequestBody String email) {
 		LOG.info("START-Inside validateEmailId");
-		LOG.log(Level.INFO, () -> "validateEmailId Inputs email: " + email); 
-		ResponseEntity<Object> response=null;
-		List<ValidationDTO> validDto=new ArrayList<>();
+		LOG.log(Level.INFO, () -> "validateEmailId Inputs email: " + email);
+		ResponseEntity<Object> response = null;
+		List<ValidationDTO> validDto = new ArrayList<>();
 		try {
 			JSONObject obj = new JSONObject(email);
 			LOG.info("Inside find validateEmailId based on email");
-			LOG.log(Level.INFO,() -> "Before geting validateEmailId information ");
+			LOG.log(Level.INFO, () -> "Before geting validateEmailId information ");
 			validDto = validationDao.validateEmail(obj.opt("EmailId").toString());
-			if(validDto.get(0).getP_isValidEmailId()>0) {
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("isSuccess", true));
-			}
-			else {
+			if (validDto.get(0).getP_isValidEmailId() > 0) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput("isSuccess", true));
+			} else {
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 
@@ -84,9 +80,8 @@ public class ValidationController {
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside validateEmailId");
-		return  response;
+		return response;
 	}
-
 
 	/**
 	 * Validate mobile no.
@@ -95,20 +90,19 @@ public class ValidationController {
 	 * @return the response entity
 	 */
 	@PostMapping(value = "/validateMobileNumber/{mobileNo}")
-	public ResponseEntity<Object> validateMobileNo(@Valid @PathVariable("mobileNo")String mobileNumber ){
+	public ResponseEntity<Object> validateMobileNo(@Valid @PathVariable("mobileNo") String mobileNumber) {
 		LOG.info("START-Inside validateMobileNumber");
-		LOG.log(Level.INFO, () -> "validateMobileNumber Inputs mobileNumber: " + mobileNumber); 
-		ResponseEntity<Object> response=null;
-		List<ValidationDTO> validDto=new ArrayList<>();
+		LOG.log(Level.INFO, () -> "validateMobileNumber Inputs mobileNumber: " + mobileNumber);
+		ResponseEntity<Object> response = null;
+		List<ValidationDTO> validDto = new ArrayList<>();
 		try {
 			LOG.info("Inside find validateMobileNumber based on email");
-			LOG.log(Level.INFO,() -> "Before geting validateMobileNumber information ");
+			LOG.log(Level.INFO, () -> "Before geting validateMobileNumber information ");
 			validDto = validationDao.validateMobileNo(mobileNumber);
-			if(validDto.get(0).getP_isValidMobile()>0) {
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("isSuccess", true));
-			}
-			else {
+			if (validDto.get(0).getP_isValidMobile() > 0) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput("isSuccess", true));
+			} else {
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 
@@ -117,9 +111,8 @@ public class ValidationController {
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside validateMobileNumber");
-		return  response;
+		return response;
 	}
-
 
 	/**
 	 * Send OTP.
@@ -127,107 +120,113 @@ public class ValidationController {
 	 * @param mobileNo the mobile no
 	 * @return the response entity
 	 */
-	@PostMapping(value = "/SendOTP/{mobileNo}/{purpose}")
-	public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo")String mobileNo, @Valid @PathVariable("purpose")String purpose){
+	/**
+	 * 
+	 * public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo")String
+	 * mobileNo, @Valid @PathVariable("purpose")String purpose){
+	 * LOG.info("START-Inside sendOTP"); LOG.log(Level.INFO, () -> "sendOTP Inputs
+	 * mobileNumber: " + mobileNo); ResponseEntity<Object> response=null;
+	 * List<ValidationDTO> validDto=new ArrayList<>(); try { LOG.log(Level.INFO,()
+	 * -> "Before geting sendOTP information "); if(purpose.equals("RGSTRN")) {
+	 * validDto = validationDao.validateMobileNo(mobileNo);
+	 * if(validDto.get(0).getP_isValidMobile()>0) { throw new
+	 * CustomException(ErrorConstants.USER_ALREADY_EXISTS); } else {
+	 * LOG.info(ErrorConstants.NO_RECORD_FOUND); validDto =
+	 * validationDao.saveOtp(mobileNo);
+	 * 
+	 * if(!validDto.isEmpty()) { response =
+	 * ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+	 * .body(serviceOutput.responseOutput("status", "success")); } else { throw new
+	 * CustomException(ErrorConstants.OTP_ERROR); } } } else
+	 * if(purpose.equals("FRGTPWD")){
+	 * 
+	 * validDto = validationDao.saveOtp(mobileNo);
+	 * 
+	 * if(!validDto.isEmpty()) { response =
+	 * ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+	 * .body(serviceOutput.responseOutput("status", "success")); } else { throw new
+	 * CustomException(ErrorConstants.OTP_ERROR); } } else { throw new
+	 * CustomException(ErrorConstants.PURPOSE_NOT_VALID); } } catch (Exception e) {
+	 * LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG +
+	 * e.getMessage()); return new CustomExceptionHandler().handleAllExceptions(e);
+	 * } LOG.info("END-Inside sendOTP"); return response; }
+	 * 
+	 */
+	@PostMapping(value = "/SendOTP/{mobileNo}")
+	public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo") String mobileNo) {
 		LOG.info("START-Inside sendOTP");
-		LOG.log(Level.INFO, () -> "sendOTP Inputs mobileNumber: " + mobileNo); 
-		ResponseEntity<Object> response=null;
-		List<ValidationDTO> validDto=new ArrayList<>();
+		LOG.log(Level.INFO, () -> "sendOTP Inputs mobileNumber: " + mobileNo);
+		ResponseEntity<Object> response = null;
+		List<ValidationDTO> validDto = new ArrayList<>();
 		try {
-			LOG.log(Level.INFO,() -> "Before geting sendOTP information ");
-			if(purpose.equals("RGSTRN")) {
-				validDto = validationDao.validateMobileNo(mobileNo);
-				if(validDto.get(0).getP_isValidMobile()>0) {
-					throw new CustomException(ErrorConstants.USER_ALREADY_EXISTS); 
-				}
-				else {
-					LOG.info(ErrorConstants.NO_RECORD_FOUND);
-					validDto = validationDao.saveOtp(mobileNo);
-
-					if(!validDto.isEmpty()) {
-						response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-						        .body(serviceOutput.responseOutput("status", "success")); } 
-					else { 
-						throw new CustomException(ErrorConstants.OTP_ERROR); 
-					}
-				}
-			}
-			else if(purpose.equals("FRGTPWD")){
-
-				validDto = validationDao.saveOtp(mobileNo);
-
-				if(!validDto.isEmpty()) {
-					response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					        .body(serviceOutput.responseOutput("status", "success")); } 
-				else { 
-					throw new CustomException(ErrorConstants.OTP_ERROR); 
-				}
-			}
-			else {
-				throw new CustomException(ErrorConstants.PURPOSE_NOT_VALID); 
+			LOG.log(Level.INFO, () -> "Before geting sendOTP information ");
+			validDto = validationDao.saveOtp(mobileNo);
+			if (!validDto.isEmpty()) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput("status", "success"));
+			} else {
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside sendOTP");
-		return  response;
+		return response;
 	}
-
-
-
 
 	/**
 	 * Verify otp.
 	 *
-	 * @param otp the otp
+	 * @param otp      the otp
 	 * @param mobileNo the mobile no
 	 * @return the response entity
 	 */
 	@PostMapping(value = "/VerifyOTP/{otp}/{mobileNo}")
-	public ResponseEntity<Object> verifyOtp(@Valid @PathVariable("otp")String otp,@Valid @PathVariable("mobileNo")String mobileNo ){
+	public ResponseEntity<Object> verifyOtp(@Valid @PathVariable("otp") String otp,
+			@Valid @PathVariable("mobileNo") String mobileNo) {
 		LOG.info("START-Inside verifyOtp");
-		LOG.log(Level.INFO, () -> "verifyOtp Inputs otp: " + otp); 
-		LOG.log(Level.INFO, () -> "verifyOtp Inputs mobileNo: " + mobileNo); 
-		ResponseEntity<Object> response=null;
+		LOG.log(Level.INFO, () -> "verifyOtp Inputs otp: " + otp);
+		LOG.log(Level.INFO, () -> "verifyOtp Inputs mobileNo: " + mobileNo);
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO,() -> "Before geting verifyOtp information ");
-			String msg = validationDao.verifyOtp(otp,mobileNo);
-			if(msg.contains("OTP Verified")) { 
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("isValidOTP", true));} 
-			else { 
-				throw new CustomException(msg); 
+			LOG.log(Level.INFO, () -> "Before geting verifyOtp information ");
+			String msg = validationDao.verifyOtp(otp, mobileNo);
+			if (msg.contains("OTP Verified")) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput("isValidOTP", true));
+			} else {
+				throw new CustomException(msg);
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside verifyOtp");
-		return  response;
+		return response;
 	}
 
 	@PostMapping("/validateLogin")
 	public ResponseEntity<Object> validateLogin(@Valid @RequestBody String input) {
 		LOG.info("START-Inside validateLogin");
-		LOG.log(Level.INFO, () -> "validateLogin Inputs input: " + input); 
-		ResponseEntity<Object> response=null;
-		List<ValidationDTO> validDto=new ArrayList<>();
+		LOG.log(Level.INFO, () -> "validateLogin Inputs input: " + input);
+		ResponseEntity<Object> response = null;
+		List<ValidationDTO> validDto = new ArrayList<>();
 		try {
-			LOG.log(Level.INFO,() -> "Before geting validateLogin information ");
+			LOG.log(Level.INFO, () -> "Before geting validateLogin information ");
 			validDto = validationDao.validateLogin(input);
-			if(!validDto.isEmpty()) { 
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("isValid", true));} 
-			else { 
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND); 
+			if (!validDto.isEmpty()) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput("isValid", true));
+			} else {
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside validateLogin");
-		return  response;
-		
+		return response;
+
 	}
 }
