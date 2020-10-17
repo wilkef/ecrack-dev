@@ -84,7 +84,7 @@ public class UserTestCase {
 	@Test
 	public void resetPwdTest() {
 		ResetPasswordDataDTO resetPwd = new ResetPasswordDataDTO();
-		resetPwd.setUserId(123458);
+		resetPwd.setUserName("7008508931");
 		resetPwd.setOldPassword("Tanmay@1234");
 		resetPwd.setNewPassword("Tanmay@12345");
 

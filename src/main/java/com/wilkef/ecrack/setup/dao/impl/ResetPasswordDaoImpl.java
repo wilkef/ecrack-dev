@@ -43,7 +43,7 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao{
 	@Override
 	public Integer resetPassword(ResetPasswordDataDTO resetPwd) {
 		
-		Integer userId = resetPwd.getUserId();
+		String userName = resetPwd.getUserName();
 		String oldPassword = resetPwd.getOldPassword();
 		String newPassword = resetPwd.getNewPassword();
 		Integer status=null;
@@ -53,7 +53,7 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao{
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 			           .withProcedureName(WilkefConstants.RESETPASSWORD);
 			           
-			    Map<String, Object> execute = simpleJdbcCall.execute(userId,oldPassword,newPassword);
+			    Map<String, Object> execute = simpleJdbcCall.execute(userName,oldPassword,newPassword);
 			    status = (Integer) execute.get("v_IsSuccess");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while ResetPassword ");

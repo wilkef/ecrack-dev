@@ -24,8 +24,6 @@ import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.ResetPasswordService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
-
-
 /**
  * The Class ResetPasswordController.
  */
@@ -53,7 +51,7 @@ public class ResetPasswordController {
 	@PostMapping(value = "/resetPassword",consumes = "application/json")
 	public ResponseEntity<Object> resetPwd(@RequestBody ResetPasswordDataDTO resetPwd) {
 		LOG.info("START-Inside ResetPassword ");
-		LOG.log(Level.INFO, () -> " ResetPassword Inputs resetPwd:"+resetPwd); 
+		LOG.log(Level.INFO, () -> " ResetPassword Inputs resetPwd:"+resetPwd);
 		ResponseEntity<Object> response=null;
 		try {
 			LOG.log(Level.INFO, () -> "Before updating resetPassword : " );
@@ -61,13 +59,13 @@ public class ResetPasswordController {
 			if (resetPassword!=null) {
 				response = ResponseEntity.status(HttpStatus.OK)
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(serviceOutput.responseOutput("isSuccess", true));
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 				return response;
 			}else {
 				LOG.log(Level.INFO, () -> "UserId And OldPassword is InValid" );
 				response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(serviceOutput.responseOutput("isSuccess", false));
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
