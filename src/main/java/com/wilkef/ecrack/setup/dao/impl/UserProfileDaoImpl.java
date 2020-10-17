@@ -79,7 +79,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserProfileDTO> viewProfile(int userId) {
+	public List<UserProfileDTO> viewProfile(String userId) {
 		List<Map<String,Object>> list=new ArrayList<>();
 		UserProfileDTO dto=new UserProfileDTO();
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();

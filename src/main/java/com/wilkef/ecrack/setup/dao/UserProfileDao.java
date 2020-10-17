@@ -26,6 +26,6 @@ public interface UserProfileDao {
 	 * @param userId the user id
 	 * @return the list
 	 */
-	List<UserProfileDTO> viewProfile(@Valid int userId);
+	List<UserProfileDTO> viewProfile(@Valid String userId);
 
 }

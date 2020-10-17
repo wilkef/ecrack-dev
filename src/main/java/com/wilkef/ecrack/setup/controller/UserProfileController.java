@@ -48,8 +48,10 @@ public class UserProfileController {
 	private  UserProfileDao userProfileDao;
 	
 	
+	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+
 	
 
 	/**
@@ -90,16 +92,17 @@ public class UserProfileController {
 	 * @param userId the user id
 	 * @return the response entity
 	 */
-	@GetMapping(value = "/viewProfile/{userId}")
-	public ResponseEntity<Object> viewProfile(@Valid @PathVariable int userId){
+	@GetMapping(value = "/viewProfile/{userName}")
+	public ResponseEntity<Object> viewProfile(@Valid @PathVariable String userName){
 		LOG.info("START-Inside viewProfile");
-		LOG.log(Level.INFO, () -> "viewProfile Inputs: " + userId); 
+		LOG.log(Level.INFO, () -> "viewProfile Inputs: " + userName); 
 		ResponseEntity<Object> response=null;
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
 		try {
-			userProfileDTOList = userProfileDao.viewProfile(userId);
-			if(!userProfileDTOList.get(0).getDataOutput().isEmpty()) {
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+			userProfileDTOList = userProfileDao.viewProfile(userName);
+			if(!userProfileDTOList.isEmpty()) {
+				response =  ResponseEntity.status(HttpStatus.OK).
+						contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(userProfileDTOList.get(0).getDataOutput());
 			}
 			else {
