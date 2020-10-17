@@ -115,6 +115,7 @@ public class EcrackSetupApplication {
 					UnAutherziedApiConstant.GET_FORGOT_PWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
 			.permitAll()
 			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.anyRequest().authenticated();
 		}
 

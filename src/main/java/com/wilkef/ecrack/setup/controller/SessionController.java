@@ -23,43 +23,41 @@ public class SessionController {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(SessionController.class.getName());
-	
+
 	@Autowired
-	private  SessionDao sessionDao;
-	
+	private SessionDao sessionDao;
+
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
-	
-	
+
 	@PostMapping("/sessionLogin")
 	public ResponseEntity<Object> sessionLogin(@RequestBody String input) {
-	LOG.info("START-Inside sessionLogin");
-	ResponseEntity<Object> response=null;
-	long count=sessionDao.sessionLogin(input);
-	if(count>0) {
-		response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(serviceOutput.responseOutput("sessionId", count));
-	}
-	else {
-		throw new CustomException(ErrorConstants.SESSION_NOT_CREATED);
-	}
-	LOG.info("END-Inside sessionLogin");
+		LOG.info("START-Inside sessionLogin");
+		ResponseEntity<Object> response = null;
+		long count = sessionDao.sessionLogin(input);
+		if (count > 0) {
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.responseOutput("sessionId", count));
+		} else {
+			throw new CustomException(ErrorConstants.SESSION_NOT_CREATED);
+		}
+		LOG.info("END-Inside sessionLogin");
 		return response;
 	}
 
-	
 	@PostMapping("/sessionLogout/{sessionId}/{userId}")
-	public ResponseEntity<Object> sessionLogout(@PathVariable long sessionId,@PathVariable long userId) {
-	LOG.info("START-Inside sessionLogout");
-	ResponseEntity<Object> response=null;
-	String status=sessionDao.sessionLogout(sessionId,userId);
-	if(status.equals("INACTIVE")) {
-		response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(serviceOutput.responseOutput("isSuccess", true));
-	}
-	else {
-		throw new CustomException(ErrorConstants.SESSION_INACTIVE_FAIL);
-	}
-	LOG.info("END-Inside sessionLogout");
+	public ResponseEntity<Object> sessionLogout(@PathVariable long sessionId, @PathVariable long userId) {
+		LOG.info("START-Inside sessionLogout");
+		ResponseEntity<Object> response = null;
+		String status = sessionDao.sessionLogout(sessionId, userId);
+		if (status.equals("INACTIVE")) {
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.responseOutput("isSuccess", true));
+		} else {
+			throw new CustomException(ErrorConstants.SESSION_INACTIVE_FAIL);
+		}
+		LOG.info("END-Inside sessionLogout");
 		return response;
 	}
 }
