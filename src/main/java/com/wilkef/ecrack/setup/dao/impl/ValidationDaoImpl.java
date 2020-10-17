@@ -14,7 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -28,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -37,6 +40,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.AuthDataDTO;
+import com.wilkef.ecrack.setup.dto.UnitDataDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 
@@ -200,7 +205,7 @@ public class ValidationDaoImpl implements ValidationDao{
 	}
 
 	@Override
-	public List<ValidationDTO> validateLogin(@Valid String input) {
+	public List<ValidationDTO> validateCredentials(@Valid String input) {
 		
 		List<ValidationDTO> validList=new ArrayList<>();
 		try {
@@ -219,5 +224,39 @@ public class ValidationDaoImpl implements ValidationDao{
 			LOG.log(Level.SEVERE,e.getMessage());
 		}
 		return validList;			
+	}
+	
+	@Override
+	public boolean setLoginStatus(int status,String input) {
+		boolean isValid=Boolean.FALSE;
+		JSONObject obj=new JSONObject(input);
+		String updateQuery = WilkefConstants.SET_ACTIVE_STATUS;
+		int update=appJdbcTemplate.update(updateQuery, status,obj.get("user"),obj.get("password"));
+		if(update==1) {
+			isValid=Boolean.TRUE;
+		}
+		return isValid;
+	}
+	
+	@Override
+	public AuthDataDTO getAuthData(String user,String token) {
+		List<AuthDataDTO> authdataList=new ArrayList<>();
+		RowMapper<AuthDataDTO> rowMapper = (ResultSet result, int rowNum) -> {
+			AuthDataDTO authData = new AuthDataDTO();
+			authData.setMobileNumber(result.getString(1));
+            authData.setEmailId(result.getString(2));
+			authData.setFirstName(result.getString(3));
+			authData.setLastName(result.getString(4));
+			authData.setGradeId(result.getInt(5));
+			authData.setGradeName(result.getString(6));
+		return authData;
+		};
+		try {
+			authdataList = appJdbcTemplate.query(WilkefConstants.TOKEN_RETURN, rowMapper,user);
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while fetching records for auth list");
+		}
+		authdataList.get(0).setToken(token);
+		return authdataList.get(0);
 	}
 }

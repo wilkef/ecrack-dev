@@ -78,15 +78,16 @@ public final class WilkefConstants {
 	public static final String VALIDATE_LOGIN = "spValidateLogin";
 
 	public static final String OTP_MSG_1 = "Your verification code is ";
+	
 	public static final String OTP_MSG_2 = ".Happy Learning !! Wilkef";
 	
-	public static final String GRADE_INFO_BY_BOARDID = "select GradeCode, GradeId, GradeName from Grade where BoardId = ?;";
+	public static final String GRADE_INFO_BY_BOARDID = "select GradeCode, GradeId, GradeName from Grade where BoardId = ?";
 		
 	public static final String SESSION_LOGIN = "spSessionLogin";
 	
 	public static final String SESSION_LOGOUT = "spSessionLogout";
 	
+	public static final String SET_ACTIVE_STATUS="update Login set IsActive = ? where UserName = ? and Password =? ";
 	
-	
-
+	public static final String TOKEN_RETURN = "SELECT u.MobileNumber, u.EmailId, u.FirstName, u.LastName, e.GradeId, g.GradeName FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) INNER JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
 }

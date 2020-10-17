@@ -223,8 +223,8 @@ public class ValidationController {
 		List<ValidationDTO> validDto = new ArrayList<>();
 		try {
 			LOG.log(Level.INFO, () -> "Before geting validateLogin information ");
-			validDto = validationDao.validateLogin(input);
-			if (!validDto.isEmpty()) {
+			validDto = validationDao.validateCredentials(input);
+			if (!validDto.isEmpty() && validationDao.setLoginStatus(1,input)) {
 				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 			} else {
@@ -237,5 +237,27 @@ public class ValidationController {
 		}
 		LOG.info("END-Inside validateLogin");
 		return response;
+	}
+	
+	@PostMapping("/validateLogout")
+	public ResponseEntity<Object> validateLogout(@Valid @RequestBody String input) {
+		LOG.info("START-Inside validateLogout");
+		LOG.log(Level.INFO, () -> "v Inputs input: " + input); 
+		ResponseEntity<Object> response=null;
+		try {
+			LOG.log(Level.INFO,() -> "Before geting validateLogout information ");
+			if(validationDao.setLoginStatus(0,input)) { 
+				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+				        .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));} 
+			else { 
+				throw new CustomException(ErrorConstants.NO_RECORD_FOUND); 
+			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
+		}
+		LOG.info("END-Inside validateLogout");
+		return  response;
+		
 	}
 }

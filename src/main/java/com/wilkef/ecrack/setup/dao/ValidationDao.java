@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.wilkef.ecrack.setup.dto.AuthDataDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 
 /**
@@ -53,8 +54,12 @@ public interface ValidationDao {
 	 */
 	String verifyOtp(String otp, String mobileNo);
 
-	List<ValidationDTO> validateLogin( String input);
+	List<ValidationDTO> validateCredentials( String input);
 	
 	
-
+	
+	boolean setLoginStatus(int status,String input);
+	
+	AuthDataDTO getAuthData(String user,String token); 
+	
 }

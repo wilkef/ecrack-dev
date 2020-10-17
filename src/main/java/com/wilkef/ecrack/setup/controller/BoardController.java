@@ -22,7 +22,7 @@ import com.wilkef.ecrack.setup.service.BoardService;
 
 /**
  * @author Satya
- *Oct 3, 2020
+ * Oct 3, 2020
  */
 
 @RestController

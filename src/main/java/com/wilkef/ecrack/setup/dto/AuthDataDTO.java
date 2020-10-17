@@ -14,45 +14,83 @@ package com.wilkef.ecrack.setup.dto;
 public class AuthDataDTO {
 
 	
-	/** The User. */
-	private String User;
-	
 	/** The Token. */
-	private String Token;
+	private String token;
 	
-	/**
-	 * Gets the user.
-	 *
-	 * @return the user
-	 */
-	public String getUser() {
-		return User;
-	}
+	private String emailId;
 	
-	/**
-	 * Sets the user.
-	 *
-	 * @param user the new user
-	 */
-	public void setUser(String user) {
-		User = user;
-	}
+	private String mobileNumber;
 	
-	/**
-	 * Gets the token.
-	 *
-	 * @return the token
-	 */
+	private String firstName;
+	
+	private String lastName;
+	
+	private int gradeId;
+	
+	private String gradeName;
+
 	public String getToken() {
-		return Token;
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public int getGradeId() {
+		return gradeId;
+	}
+
+	public void setGradeId(int gradeId) {
+		this.gradeId = gradeId;
+	}
+
+	public String getGradeName() {
+		return gradeName;
+	}
+
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+
+	@Override
+	public String toString() {
+		return "AuthDataDTO [token=" + token + ", emailId=" + emailId + ", mobileNumber=" + mobileNumber
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", gradeId=" + gradeId + ", gradeName="
+				+ gradeName + "]";
 	}
 	
-	/**
-	 * Sets the token.
-	 *
-	 * @param token the new token
-	 */
-	public void setToken(String token) {
-		Token = token;
-	}
+	
 }

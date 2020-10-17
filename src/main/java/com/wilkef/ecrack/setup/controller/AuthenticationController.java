@@ -60,13 +60,12 @@ public class AuthenticationController {
 	ResponseEntity<Object> response=null;
 	if(isValidUser(username,pwd)) {
 		String token = getJWTToken(username);
-		user.setUser(username);
-		user.setToken(token);
-		response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
+		user=validationDao.getAuthData(username,token);
+		response =  ResponseEntity.status(HttpStatus.OK).
+				contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
 	}
 	else {
 		throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
-		
 	}
 	LOG.info("END-Inside getAuthToken");
 		return response;
@@ -77,9 +76,9 @@ public class AuthenticationController {
 		boolean isValid=Boolean.FALSE;
 		JSONObject object=new JSONObject();
 		List<ValidationDTO> validDto=new ArrayList<>();
-		object.put("user", user); 
+		object.put("user", user);
 		object.put("password", password);
-		validDto=validationDao.validateLogin(object.toString());
+		validDto=validationDao.validateCredentials(object.toString());
 		if(validDto.size()>0 ) {
 			isValid=true;
 		}
