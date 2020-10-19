@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.TestTypeListService;
 
@@ -53,12 +52,7 @@ public class TestTypeListController {
 		try {
 			LOG.log(Level.INFO, () -> "Before Fetching TestTypeList : " );
 			findAllTestTypeList = typeListService.findAllTestTypeList();
-			if (findAllTestTypeList!=null) {
-				response = new ResponseEntity<>(findAllTestTypeList,HttpStatus.OK);
-			}else {
-				LOG.log(Level.INFO, () -> "TestType is Not There " );
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
+			response = new ResponseEntity<>(findAllTestTypeList,HttpStatus.OK);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);		

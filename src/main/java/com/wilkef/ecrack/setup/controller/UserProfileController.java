@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
@@ -53,7 +52,6 @@ public class UserProfileController {
 	private ServiceOutputTransformer serviceOutput;
 
 	
-
 	/**
 	 * Update profile.
 	 *
@@ -75,7 +73,8 @@ public class UserProfileController {
 				        .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 			}
 			else {
-				throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
@@ -106,7 +105,7 @@ public class UserProfileController {
 				        .body(userProfileDTOList.get(0).getDataOutput());
 			}
 			else {
-				throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+				response = new ResponseEntity<>(userProfileDTOList, HttpStatus.OK);
 			}
 
 		} catch (Exception e) {

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.SubjectService;
 
@@ -40,7 +39,7 @@ public class SubjectController {
 	/** The subject service. */
 	@Autowired
 	private SubjectService subjectService;
-
+	
 	/**
 	 * Find by grade id.
 	 *
@@ -56,13 +55,8 @@ public class SubjectController {
 		try {
 			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + gradeId);
 			subjectDataList = subjectService.getSubjectsByGradeId(gradeId);
-			if (!subjectDataList.isEmpty()) {
-				response = new ResponseEntity<>(subjectDataList, HttpStatus.OK);
-			} else {
-				LOG.log(Level.INFO, () -> "Subject Record is Not There in DB " );
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
-		}	
+			response = new ResponseEntity<>(subjectDataList, HttpStatus.OK);
+		}
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,
 					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

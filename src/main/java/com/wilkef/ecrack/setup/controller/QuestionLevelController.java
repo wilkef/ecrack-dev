@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
@@ -35,7 +34,7 @@ public class QuestionLevelController {
 
 	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(QuestionLevelController.class.getName());
-	
+
 	/** The question service. */
 	@Autowired
 	private QuestionLevelService questionService;
@@ -55,12 +54,7 @@ public class QuestionLevelController {
 		try {
 			LOG.log(Level.INFO, () -> "Before geting QuestionLevel information : " );
 			questionLevelList = questionService.findQuestionLevel();
-			if (!questionLevelList.isEmpty()) {
-				response = new ResponseEntity<>(questionLevelList, HttpStatus.OK);
-			} else {
-				LOG.log(Level.INFO, () -> "QuestionLevel is Not There in DB " );
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
+			response = new ResponseEntity<>(questionLevelList, HttpStatus.OK);
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

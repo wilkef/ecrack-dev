@@ -249,8 +249,9 @@ public class ValidationController {
 			if(validationDao.setLoginStatus(0,input)) { 
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));} 
-			else { 
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND); 
+			else {  
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

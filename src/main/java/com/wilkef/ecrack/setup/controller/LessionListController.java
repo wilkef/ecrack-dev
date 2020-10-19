@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.LessionListService;
 
@@ -32,7 +31,7 @@ import com.wilkef.ecrack.setup.service.LessionListService;
 @RestController
 @RequestMapping("/subject")
 public class LessionListController {
-	
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(LessionListController.class.getName());
 
@@ -54,11 +53,7 @@ public class LessionListController {
 		List<LessionListDataDTO> lessionList = null;
 		try {
 			lessionList = lessionService.findByUnitId(unitId);
-			if (!lessionList.isEmpty()) {
-				response = new ResponseEntity<>(lessionList, HttpStatus.OK);
-			} else {
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
+			response = new ResponseEntity<>(lessionList, HttpStatus.OK);
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,

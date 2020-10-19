@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.BoardDataDto;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.BoardService;
 
@@ -28,7 +27,7 @@ import com.wilkef.ecrack.setup.service.BoardService;
 @RestController
 @RequestMapping("/user")
 public class BoardController {
-	
+
 	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(BoardController.class.getName());
 
@@ -48,12 +47,7 @@ public class BoardController {
 		List<BoardDataDto> findBoardDetails = null;
 		try {
 			findBoardDetails = boardService.getBoard();
-			if (findBoardDetails!=null) {
-				response = new ResponseEntity<>(findBoardDetails,HttpStatus.OK);
-			}else {
-				LOG.log(Level.INFO, () -> ErrorConstants.BOARD_STATUS );
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
+			response = new ResponseEntity<>(findBoardDetails,HttpStatus.OK);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,
 					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

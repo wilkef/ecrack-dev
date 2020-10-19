@@ -38,7 +38,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
  	@ExceptionHandler(Exception.class)
 	    public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
 	        String error = ex.getLocalizedMessage();
-	        return  buildResponseEntity(new ErrorResponse(HttpStatus.BAD_REQUEST, error, ex));
+	        return  buildResponseEntity(new ErrorResponse(HttpStatus.OK, error, ex));
 	    }
 	 
 	    /**

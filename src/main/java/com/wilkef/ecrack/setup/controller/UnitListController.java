@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.UnitListService;
 
@@ -32,14 +31,14 @@ import com.wilkef.ecrack.setup.service.UnitListService;
 @RestController
 @RequestMapping("/subject")
 public class UnitListController {
-	
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitListController.class.getName());
 
 	/** The unit list service. */
 	@Autowired
 	private UnitListService unitListService;
-	
+
 	/**
 	 * Find by class id.
 	 *
@@ -57,12 +56,7 @@ public class UnitListController {
 		try {
 			LOG.log(Level.INFO, () -> "Before geting UnitList information based on subjectId : " + subjectId);
 			unitListData = unitListService.findBySubjectId(subjectId);
-			if (!unitListData.isEmpty()) {
-				response = new ResponseEntity<>(unitListData, HttpStatus.OK);
-			} else {
-				LOG.log(Level.INFO, () -> "UnitList Record is Not There in DB " );
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
+			response = new ResponseEntity<>(unitListData, HttpStatus.OK);
 		}	
 		catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

@@ -53,9 +53,11 @@ public class SessionController {
 		String status = sessionDao.sessionLogout(sessionId, userId);
 		if (status.equals("INACTIVE")) {
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.responseOutput("isSuccess", true));
+					.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 		} else {
-			throw new CustomException(ErrorConstants.SESSION_INACTIVE_FAIL);
+			response = ResponseEntity.status(HttpStatus.OK)
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 		}
 		LOG.info("END-Inside sessionLogout");
 		return response;

@@ -63,13 +63,13 @@ public class ForgotPasswordController {
 				if (forgotPassword!=null) {
 					response = ResponseEntity.status(HttpStatus.OK)
 							.contentType(MediaType.APPLICATION_JSON_UTF8)
-							.body(serviceOutput.responseOutput("isSuccess", true));
+							.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 					return response;
 				}else {
 					LOG.log(Level.INFO, () -> ErrorConstants.INVALID_USER);
-					response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					response = ResponseEntity.status(HttpStatus.OK)
 							.contentType(MediaType.APPLICATION_JSON_UTF8)
-							.body(serviceOutput.responseOutput("isSuccess", false));
+							.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 				}
 			}else {
 				LOG.log(Level.INFO, () -> ErrorConstants.PASSWORD_MISMATCH);

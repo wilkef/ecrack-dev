@@ -53,6 +53,7 @@ public class CommonResponseDTO {
 
 		/**
 		 * Sets the status code.
+		
 		 *
 		 * @param statusCode the new status code
 		 */

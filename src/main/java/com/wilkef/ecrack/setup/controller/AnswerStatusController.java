@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.AnswerStatusDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.AnswerStatusService;
 
@@ -52,12 +51,8 @@ public class AnswerStatusController {
 		List<AnswerStatusDataDTO> findAllAnswerStatus = null;
 		try {
 			findAllAnswerStatus = answerStatusService.findAllAnswerStatus();
-			if (findAllAnswerStatus!=null) {
-				response = new ResponseEntity<>(findAllAnswerStatus,HttpStatus.OK);
-			}else {
-				LOG.log(Level.INFO, () -> ErrorConstants.ANSWER_STATUS_FAILED );
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
+			response = new ResponseEntity<>(findAllAnswerStatus,HttpStatus.OK);
+			
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,
 					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

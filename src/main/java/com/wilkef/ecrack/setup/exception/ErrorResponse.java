@@ -28,6 +28,7 @@ public class ErrorResponse {
 	private LocalDateTime timestamp;
 	private String message;
 	private String debugMessage;	
+	
 	public HttpStatus getStatus() {
 		return status;
 	}

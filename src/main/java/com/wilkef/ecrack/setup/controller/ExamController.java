@@ -31,7 +31,6 @@ import com.wilkef.ecrack.setup.dao.ExamDao;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
@@ -41,14 +40,14 @@ import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 @RestController
 @RequestMapping("/exam")
 public class ExamController {
-	
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(ExamController.class.getName());
-	
+
 	/** The exam dao. */
 	@Autowired 
 	private ExamDao examDao;
-	
+
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
@@ -68,13 +67,7 @@ public class ExamController {
 		try {
 			LOG.log(Level.INFO,() -> "Before geting  information ");
 			questionTestDTOList = examDao.getScheduledTest(gradeId);
-			if(!questionTestDTOList.isEmpty()) {
-				response = new ResponseEntity<>(questionTestDTOList,HttpStatus.OK);
-			}
-			else {
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
-
+			response = new ResponseEntity<>(questionTestDTOList,HttpStatus.OK);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
@@ -103,13 +96,7 @@ public class ExamController {
 		try {
 			LOG.log(Level.INFO,() -> "Before geting  information ");
 			questionTestDTOList = examDao.getQuizQuestions(lessonId,noOfQuestion,questionLevel);
-			if(!questionTestDTOList.isEmpty()) {
-				response = new ResponseEntity<>(questionTestDTOList,HttpStatus.OK);
-			}
-			else {
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
-
+			response = new ResponseEntity<>(questionTestDTOList,HttpStatus.OK);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
@@ -137,13 +124,7 @@ public class ExamController {
 		List<QuizQuestionDTO> questionTestDTOList=new ArrayList<>();
 		try {
 			questionTestDTOList = examDao.getQuestions(lessonId,noOfQuestion,questionLevel);
-			if(!questionTestDTOList.isEmpty()) {
-				response = new ResponseEntity<>(questionTestDTOList,HttpStatus.OK);
-			}
-			else {
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
-
+			response = new ResponseEntity<>(questionTestDTOList,HttpStatus.OK);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
@@ -167,13 +148,7 @@ public class ExamController {
 		List<TestResultDTO> testResultDTOList=new ArrayList<>();
 		try {
 			testResultDTOList = examDao.getStudentResultSummary(testId);
-			if(!testResultDTOList.isEmpty()) {
-				response = new ResponseEntity<>(testResultDTOList,HttpStatus.OK);
-			}
-			else {
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
-			}
-
+			response = new ResponseEntity<>(testResultDTOList,HttpStatus.OK);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
@@ -198,10 +173,13 @@ public class ExamController {
 		try {
 			Integer count = examDao.saveStudentResult(result);
 			if(count>0) {
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput("isSuccess", true));			}
+				response =  ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));			}
 			else {
-				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
+				response = ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
