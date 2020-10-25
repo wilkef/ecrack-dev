@@ -28,7 +28,7 @@ public class SubjectDataDTO {
 	/** The grade name. */
 	private String gradeName;
 	
-	private String thumbNail;
+	private String subThumbNail;
 
 	public Integer getSubjectId() {
 		return subjectId;
@@ -78,19 +78,27 @@ public class SubjectDataDTO {
 		this.gradeName = gradeName;
 	}
 
-	public String getThumbNail() {
-		return thumbNail;
-	}
-
-	public void setThumbNail(String thumbNail) {
-		this.thumbNail = thumbNail;
+	/**
+	 * @return the subThumbNail
+	 */
+	public String getSubThumbNail() {
+		return subThumbNail;
 	}
 
 	@Override
 	public String toString() {
 		return "SubjectDataDTO [subjectId=" + subjectId + ", subjectName=" + subjectName + ", subjectCode="
 				+ subjectCode + ", maxMark=" + maxMark + ", noOfPeriod=" + noOfPeriod + ", gradeName=" + gradeName
-				+ ", thumbNail=" + thumbNail + "]";
+				+ ", subThumbNail=" + subThumbNail + "]";
 	}
+
+	/**
+	 * @param subThumbNail the subThumbNail to set
+	 */
+	public void setSubThumbNail(String subThumbNail) {
+		this.subThumbNail = subThumbNail;
+	}
+
+
 		
 }
