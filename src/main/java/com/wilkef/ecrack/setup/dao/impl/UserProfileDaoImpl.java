@@ -56,7 +56,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		UserProfileDTO dto=new UserProfileDTO();
 		try {
 			JSONObject object =new JSONObject(input);
-			SqlParameterSource in = new MapSqlParameterSource().addValue("p_profile_data", input).addValue("p_user_id", object.getLong("userId"));
+			SqlParameterSource in = new MapSqlParameterSource().addValue("p_profile_data", input).addValue("p_mob_num", object.getString("MobileNumber"));
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.UPDATE_PROFILE);
 			Map<String, Object> execute = simpleJdbcCall.execute(in);

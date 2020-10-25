@@ -6,7 +6,6 @@ package com.wilkef.ecrack.setup.dto;
 public class UserProfileDTO {
 	
 	
-
 	/** The data output. */
 	private String dataOutput;
 	

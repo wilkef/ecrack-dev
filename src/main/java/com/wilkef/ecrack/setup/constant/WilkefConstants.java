@@ -20,6 +20,8 @@ public final class WilkefConstants {
 
 	/** The Constant GET_UNIT_DETAIL. */
 	public static final String GET_UNIT_DETAIL = "Select UnitId ,UnitName ,SubjectId from Unit";
+	
+	public static final String GET_CITY_LIST = "Select CityId,CityName from City";
 
 	/** The Constant GET_QUESTIONLEVEL_DETAIL. */
 	public static final String GET_QUESTIONLEVEL_DETAIL = "SELECT DifficultyId,DifficultyCode from QuestionLevel";
