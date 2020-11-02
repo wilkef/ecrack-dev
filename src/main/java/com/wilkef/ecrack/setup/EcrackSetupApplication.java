@@ -39,10 +39,10 @@ public class EcrackSetupApplication {
 	@Value("${app.datasourece.url}")
 	private String appDataSourceUrl;
 
-	@Value("${app.datasourece.userName}")	
+	@Value("${app.datasourece.userName}")
 	private String appDataSourceUserName;
 
-	@Value("${app.datasourece.password}")
+	@Value("${app.datasourece.password}")	
 	private String appDataSourcePswd;
 
 	@Value("${app.datasourece.driver.className}")
