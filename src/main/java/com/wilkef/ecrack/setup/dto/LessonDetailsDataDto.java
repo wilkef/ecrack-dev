@@ -10,6 +10,8 @@ package com.wilkef.ecrack.setup.dto;
 
 public class LessonDetailsDataDto {
 	private String subjectName;
+	private Integer subjectId;
+	private Integer unitId;
 	private String unitName;
 	private String lessonName;
 	private String videoUrl;
@@ -20,6 +22,18 @@ public class LessonDetailsDataDto {
 	}
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
+	}
+	public Integer getSubjectId() {
+		return subjectId;
+	}
+	public void setSubjectId(Integer subjectId) {
+		this.subjectId = subjectId;
+	}
+	public Integer getUnitId() {
+		return unitId;
+	}
+	public void setUnitId(Integer unitId) {
+		this.unitId = unitId;
 	}
 	public String getUnitName() {
 		return unitName;
@@ -48,7 +62,8 @@ public class LessonDetailsDataDto {
 	
 	@Override
 	public String toString() {
-		return "LessonDetailsDataDto [subjectName=" + subjectName + ", unitName=" + unitName + ", lessonName="
-				+ lessonName + ", videoUrl=" + videoUrl + ", lessonThumbnail=" + lessonThumbnail + "]";
+		return "LessonDetailsDataDto [subjectName=" + subjectName + ", subjectId=" + subjectId + ", unitId=" + unitId
+				+ ", unitName=" + unitName + ", lessonName=" + lessonName + ", videoUrl=" + videoUrl
+				+ ", lessonThumbnail=" + lessonThumbnail + "]";
 	}
 }

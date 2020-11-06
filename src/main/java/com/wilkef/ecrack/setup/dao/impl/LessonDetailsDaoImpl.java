@@ -40,10 +40,12 @@ public class LessonDetailsDaoImpl implements LessonDetailsDao {
 		RowMapper<LessonDetailsDataDto> rowMapper = (ResultSet result, int rowNum) -> {
 			LessonDetailsDataDto lessondetails = new LessonDetailsDataDto();
 			lessondetails.setSubjectName(result.getString(1));
-			lessondetails.setUnitName(result.getString(2));
-			lessondetails.setLessonName(result.getString(3));
-			lessondetails.setVideoUrl(result.getString(4));
-			lessondetails.setLessonThumbnail(result.getString(5));
+			lessondetails.setSubjectId(result.getInt(2));
+			lessondetails.setUnitId(result.getInt(3));
+			lessondetails.setUnitName(result.getString(4));
+			lessondetails.setLessonName(result.getString(5));
+			lessondetails.setVideoUrl(result.getString(6));
+			lessondetails.setLessonThumbnail(result.getString(7));
 		return lessondetails;
 		};
 		try {
