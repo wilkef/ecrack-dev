@@ -47,7 +47,7 @@ public class WatchedVideoController {
 		try {
 			LOG.log(Level.INFO, () -> "save video record : " );
 			Integer saveWatchedVideo = dao.saveWatchedVideo(watchedVideo);
-			if (saveWatchedVideo!=null) {
+			if (saveWatchedVideo>0) {
 				response= ResponseEntity.status(HttpStatus.OK)
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));

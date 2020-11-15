@@ -17,7 +17,14 @@ public class WatchedVideoDataDto {
 	private Date startDateTime;
 	private Date endDateTime;
 	private Integer timeWatched;
+	private String mobileNo;
 	
+	public String getMobileNo() {
+		return mobileNo;
+	}
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
 	public Integer getWatchedVideoId() {
 		return watchedVideoId;
 	}
@@ -58,7 +65,7 @@ public class WatchedVideoDataDto {
 	public String toString() {
 		return "WatchedVideoDataDto [watchedVideoId=" + watchedVideoId + ", userId=" + userId + ", lessonId=" + lessonId
 				+ ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", timeWatched=" + timeWatched
-				+ "]";
+				+ ", mobileNo=" + mobileNo + "]";
 	}
 	
 	
