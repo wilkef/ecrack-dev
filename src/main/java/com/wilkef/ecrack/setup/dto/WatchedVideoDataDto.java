@@ -11,7 +11,7 @@ import java.util.Date;
  */
 
 public class WatchedVideoDataDto {
-	private Integer watchedVideoId;
+	private long watchedVideoId;
 	private String userId;
 	private Integer lessonId;
 	private Date startDateTime;
@@ -22,6 +22,14 @@ public class WatchedVideoDataDto {
 	private Integer unitId;
 	private String videoUrl;
 	
+	private String videoId;
+	
+	public String getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
+	}
 	public String getLessonName() {
 		return lessonName;
 	}
@@ -46,10 +54,10 @@ public class WatchedVideoDataDto {
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	public Integer getWatchedVideoId() {
+	public long getWatchedVideoId() {
 		return watchedVideoId;
 	}
-	public void setWatchedVideoId(Integer watchedVideoId) {
+	public void setWatchedVideoId(long watchedVideoId) {
 		this.watchedVideoId = watchedVideoId;
 	}
 	public String getUserId() {
