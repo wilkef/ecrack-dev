@@ -8,7 +8,6 @@
 
 package com.wilkef.ecrack.setup.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -56,8 +55,10 @@ public class AuthenticationController {
 	public ResponseEntity<Object> getAuthToken(@RequestParam("user") String username, @RequestParam("password") String pwd) {
 		LOG.info("START-Inside getAuthToken");
 		
+
 	AuthDataDTO user = new AuthDataDTO();
 	ResponseEntity<Object> response=null; 
+
 	if(isValidUser(username,pwd)) {
 		String token = getJWTToken(username);
 		user=validationDao.getAuthData(username,token);
@@ -95,11 +96,11 @@ public class AuthenticationController {
 	private boolean isValidUser(String user,String password) { 
 		boolean isValid=Boolean.FALSE;
 		JSONObject object=new JSONObject();
-		List<ValidationDTO> validDto=new ArrayList<>();
+		List<ValidationDTO> validDto= null;
 		object.put("user", user);
 		object.put("password", password);
 		validDto=validationDao.validateCredentials(object.toString());
-		if(validDto.size()>0 ) {
+		if(!validDto.isEmpty() ) {
 			isValid=true;
 		}
 		return isValid;

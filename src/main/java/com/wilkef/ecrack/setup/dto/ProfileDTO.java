@@ -4,24 +4,22 @@ import java.util.List;
 
 public class ProfileDTO {
 
-
-	private String CityId ;
-	private String Gender ;
-	private  List <ParentDTO> Parent ;
+	private String CityId;
+	private String Gender;
+	private List<ParentDTO> Parent;
 	private String EmailId;
-	private String StateId ;
-	private String CityName ;
-	private String CountryId ;
+	private String StateId;
+	private String CityName;
+	private String CountryId;
 	private String FirstName;
-	private String StateName ;
-	private String MiddleName ;
+	private String StateName;
+	private String MiddleName;
 	private String LastName;
-	private String CountryName ;
-	private String DateOfBirth ;
+	private String CountryName;
+	private String DateOfBirth;
 	private String MobileNumber;
-	private String PrimaryAddress ;
-	private String ProfileImagePath ;
-
+	private String PrimaryAddress;
+	private String ProfileImagePath;
 
 	// Getter Methods
 
@@ -93,7 +91,7 @@ public class ProfileDTO {
 		return ProfileImagePath;
 	}
 
-	// Setter Methods 
+	// Setter Methods
 
 	public void setCityId(String CityId) {
 		this.CityId = CityId;
