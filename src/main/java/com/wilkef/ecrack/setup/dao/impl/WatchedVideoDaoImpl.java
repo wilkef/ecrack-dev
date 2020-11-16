@@ -55,40 +55,45 @@ public class WatchedVideoDaoImpl implements WatchedVideoDao {
 
 	@Override
 	public List<WatchedVideoDataDto> mostWatchedVideo(WatchedVideoDataDto watchedVideo) {
-		String query = "SELECT UserId,LessonId,StartDateTime,EndDateTime FROM ecrack.WatchedVideo where UserId=? group by WatchedVideoId  order by TimeWatched desc limit 5";
-		list = new ArrayList<>();
+		String query="SELECT WatchedVideoId,UserId,LessonId,StartDateTime,EndDateTime FROM ecrack.WatchedVideo where UserId=? group by WatchedVideoId  order by TimeWatched desc limit 5";
+		List<WatchedVideoDataDto> list=new  ArrayList<>();
 		try {
-			list = appJdbcTemplate.query(query, new Object[] { watchedVideo.getUserId() }, (result, rowNum) -> {
-				WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
-				videoDto.setUserId(result.getString("UserId"));
-				videoDto.setLessonId(result.getInt("LessonId"));
-				videoDto.setStartDateTime(result.getDate("StartDateTime"));
-				videoDto.setEndDateTime(result.getDate("EndDateTime"));
-				return videoDto;
-			});
+		list = appJdbcTemplate.query(query, new Object[] { watchedVideo.getUserId() },
+				(result, rowNum) -> {
+					
+					WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
+					videoDto.setWatchedVideoId(result.getInt("WatchedVideoId"));
+					videoDto.setUserId(result.getString("UserId"));
+					videoDto.setLessonId(result.getInt("LessonId"));
+					videoDto.setStartDateTime(result.getDate("StartDateTime"));
+					videoDto.setEndDateTime(result.getDate("EndDateTime"));
+					return videoDto;
+				});
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for unit list");
 		}
 		return list;
 	}
-
+	
 	@Override
 	public List<WatchedVideoDataDto> videoSuggestion(WatchedVideoDataDto watchedVideo) {
-		String query = "Select LessonId,LessonName,UnitId,VideoUrl from  ecrack.Lesson where IsActive=1 and VideoId not in(Select WatchedVideoId from WatchedVideo where UserId = ?)";
-		list = new ArrayList<>();
+		String query="Select VideoId,LessonId,LessonName,UnitId,VideoUrl from  ecrack.Lesson where IsActive=1 and  VideoId  not in(Select cast(WatchedVideoId As CHAR) from WatchedVideo where UserId =?)";
+		List<WatchedVideoDataDto> list=new  ArrayList<>();
 		try {
-			list = appJdbcTemplate.query(query, new Object[] { watchedVideo.getUserId() }, (result, rowNum) -> {
-				WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
-				videoDto.setLessonId(result.getInt("LessonId"));
-				videoDto.setLessonName(result.getString("LessonName"));
-				videoDto.setUnitId(result.getInt("UnitId"));
-				videoDto.setVideoUrl(result.getString("VideoUrl"));
-				return videoDto;
-			});
+		list = appJdbcTemplate.query(query, new Object[] { watchedVideo.getUserId() },
+				(result, rowNum) -> {
+					WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
+					videoDto.setVideoId(result.getString("VideoId"));
+					videoDto.setLessonId(result.getInt("LessonId"));
+					videoDto.setLessonName(result.getString("LessonName"));
+					videoDto.setUnitId(result.getInt("UnitId"));
+					videoDto.setVideoUrl(result.getString("VideoUrl"));
+					return videoDto;
+				});
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for unit list");
 		}
 		return list;
 	}
-
+	
 }
