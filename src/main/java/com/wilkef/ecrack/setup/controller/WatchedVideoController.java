@@ -3,6 +3,8 @@
  */
 package com.wilkef.ecrack.setup.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,6 +58,44 @@ public class WatchedVideoController {
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
+		}
+		return response;
+	}
+	
+	
+
+	@PostMapping(value = "/mostWatchedvideo")
+	public ResponseEntity<Object> mostWatchedvideo(@RequestBody WatchedVideoDataDto watchedVideo){
+		ResponseEntity<Object> response=null;
+		try {
+			LOG.log(Level.INFO, () -> "mostWatchedvideo: " );
+			List<WatchedVideoDataDto>  list = dao.mostWatchedVideo(watchedVideo);
+		
+				response= ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(list);
+			
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
+		}
+		return response;
+	}
+	
+	@PostMapping(value = "/videoSuggestion")
+	public ResponseEntity<Object> videoSuggestion(@RequestBody WatchedVideoDataDto watchedVideo){
+		ResponseEntity<Object> response=null;
+		try {
+			LOG.log(Level.INFO, () -> "videoSuggestion : " );
+			List<WatchedVideoDataDto>  list = dao.videoSuggestion(watchedVideo);
+		
+				response= ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(list);
+			
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);

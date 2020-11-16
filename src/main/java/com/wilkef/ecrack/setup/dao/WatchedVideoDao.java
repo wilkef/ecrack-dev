@@ -3,6 +3,8 @@
  */
 package com.wilkef.ecrack.setup.dao;
 
+import java.util.List;
+
 import com.wilkef.ecrack.setup.dto.WatchedVideoDataDto;
 
 /**
@@ -11,5 +13,9 @@ import com.wilkef.ecrack.setup.dto.WatchedVideoDataDto;
  */
 
 public interface WatchedVideoDao {
-	public Integer saveWatchedVideo(WatchedVideoDataDto watchedVideo);
+	 Integer saveWatchedVideo(WatchedVideoDataDto watchedVideo);
+
+	 List<WatchedVideoDataDto> mostWatchedVideo(WatchedVideoDataDto watchedVideo);
+
+	List<WatchedVideoDataDto> videoSuggestion(WatchedVideoDataDto watchedVideo);
 }

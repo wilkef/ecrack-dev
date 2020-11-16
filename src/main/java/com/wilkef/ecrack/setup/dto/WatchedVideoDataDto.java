@@ -13,12 +13,33 @@ import java.util.Date;
 public class WatchedVideoDataDto {
 	private Integer watchedVideoId;
 	private String userId;
-	private String lessonId;
+	private Integer lessonId;
 	private Date startDateTime;
 	private Date endDateTime;
 	private Integer timeWatched;
 	private String mobileNo;
+	private String lessonName;
+	private Integer unitId;
+	private String videoUrl;
 	
+	public String getLessonName() {
+		return lessonName;
+	}
+	public void setLessonName(String lessonName) {
+		this.lessonName = lessonName;
+	}
+	public Integer getUnitId() {
+		return unitId;
+	}
+	public void setUnitId(Integer unitId) {
+		this.unitId = unitId;
+	}
+	public String getVideoUrl() {
+		return videoUrl;
+	}
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
 	public String getMobileNo() {
 		return mobileNo;
 	}
@@ -37,10 +58,10 @@ public class WatchedVideoDataDto {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getLessonId() {
+	public Integer getLessonId() {
 		return lessonId;
 	}
-	public void setLessonId(String lessonId) {
+	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
 	public Date getStartDateTime() {
