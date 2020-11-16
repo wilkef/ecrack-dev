@@ -110,11 +110,13 @@ public class EcrackSetupApplication {
 			.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
 			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,UnAutherziedApiConstant.GET_BOARD,
-					UnAutherziedApiConstant.GET_VALID_EMAIL_ID,UnAutherziedApiConstant.GET_VALIDATE_LOGIN,UnAutherziedApiConstant.GET_VERIFY_OTP,
+					UnAutherziedApiConstant.GET_VALID_EMAIL_ID,UnAutherziedApiConstant.GET_VALIDATE_LOGIN,
+					UnAutherziedApiConstant.GET_VERIFY_OTP,
 					UnAutherziedApiConstant.GET_VALIDMOBILE_NO,UnAutherziedApiConstant.GET_SEND_OTP,
 					UnAutherziedApiConstant.GET_FORGOT_PWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
 			.permitAll()
 			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
+			.antMatchers(HttpMethod.POST, "/getMobAuthToken").permitAll()
 			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.anyRequest().authenticated();
 		}

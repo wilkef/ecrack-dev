@@ -1,6 +1,5 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class ParentProfileDTO.
  */
@@ -8,43 +7,43 @@ public class ParentProfileDTO {
 
 	/** The Mobile number. */
 	private String MobileNumber;
-	
+
 	/** The Email id. */
 	private String EmailId;
-	
+
 	/** The First name. */
 	private String FirstName;
-	
+
 	/** The Middle name. */
 	private String MiddleName;
-	
+
 	/** The Gender. */
 	private String Gender;
-	
+
 	/** The Date of birth. */
 	private String DateOfBirth;
-	
+
 	/** The Profile image path. */
 	private String ProfileImagePath;
-	
+
 	/** The Primary address. */
 	private String PrimaryAddress;
-	
+
 	/** The State id. */
 	private int StateId;
-	
+
 	/** The Country id. */
 	private int CountryId;
-	
+
 	/** The City name. */
 	private String CityName;
-	
+
 	/** The Country name. */
 	private String CountryName;
-	
+
 	/** The State name. */
 	private String StateName;
-	
+
 	/**
 	 * Gets the city name.
 	 *
@@ -53,7 +52,7 @@ public class ParentProfileDTO {
 	public String getCityName() {
 		return CityName;
 	}
-	
+
 	/**
 	 * Sets the city name.
 	 *
@@ -62,7 +61,7 @@ public class ParentProfileDTO {
 	public void setCityName(String cityName) {
 		CityName = cityName;
 	}
-	
+
 	/**
 	 * Gets the country name.
 	 *
@@ -71,7 +70,7 @@ public class ParentProfileDTO {
 	public String getCountryName() {
 		return CountryName;
 	}
-	
+
 	/**
 	 * Sets the country name.
 	 *
@@ -80,7 +79,7 @@ public class ParentProfileDTO {
 	public void setCountryName(String countryName) {
 		CountryName = countryName;
 	}
-	
+
 	/**
 	 * Gets the state name.
 	 *
@@ -89,7 +88,7 @@ public class ParentProfileDTO {
 	public String getStateName() {
 		return StateName;
 	}
-	
+
 	/**
 	 * Sets the state name.
 	 *
@@ -98,7 +97,7 @@ public class ParentProfileDTO {
 	public void setStateName(String stateName) {
 		StateName = stateName;
 	}
-	
+
 	/**
 	 * Gets the mobile number.
 	 *
@@ -107,7 +106,7 @@ public class ParentProfileDTO {
 	public String getMobileNumber() {
 		return MobileNumber;
 	}
-	
+
 	/**
 	 * Sets the mobile number.
 	 *
@@ -116,7 +115,7 @@ public class ParentProfileDTO {
 	public void setMobileNumber(String mobileNumber) {
 		MobileNumber = mobileNumber;
 	}
-	
+
 	/**
 	 * Gets the email id.
 	 *
@@ -125,7 +124,7 @@ public class ParentProfileDTO {
 	public String getEmailId() {
 		return EmailId;
 	}
-	
+
 	/**
 	 * Sets the email id.
 	 *
@@ -134,7 +133,7 @@ public class ParentProfileDTO {
 	public void setEmailId(String emailId) {
 		EmailId = emailId;
 	}
-	
+
 	/**
 	 * Gets the first name.
 	 *
@@ -143,7 +142,7 @@ public class ParentProfileDTO {
 	public String getFirstName() {
 		return FirstName;
 	}
-	
+
 	/**
 	 * Sets the first name.
 	 *
@@ -152,7 +151,7 @@ public class ParentProfileDTO {
 	public void setFirstName(String firstName) {
 		FirstName = firstName;
 	}
-	
+
 	/**
 	 * Gets the middle name.
 	 *
@@ -161,7 +160,7 @@ public class ParentProfileDTO {
 	public String getMiddleName() {
 		return MiddleName;
 	}
-	
+
 	/**
 	 * Sets the middle name.
 	 *
@@ -170,7 +169,7 @@ public class ParentProfileDTO {
 	public void setMiddleName(String middleName) {
 		MiddleName = middleName;
 	}
-	
+
 	/**
 	 * Gets the gender.
 	 *
@@ -179,7 +178,7 @@ public class ParentProfileDTO {
 	public String getGender() {
 		return Gender;
 	}
-	
+
 	/**
 	 * Sets the gender.
 	 *
@@ -188,7 +187,7 @@ public class ParentProfileDTO {
 	public void setGender(String gender) {
 		Gender = gender;
 	}
-	
+
 	/**
 	 * Gets the date of birth.
 	 *
@@ -197,7 +196,7 @@ public class ParentProfileDTO {
 	public String getDateOfBirth() {
 		return DateOfBirth;
 	}
-	
+
 	/**
 	 * Sets the date of birth.
 	 *
@@ -206,7 +205,7 @@ public class ParentProfileDTO {
 	public void setDateOfBirth(String dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
-	
+
 	/**
 	 * Gets the profile image path.
 	 *
@@ -215,7 +214,7 @@ public class ParentProfileDTO {
 	public String getProfileImagePath() {
 		return ProfileImagePath;
 	}
-	
+
 	/**
 	 * Sets the profile image path.
 	 *
@@ -224,7 +223,7 @@ public class ParentProfileDTO {
 	public void setProfileImagePath(String profileImagePath) {
 		ProfileImagePath = profileImagePath;
 	}
-	
+
 	/**
 	 * Gets the primary address.
 	 *
@@ -233,7 +232,7 @@ public class ParentProfileDTO {
 	public String getPrimaryAddress() {
 		return PrimaryAddress;
 	}
-	
+
 	/**
 	 * Sets the primary address.
 	 *
@@ -255,7 +254,7 @@ public class ParentProfileDTO {
 	public int getStateId() {
 		return StateId;
 	}
-	
+
 	/**
 	 * Sets the state id.
 	 *
@@ -264,7 +263,7 @@ public class ParentProfileDTO {
 	public void setStateId(int stateId) {
 		StateId = stateId;
 	}
-	
+
 	/**
 	 * Gets the country id.
 	 *
@@ -273,7 +272,7 @@ public class ParentProfileDTO {
 	public int getCountryId() {
 		return CountryId;
 	}
-	
+
 	/**
 	 * Sets the country id.
 	 *

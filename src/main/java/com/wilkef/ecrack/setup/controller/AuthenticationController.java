@@ -8,7 +8,6 @@
 
 package com.wilkef.ecrack.setup.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -56,8 +55,10 @@ public class AuthenticationController {
 	public ResponseEntity<Object> getAuthToken(@RequestParam("user") String username, @RequestParam("password") String pwd) {
 		LOG.info("START-Inside getAuthToken");
 		
+
 	AuthDataDTO user = new AuthDataDTO();
-	ResponseEntity<Object> response=null;
+	ResponseEntity<Object> response=null; 
+
 	if(isValidUser(username,pwd)) {
 		String token = getJWTToken(username);
 		user=validationDao.getAuthData(username,token);
@@ -72,14 +73,34 @@ public class AuthenticationController {
 	}
 
 	
+	@PostMapping("/getMobAuthToken")
+	public ResponseEntity<Object> getMobAuthToken(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+		LOG.info("START-Inside getMobAuthToken");
+		
+	AuthDataDTO user = new AuthDataDTO();
+	ResponseEntity<Object> response=null; 
+	if(isValidUser(username,pwd)) {
+		String token = getJWTMobToken(username);
+		user=validationDao.getAuthData(username,token);
+		response =  ResponseEntity.status(HttpStatus.OK).
+				contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
+	}
+	else {
+		throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+	}
+	LOG.info("END-Inside getMobAuthToken");
+		return response;
+	}
+
+	
 	private boolean isValidUser(String user,String password) { 
 		boolean isValid=Boolean.FALSE;
 		JSONObject object=new JSONObject();
-		List<ValidationDTO> validDto=new ArrayList<>();
+		List<ValidationDTO> validDto= null;
 		object.put("user", user);
 		object.put("password", password);
 		validDto=validationDao.validateCredentials(object.toString());
-		if(validDto.size()>0 ) {
+		if(!validDto.isEmpty() ) {
 			isValid=true;
 		}
 		return isValid;
@@ -107,6 +128,27 @@ public class AuthenticationController {
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 43200000))
+				.signWith(SignatureAlgorithm.HS512,
+						secretKey.getBytes()).compact();
+		
+		return "Bearer " + token;
+	}
+	
+	
+	private String getJWTMobToken(String username) {
+		String secretKey = "mySecretKey";
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+				.commaSeparatedStringToAuthorityList("ROLE_USER");
+		
+		String token = Jwts
+				.builder()
+				.setId("softtekJWT")
+				.setSubject(username)
+				.claim("authorities",
+						grantedAuthorities.stream()
+								.map(GrantedAuthority::getAuthority)
+								.collect(Collectors.toList()))
+				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 		

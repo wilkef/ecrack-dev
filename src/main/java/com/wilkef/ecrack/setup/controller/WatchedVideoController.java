@@ -3,7 +3,6 @@
  */
 package com.wilkef.ecrack.setup.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,8 +23,7 @@ import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
- * @author Satya
- * Oct 31, 2020
+ * @author Satya Oct 31, 2020
  */
 
 @RestController
@@ -37,67 +35,59 @@ public class WatchedVideoController {
 
 	/** The service. */
 	@Autowired
-	public WatchedVideoDao dao; 
+	public WatchedVideoDao dao;
 
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
 
 	@PostMapping(value = "/Watchedvideo")
-	public ResponseEntity<Object> saveWatchedVideo(@RequestBody WatchedVideoDataDto watchedVideo){
-		ResponseEntity<Object> response=null;
+	public ResponseEntity<Object> saveWatchedVideo(@RequestBody WatchedVideoDataDto watchedVideo) {
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "save video record : " );
+			LOG.log(Level.INFO, () -> "save video record : ");
 			Integer saveWatchedVideo = dao.saveWatchedVideo(watchedVideo);
-			if (saveWatchedVideo>0) {
-				response= ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+			if (saveWatchedVideo > 0) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
-			}else {
-				response= ResponseEntity.status(HttpStatus.OK)	
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+			} else {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		return response;
 	}
-	
-	
 
 	@PostMapping(value = "/mostWatchedvideo")
-	public ResponseEntity<Object> mostWatchedvideo(@RequestBody WatchedVideoDataDto watchedVideo){
-		ResponseEntity<Object> response=null;
+	public ResponseEntity<Object> mostWatchedvideo(@RequestBody WatchedVideoDataDto watchedVideo) {
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "mostWatchedvideo: " );
-			List<WatchedVideoDataDto>  list = dao.mostWatchedVideo(watchedVideo);
-		
-				response= ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(list);
-			
+			LOG.log(Level.INFO, () -> "mostWatchedvideo: ");
+			List<WatchedVideoDataDto> list = dao.mostWatchedVideo(watchedVideo);
+
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(list);
+
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		return response;
 	}
-	
+
 	@PostMapping(value = "/videoSuggestion")
-	public ResponseEntity<Object> videoSuggestion(@RequestBody WatchedVideoDataDto watchedVideo){
-		ResponseEntity<Object> response=null;
+	public ResponseEntity<Object> videoSuggestion(@RequestBody WatchedVideoDataDto watchedVideo) {
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "videoSuggestion : " );
-			List<WatchedVideoDataDto>  list = dao.videoSuggestion(watchedVideo);
-		
-				response= ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(list);
-			
+			LOG.log(Level.INFO, () -> "videoSuggestion : ");
+			List<WatchedVideoDataDto> list = dao.videoSuggestion(watchedVideo);
+
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(list);
+
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		return response;
