@@ -14,7 +14,7 @@ import com.wilkef.ecrack.setup.dto.WatchedVideoDataDto;
 public interface WatchedVideoDao {
 	Integer saveWatchedVideo(WatchedVideoDataDto watchedVideo);
 
-	List<WatchedVideoDataDto> mostWatchedVideo(WatchedVideoDataDto watchedVideo);
+	List<WatchedVideoDataDto> mostWatchedVideo(Integer userId);
 
-	List<WatchedVideoDataDto> videoSuggestion(WatchedVideoDataDto watchedVideo);
+	List<WatchedVideoDataDto> videoSuggestion(Integer userId);
 }

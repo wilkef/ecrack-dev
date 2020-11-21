@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
+import com.wilkef.ecrack.setup.constant.WilkefConstants;
+import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dao.WatchedVideoDao;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.WatchedVideoDataDto;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
@@ -36,10 +41,15 @@ public class WatchedVideoController {
 	/** The service. */
 	@Autowired
 	public WatchedVideoDao dao;
+	
+	@Autowired
+	private ValidationDao validationDao;
 
-	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	@PostMapping(value = "/Watchedvideo")
 	public ResponseEntity<Object> saveWatchedVideo(@RequestBody WatchedVideoDataDto watchedVideo) {
@@ -63,33 +73,41 @@ public class WatchedVideoController {
 
 	@PostMapping(value = "/mostWatchedvideo")
 	public ResponseEntity<Object> mostWatchedvideo(@RequestBody WatchedVideoDataDto watchedVideo) {
+		LOG.log(Level.INFO, () -> "Start mostWatchedvideo");
 		ResponseEntity<Object> response = null;
-		try {
-			LOG.log(Level.INFO, () -> "mostWatchedvideo: ");
-			List<WatchedVideoDataDto> list = dao.mostWatchedVideo(watchedVideo);
+		try {			
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+			
+			List<WatchedVideoDataDto> mostWatchedvideoList = dao.mostWatchedVideo(loggedinUserInfo.getUserId());
 
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(list);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(mostWatchedvideoList);
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
+		LOG.log(Level.INFO, () -> "End mostWatchedvideo");
 		return response;
 	}
 
 	@PostMapping(value = "/videoSuggestion")
 	public ResponseEntity<Object> videoSuggestion(@RequestBody WatchedVideoDataDto watchedVideo) {
 		ResponseEntity<Object> response = null;
+		LOG.log(Level.INFO, () -> "videoSuggestion Start");
 		try {
-			LOG.log(Level.INFO, () -> "videoSuggestion : ");
-			List<WatchedVideoDataDto> list = dao.videoSuggestion(watchedVideo);
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+			
+			List<WatchedVideoDataDto> suggestedVideoList = dao.videoSuggestion(loggedinUserInfo.getUserId());
 
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(list);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(suggestedVideoList);
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
+		LOG.log(Level.INFO, () -> "videoSuggestion End ");
 		return response;
 	}
 }

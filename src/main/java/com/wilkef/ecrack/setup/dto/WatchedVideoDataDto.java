@@ -19,6 +19,7 @@ public class WatchedVideoDataDto {
 	private Integer timeWatched;
 	private String mobileNo;
 	private String lessonName;
+	private String lessonThumbnail;
 	private Integer unitId;
 	private String videoUrl;
 	
@@ -72,6 +73,12 @@ public class WatchedVideoDataDto {
 	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
+	public String getLessonThumbnail() {
+		return lessonThumbnail;
+	}
+	public void setLessonThumbnail(String lessonThumbnail) {
+		this.lessonThumbnail = lessonThumbnail;
+	}
 	public Date getStartDateTime() {
 		return startDateTime;
 	}
@@ -94,7 +101,7 @@ public class WatchedVideoDataDto {
 	public String toString() {
 		return "WatchedVideoDataDto [watchedVideoId=" + watchedVideoId + ", userId=" + userId + ", lessonId=" + lessonId
 				+ ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", timeWatched=" + timeWatched
-				+ ", mobileNo=" + mobileNo + "]";
+				+ ", mobileNo=" + mobileNo + ", lessonThumbnail=" + lessonThumbnail + "]";
 	}
 	
 	

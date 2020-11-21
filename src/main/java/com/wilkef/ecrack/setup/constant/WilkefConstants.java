@@ -104,4 +104,12 @@ public final class WilkefConstants {
 	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail FROM Lesson l INNER JOIN Unit u ON(l.UnitId=u.UnitId) INNER JOIN Subject s ON(s.SubjectId=u.SubjectId) WHERE l.LessonId=?";
 	
 	public static final String GET_PASSWORD = "SELECT l.Password FROM Login l WHERE l.UserId=?";
+	
+	public static final String MOST_WATCHED_VIDEOS = "SELECT w.WatchedVideoId, w.UserId, w.LessonId, w.StartDateTime, w.EndDateTime, l.LessonId, l.LessonName, l.LessonThumbnail\r\n" + 
+			"FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId = l.LessonId) where w.UserId=?\r\n" + 
+			" GROUP BY w.WatchedVideoId ORDER BY TimeWatched DESC LIMIT 6";
+	
+	public static final String SUGGESTED_VIDEOS = "SELECT VideoId, LessonId, LessonName, LessonThumbnail, UnitId, VideoUrl FROM Lesson \r\n" + 
+			"WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) FROM WatchedVideo WHERE UserId=?) LIMIT 6";
+	
 }
