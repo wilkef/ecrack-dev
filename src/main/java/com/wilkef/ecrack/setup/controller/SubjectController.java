@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
+import com.wilkef.ecrack.setup.constant.WilkefConstants;
+import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.SubjectService;
@@ -32,13 +37,19 @@ import com.wilkef.ecrack.setup.service.SubjectService;
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
-
+	
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(SubjectController.class.getName());
 
 	/** The subject service. */
 	@Autowired
 	private SubjectService subjectService;
+	
+	@Autowired
+	private ValidationDao validationDao;
+	
+	@Autowired
+	private HttpServletRequest request;
 	
 	/**
 	 * Find by grade id.
@@ -49,12 +60,15 @@ public class SubjectController {
 	@GetMapping(value = "/subjectList/{GradeId}")
 	public ResponseEntity<Object> findByGradeId(@PathVariable("GradeId") Integer gradeId) {
 		LOG.info("START-Inside findByGradeId");
-		LOG.log(Level.INFO, () -> " findByGradeId Inputs gradeId:"+gradeId); 
+				
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+		
 		ResponseEntity<Object> response = null;
 		List<SubjectDataDTO> subjectDataList = null;
 		try {
 			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + gradeId);
-			subjectDataList = subjectService.getSubjectsByGradeId(gradeId);
+			subjectDataList = subjectService.getSubjectsByGradeId(loggedinUserInfo.getGradeId());
 			response = new ResponseEntity<>(subjectDataList, HttpStatus.OK);
 		}
 		catch (Exception e) {

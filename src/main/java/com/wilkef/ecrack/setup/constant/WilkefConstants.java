@@ -15,8 +15,12 @@ public final class WilkefConstants {
 	/**
 	 * Instantiates a new wilkef constants.
 	 */
-	private WilkefConstants() {
-	}
+	private WilkefConstants() {}
+	
+	/** Constants related to authentication */
+	public static final String AUTH_HEADER = "Authorization";
+	public static final String AUTH_HEADER_PREFIX = "Bearer ";
+	public static final String JWT_SECRET = "mySecretKey";
 
 	/** The Constant GET_UNIT_DETAIL. */
 	public static final String GET_UNIT_DETAIL = "Select UnitId ,UnitName ,SubjectId from Unit";
@@ -92,6 +96,8 @@ public final class WilkefConstants {
 	public static final String SET_ACTIVE_STATUS="update Login set IsActive = ? where UserName = ? and Password =? ";
 	
 	public static final String TOKEN_RETURN = "SELECT u.MobileNumber, u.EmailId, u.FirstName, u.LastName, e.GradeId, g.GradeName FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) INNER JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
+	
+	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
 	
 	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
 	

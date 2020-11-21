@@ -41,9 +41,14 @@ import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.AuthDataDTO;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.UnitDataDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 
 
 /**
@@ -258,5 +263,30 @@ public class ValidationDaoImpl implements ValidationDao{
 		}
 		authdataList.get(0).setToken(token);
 		return authdataList.get(0);
+	}
+	
+	@Override
+	public LoggedinUserInfo getLoggedinUserInfo(String token) {
+		LoggedinUserInfo loggedinUserInfo = new LoggedinUserInfo();
+		try {			
+			Jws<Claims> result = Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes()).parseClaimsJws(token);
+			String mobileNumber = result.getBody().getSubject().toString();
+			
+			String sql = WilkefConstants.LOGGEDIN_USER_INFO;
+	        return appJdbcTemplate.queryForObject(sql, new Object[]{mobileNumber}, (rs, rowNum) -> {
+	        	loggedinUserInfo.setUserId(rs.getInt("userid"));
+	        	loggedinUserInfo.setMobileNumber(rs.getString("MobileNumber"));
+	        	loggedinUserInfo.setFirstName(rs.getString("FirstName"));
+	        	loggedinUserInfo.setMiddleName(rs.getString("MiddleName"));
+	        	loggedinUserInfo.setLastName(rs.getString("LastName"));
+	        	loggedinUserInfo.setGradeId(rs.getInt("GradeId"));
+	        	return loggedinUserInfo;
+	        });              
+
+			
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while fetching record for Loggedin User");
+		}
+		return loggedinUserInfo;
 	}
 }

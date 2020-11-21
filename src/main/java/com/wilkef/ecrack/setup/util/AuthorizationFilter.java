@@ -14,17 +14,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.wilkef.ecrack.setup.constant.WilkefConstants;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
-public class AuthorizationFilter extends OncePerRequestFilter{
-
-	private final String HEADER = "Authorization";
-	private final String PREFIX = "Bearer ";
-	private final String SECRET = "mySecretKey";
+public class AuthorizationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -48,8 +46,8 @@ public class AuthorizationFilter extends OncePerRequestFilter{
 	}	
 
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		return Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
 
 	/**
@@ -68,8 +66,8 @@ public class AuthorizationFilter extends OncePerRequestFilter{
 	}
 
 	private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
-		String authenticationHeader = request.getHeader(HEADER);
-		if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
+		String authenticationHeader = request.getHeader(WilkefConstants.AUTH_HEADER);
+		if (authenticationHeader == null || !authenticationHeader.startsWith(WilkefConstants.AUTH_HEADER_PREFIX))
 			return false;
 		return true;
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.wilkef.ecrack.setup.dto.ChangePasswordDataDTO;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
 
 /**
@@ -18,7 +19,7 @@ public interface UserProfileDao {
 	 * @param userId the user id
 	 * @return the list
 	 */
-	List<UserProfileDTO> updateProfile(@Valid String input);
+	List<UserProfileDTO> updateProfile(@Valid String input, String userId);
 
 	/**
 	 * View profile.
@@ -27,5 +28,14 @@ public interface UserProfileDao {
 	 * @return the list
 	 */
 	List<UserProfileDTO> viewProfile(@Valid String userId);
+	
+	/**
+	 * Change Password.
+	 *
+	 * @param ChangePasswordDataDTO changePasswordData
+	 * @param String userName
+	 * @return the status (int)
+	 */
+	Integer changePassword(ChangePasswordDataDTO changePasswordData, String userName);
 
 }

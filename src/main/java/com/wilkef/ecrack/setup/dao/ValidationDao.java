@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.wilkef.ecrack.setup.dto.AuthDataDTO;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 
 /**
@@ -61,5 +62,7 @@ public interface ValidationDao {
 	boolean setLoginStatus(int status,String input);
 	
 	AuthDataDTO getAuthData(String user,String token); 
+	
+	LoggedinUserInfo getLoggedinUserInfo(String token); 
 	
 }

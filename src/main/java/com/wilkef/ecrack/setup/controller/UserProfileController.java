@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
+import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
+import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
@@ -44,12 +49,17 @@ public class UserProfileController {
 	
 	/** The user profile dao. */
 	@Autowired
-	private  UserProfileDao userProfileDao;
-	
+	private  UserProfileDao userProfileDao;	
 	
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+	
+	@Autowired
+	private ValidationDao validationDao;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	
 	/**
@@ -64,10 +74,14 @@ public class UserProfileController {
 	public ResponseEntity<Object> updateProfile(@Valid @RequestBody String input){
 		LOG.info("START-Inside updateProfile");
 		LOG.log(Level.INFO, () -> " updateProfile Inputs: " + input); 
-		ResponseEntity<Object> response=null;
-		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
+		
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+		
+		ResponseEntity<Object> response = null;
+		List<UserProfileDTO> userProfileDTOList = new ArrayList<>();
 		try {
-			userProfileDTOList = userProfileDao.updateProfile(input);
+			userProfileDTOList = userProfileDao.updateProfile(input, loggedinUserInfo.getMobileNumber());
 			if(userProfileDTOList.get(0).getUpdateCount().equals(1)) {
 				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 				        .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
@@ -95,10 +109,14 @@ public class UserProfileController {
 	public ResponseEntity<Object> viewProfile(@Valid @PathVariable String userName){
 		LOG.info("START-Inside viewProfile");
 		LOG.log(Level.INFO, () -> "viewProfile Inputs: " + userName); 
+		
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+		
 		ResponseEntity<Object> response=null;
 		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
 		try {
-			userProfileDTOList = userProfileDao.viewProfile(userName);
+			userProfileDTOList = userProfileDao.viewProfile(loggedinUserInfo.getMobileNumber());
 			if(!userProfileDTOList.isEmpty()) {
 				response =  ResponseEntity.status(HttpStatus.OK).
 						contentType(MediaType.APPLICATION_JSON_UTF8)
