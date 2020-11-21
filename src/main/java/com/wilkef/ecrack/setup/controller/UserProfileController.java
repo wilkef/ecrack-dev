@@ -32,9 +32,11 @@ import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.ChangePasswordDataDTO;
 import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
+import com.wilkef.ecrack.setup.service.UserProfileService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
@@ -51,7 +53,9 @@ public class UserProfileController {
 	@Autowired
 	private  UserProfileDao userProfileDao;	
 	
-	/** The service output. */
+	@Autowired
+	private  UserProfileService userProfileService;	
+	
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
 	
@@ -132,6 +136,46 @@ public class UserProfileController {
 		}
 		LOG.info("END-Inside viewProfile");
 		return  response;
+	}
+	
+	
+	/**
+	 * Change Password
+	 *
+	 * @param resetPwd the reset pwd
+	 * @return the response entity
+	 */
+	@PostMapping(value = "/changePassword", consumes = "application/json")
+	public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDataDTO changePasswordData) {
+		LOG.info("START-Inside changePassword");
+		LOG.log(Level.INFO, () -> " changePassword Inputs:" + changePasswordData);
+		ResponseEntity<Object> response = null;
+		try {
+			LOG.log(Level.INFO, () -> "Before Changing Password");
+			
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+			
+			boolean validCurrPwd = validationDao.validateCurrentPassword(changePasswordData.getCurrentPassword(), loggedinUserInfo.getUserId());
+			
+			if (validCurrPwd) {
+				userProfileService.changePassword(changePasswordData, loggedinUserInfo.getMobileNumber());				
+				response = ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
+				return response;
+			} else {
+				LOG.log(Level.INFO, () -> "Current Password is not correct" );
+				response = ResponseEntity.status(HttpStatus.OK)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
+			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
+		}
+		LOG.info("End-Inside changePassword ");
+		return response;
 	}
 	
 }

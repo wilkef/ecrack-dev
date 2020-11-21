@@ -61,8 +61,30 @@ public interface ValidationDao {
 	
 	boolean setLoginStatus(int status,String input);
 	
+	/**
+	 * Get Loggedin User Data
+	 *
+	 * @param mobileNo the mobile no
+	 * @return AuthDataDTO
+	 */
 	AuthDataDTO getAuthData(String user,String token); 
 	
+	/**
+	 * Get Loggedin User Data
+	 *
+	 * @param token
+	 * @return AuthDataDTO
+	 */
 	LoggedinUserInfo getLoggedinUserInfo(String token); 
+	
+	
+	/**
+	 * Check if current password is correct
+	 *
+	 * @param currentPassword
+	 * @param userId
+	 * @return boolean
+	 */
+	boolean validateCurrentPassword(String currentPassword, Integer userId);
 	
 }

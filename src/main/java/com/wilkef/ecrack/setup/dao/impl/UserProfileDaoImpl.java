@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UserProfileDao;
+import com.wilkef.ecrack.setup.dto.ChangePasswordDataDTO;
 import com.wilkef.ecrack.setup.dto.UserProfileDTO;
 
 /**
@@ -100,4 +101,24 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		}
 		return userProfileDTOList;
 	}
+	
+	@Override
+	public Integer changePassword(ChangePasswordDataDTO changePasswordData, String userName) {			
+		String currentPassword = changePasswordData.getCurrentPassword();
+		String newPassword = changePasswordData.getNewPassword();
+		String confirmPassword = changePasswordData.getConfirmPassword();
+		Integer status = null;			
+		try {
+			LOG.fine("ChangePassword DB Operation Started ");
+			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
+		           .withProcedureName(WilkefConstants.RESETPASSWORD);
+		           
+		    Map<String, Object> execute = simpleJdbcCall.execute(userName, currentPassword, newPassword);
+		    status = (Integer) execute.get("v_IsSuccess");
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while ChangePassword ");
+		}
+		return status;		
+	}
+	
 }

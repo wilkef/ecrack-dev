@@ -289,4 +289,21 @@ public class ValidationDaoImpl implements ValidationDao{
 		}
 		return loggedinUserInfo;
 	}
+	
+	@Override
+	public boolean validateCurrentPassword(String currentPassword, Integer userId) {
+		boolean validCurrentPassword = Boolean.FALSE;
+		LOG.log(Level.INFO, "Start validateCurrentPassword");
+		try {
+			String sql = WilkefConstants.GET_PASSWORD;			
+			String password = appJdbcTemplate.queryForObject(sql, new Object[]{userId}, String.class);
+			if(password.equals(currentPassword)) {
+				validCurrentPassword = Boolean.TRUE;
+			} 			
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+		}		
+		LOG.log(Level.INFO, "End validateCurrentPassword");
+		return validCurrentPassword;
+	}
 }
