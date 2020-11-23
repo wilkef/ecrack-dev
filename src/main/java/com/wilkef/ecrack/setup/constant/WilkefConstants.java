@@ -113,4 +113,5 @@ public final class WilkefConstants {
 	public static final String SUGGESTED_VIDEOS = "SELECT VideoId, LessonId, LessonName, LessonThumbnail, UnitId, VideoUrl FROM Lesson \r\n"
 			+ "WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) FROM WatchedVideo WHERE UserId=?) LIMIT 6";
 
+	public static final String CHECK_MOB_AVAILABILITY = "SELECT count(*) FROM Login WHERE UserName = ?";
 }

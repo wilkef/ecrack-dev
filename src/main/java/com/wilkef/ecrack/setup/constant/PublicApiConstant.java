@@ -6,14 +6,16 @@ package com.wilkef.ecrack.setup.constant;
 /**
  * @author Satya Oct 3, 2020
  */
-public class UnAutherziedApiConstant {
+public class PublicApiConstant {
 
 	/**
 	 * 
 	 */
-	private UnAutherziedApiConstant() {
+	private PublicApiConstant() {
 	}
-
+	
+	public static final String CHECK_MOB_AVAILABILITY = "/user/checkMobAvailability/{mobileNo}";
+	
 	public static final String GET_REGISTER = "/user/register";
 
 	public static final String GET_BOARD = "/user/boardList";

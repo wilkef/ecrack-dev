@@ -24,4 +24,6 @@ public interface RegistrationDao {
 	 * @return the list
 	 */
 	public List<RegistrationDataDTO> save(JSONObject obj);
+	
+	public boolean checkMobAvailability(String mobileNo);
 }

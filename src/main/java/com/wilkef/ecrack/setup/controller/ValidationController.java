@@ -31,6 +31,7 @@ import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
+import com.wilkef.ecrack.setup.service.RegistrationService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
@@ -51,6 +52,9 @@ public class ValidationController {
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+	
+	@Autowired
+	private RegistrationService registrationService;
 
 	/**
 	 * Validate email id.
@@ -159,6 +163,27 @@ public class ValidationController {
 	 * 
 	 */
 
+	@PostMapping(value = "/checkMobAvailability/{mobileNo}")
+	public ResponseEntity<Object> checkMobAvailability(@Valid @PathVariable("mobileNo") String mobileNo) {
+		LOG.info("Start checkMobAvailability");
+		ResponseEntity<Object> response = null;
+		try {
+			boolean isExist = registrationService.checkMobAvailability(mobileNo);
+			if (!isExist) {
+				validationDao.saveOtp(mobileNo);
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
+			} else {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
+			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
+		}
+		return response;
+	}
+	
 	@PostMapping(value = "/SendOTP/{mobileNo}")
 	public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo") String mobileNo) {
 		LOG.info("START-Inside sendOTP");

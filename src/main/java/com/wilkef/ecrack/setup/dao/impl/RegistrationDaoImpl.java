@@ -57,4 +57,19 @@ public class RegistrationDaoImpl implements RegistrationDao {
 		}
 		return registrationStatus;
 	}
+	
+	@Override
+	public boolean checkMobAvailability(String mobileNo) {
+		LOG.fine("checkMobAvailability DAO Impl");
+		boolean isExist = Boolean.FALSE;
+		try {
+			String query = WilkefConstants.CHECK_MOB_AVAILABILITY;
+			int count = appJdbcTemplate.queryForObject(query, new Object[] {mobileNo}, Integer.class);
+			isExist = count > 0;			
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while checkMobAvailability ");
+		}
+		return isExist;
+	}
+	
 }

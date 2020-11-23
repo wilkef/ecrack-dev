@@ -15,20 +15,19 @@ import com.wilkef.ecrack.setup.dao.RegistrationDao;
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 import com.wilkef.ecrack.setup.service.RegistrationService;
 
-
 /**
- * This class provides implementation for Registration interface to store the user details.
+ * This class provides implementation for Registration interface to store the
+ * user details.
  * 
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 
 @Service
-public class RegistrationServiceImpl implements RegistrationService{
-	
+public class RegistrationServiceImpl implements RegistrationService {
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class.getName());
-	
+
 	/** The register dao. */
 	@Autowired
 	private RegistrationDao registerDao;
@@ -41,12 +40,24 @@ public class RegistrationServiceImpl implements RegistrationService{
 	 */
 	@Override
 	public List<RegistrationDataDTO> save(JSONObject obj) {
-		List<RegistrationDataDTO> save=null;
+		List<RegistrationDataDTO> save = null;
 		try {
 			save = registerDao.save(obj);
 		} catch (Exception exception) {
 			LOG.log(Level.SEVERE, () -> "something wrong while inserting User Record : " + exception.getMessage());
-		} 
+		}
 		return save;
 	}
+
+	@Override
+	public boolean checkMobAvailability(String mobileNo) {
+		boolean isExist = Boolean.FALSE;
+		try {
+			isExist = registerDao.checkMobAvailability(mobileNo);
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> "something wrong while inserting User Record : " + e.getMessage());
+		}
+		return isExist;
+	}
+
 }
