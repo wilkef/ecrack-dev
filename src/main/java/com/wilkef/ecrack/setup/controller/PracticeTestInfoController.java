@@ -1,4 +1,4 @@
-  
+
 /**
  * This Class is Identify to execute PracticeTestInfo Controller
  * 
@@ -27,7 +27,6 @@ import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.PracticeTestInfoService;
 
-
 /**
  * The Class PracticeTestInfoController.
  */
@@ -49,23 +48,22 @@ public class PracticeTestInfoController {
 	 * @return the practice test info
 	 */
 	@PostMapping(value = "/practiceTestInfo")
-	public ResponseEntity<Object> getPracticeTestInfo(@RequestBody String praticeTest){
+	public ResponseEntity<Object> getPracticeTestInfo(@RequestBody String praticeTest) {
 		LOG.info("START-Inside getPracticeTestInfo ");
-		LOG.log(Level.INFO, () -> " getPracticeTestInfo Inputs unitId praticeTest: "+praticeTest); 
+		LOG.log(Level.INFO, () -> " getPracticeTestInfo Inputs unitId praticeTest: " + praticeTest);
 		JSONObject obj = new JSONObject(praticeTest);
-		ResponseEntity<Object> response=null;
+		ResponseEntity<Object> response = null;
 		List<PracticeTestInfoDTO> practiceTestInfoDto = null;
 		try {
-			 practiceTestInfoDto = practiceTestService.findPracticeTestInfo(obj);
+			practiceTestInfoDto = practiceTestService.findPracticeTestInfo(obj);
 			if (practiceTestInfoDto != null) {
-				response=new ResponseEntity<>(practiceTestInfoDto,HttpStatus.OK);
-			}
-			else {
-				LOG.log(Level.INFO, () -> "PracticeTestInfo Record is Not Available in DB " );
+				response = new ResponseEntity<>(practiceTestInfoDto, HttpStatus.OK);
+			} else {
+				LOG.log(Level.INFO, () -> "PracticeTestInfo Record is Not Available in DB ");
 				throw new CustomException(ErrorConstants.NO_RECORD_FOUND);
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside getPracticeTestInfo ");

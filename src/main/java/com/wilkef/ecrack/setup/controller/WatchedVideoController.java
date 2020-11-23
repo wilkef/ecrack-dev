@@ -41,13 +41,13 @@ public class WatchedVideoController {
 	/** The service. */
 	@Autowired
 	public WatchedVideoDao dao;
-	
+
 	@Autowired
 	private ValidationDao validationDao;
 
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
-	
+
 	@Autowired
 	private HttpServletRequest request;
 
@@ -75,13 +75,15 @@ public class WatchedVideoController {
 	public ResponseEntity<Object> mostWatchedvideo(@RequestBody WatchedVideoDataDto watchedVideo) {
 		LOG.log(Level.INFO, () -> "Start mostWatchedvideo");
 		ResponseEntity<Object> response = null;
-		try {			
-			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		try {
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+					"");
 			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
-			
+
 			List<WatchedVideoDataDto> mostWatchedvideoList = dao.mostWatchedVideo(loggedinUserInfo.getUserId());
 
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(mostWatchedvideoList);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(mostWatchedvideoList);
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
@@ -96,12 +98,14 @@ public class WatchedVideoController {
 		ResponseEntity<Object> response = null;
 		LOG.log(Level.INFO, () -> "videoSuggestion Start");
 		try {
-			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+					"");
 			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
-			
+
 			List<WatchedVideoDataDto> suggestedVideoList = dao.videoSuggestion(loggedinUserInfo.getUserId());
 
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(suggestedVideoList);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(suggestedVideoList);
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

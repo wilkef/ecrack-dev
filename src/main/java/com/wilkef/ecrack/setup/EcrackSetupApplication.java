@@ -42,7 +42,7 @@ public class EcrackSetupApplication {
 	@Value("${app.datasourece.userName}")
 	private String appDataSourceUserName;
 
-	@Value("${app.datasourece.password}")	
+	@Value("${app.datasourece.password}")
 	private String appDataSourcePswd;
 
 	@Value("${app.datasourece.driver.className}")
@@ -94,7 +94,8 @@ public class EcrackSetupApplication {
 	@Bean
 	public static PropertyPlaceholderConfigurer properties() {
 		PropertyPlaceholderConfigurer propConfig = new PropertyPlaceholderConfigurer();
-		Resource[] resources = new ClassPathResource[] { new ClassPathResource("application.properties"),new ClassPathResource("myLogging.properties") };
+		Resource[] resources = new ClassPathResource[] { new ClassPathResource("application.properties"),
+				new ClassPathResource("myLogging.properties") };
 		propConfig.setLocations(resources);
 		propConfig.setIgnoreUnresolvablePlaceholders(true);
 		return propConfig;
@@ -106,29 +107,22 @@ public class EcrackSetupApplication {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-			.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-			.authorizeRequests()
-			.antMatchers(UnAutherziedApiConstant.GET_REGISTER,UnAutherziedApiConstant.GET_BOARD,
-					UnAutherziedApiConstant.GET_VALID_EMAIL_ID,UnAutherziedApiConstant.GET_VALIDATE_LOGIN,
-					UnAutherziedApiConstant.GET_VERIFY_OTP,
-					UnAutherziedApiConstant.GET_VALIDMOBILE_NO,UnAutherziedApiConstant.GET_SEND_OTP,
-					UnAutherziedApiConstant.GET_FORGOT_PWD, UnAutherziedApiConstant.GET_GRADE_INFO)	
-			.permitAll()
-			.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
-			.antMatchers(HttpMethod.POST, "/getMobAuthToken").permitAll()
-			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-			.anyRequest().authenticated();
+			http.csrf().disable().addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+					.authorizeRequests()
+					.antMatchers(UnAutherziedApiConstant.GET_REGISTER, UnAutherziedApiConstant.GET_BOARD,
+							UnAutherziedApiConstant.GET_VALID_EMAIL_ID, UnAutherziedApiConstant.GET_VALIDATE_LOGIN,
+							UnAutherziedApiConstant.GET_VERIFY_OTP, UnAutherziedApiConstant.GET_VALIDMOBILE_NO,
+							UnAutherziedApiConstant.GET_SEND_OTP, UnAutherziedApiConstant.GET_FORGOT_PWD,
+							UnAutherziedApiConstant.GET_GRADE_INFO)
+					.permitAll().antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
+					.antMatchers(HttpMethod.POST, "/getMobAuthToken").permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
+					.permitAll().anyRequest().authenticated();
 		}
 
 		@Override
 		public void configure(WebSecurity web) throws Exception {
-			 web.ignoring().antMatchers("/v2/api-docs",
-					"/configuration/ui",
-					"/swagger-resources/**",
-					"/configuration/security",
-					"/swagger-ui.html",
-					"/webjars/**");
+			web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
+					"/configuration/security", "/swagger-ui.html", "/webjars/**");
 		}
 	}
 }

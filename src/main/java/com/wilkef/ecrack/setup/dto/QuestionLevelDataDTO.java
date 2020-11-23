@@ -1,21 +1,19 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * This Class is used QuestionLevel DTO Class.
  *
- * @author Satya
- * Sep 16, 2020
+ * @author Satya Sep 16, 2020
  */
 
 public class QuestionLevelDataDTO {
-	
+
 	/** The difficulty id. */
 	private Integer difficultyId;
-	
+
 	/** The difficulty code. */
 	private String difficultyCode;
-	
+
 	/**
 	 * Gets the difficulty id.
 	 *
@@ -24,7 +22,7 @@ public class QuestionLevelDataDTO {
 	public Integer getDifficultyId() {
 		return difficultyId;
 	}
-	
+
 	/**
 	 * Sets the difficulty id.
 	 *
@@ -33,7 +31,7 @@ public class QuestionLevelDataDTO {
 	public void setDifficultyId(Integer difficultyId) {
 		this.difficultyId = difficultyId;
 	}
-	
+
 	/**
 	 * Gets the difficulty code.
 	 *
@@ -42,7 +40,7 @@ public class QuestionLevelDataDTO {
 	public String getDifficultyCode() {
 		return difficultyCode;
 	}
-	
+
 	/**
 	 * Sets the difficulty code.
 	 *
@@ -51,7 +49,7 @@ public class QuestionLevelDataDTO {
 	public void setDifficultyCode(String difficultyCode) {
 		this.difficultyCode = difficultyCode;
 	}
-	
+
 	/**
 	 * To string.
 	 *

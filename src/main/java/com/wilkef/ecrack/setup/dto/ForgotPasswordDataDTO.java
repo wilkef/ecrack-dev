@@ -3,24 +3,22 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * This class is representing POJO class.
  *
- * @author Satya
- * Sep 19, 2020
+ * @author Satya Sep 19, 2020
  */
 public class ForgotPasswordDataDTO {
-	
+
 	/** The user name. */
 	private Long userName;
-	
+
 	/** The new password. */
 	private String newPassword;
-	
+
 	/** The confirm password. */
 	private String confirmPassword;
-	
+
 	/**
 	 * Gets the user name.
 	 *
@@ -29,7 +27,7 @@ public class ForgotPasswordDataDTO {
 	public Long getUserName() {
 		return userName;
 	}
-	
+
 	/**
 	 * Sets the user name.
 	 *
@@ -38,7 +36,7 @@ public class ForgotPasswordDataDTO {
 	public void setUserName(Long userName) {
 		this.userName = userName;
 	}
-	
+
 	/**
 	 * Gets the new password.
 	 *
@@ -47,7 +45,7 @@ public class ForgotPasswordDataDTO {
 	public String getNewPassword() {
 		return newPassword;
 	}
-	
+
 	/**
 	 * Sets the new password.
 	 *
@@ -56,7 +54,7 @@ public class ForgotPasswordDataDTO {
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
-	
+
 	/**
 	 * Gets the confirm password.
 	 *
@@ -65,7 +63,7 @@ public class ForgotPasswordDataDTO {
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
-	
+
 	/**
 	 * Sets the confirm password.
 	 *
@@ -74,7 +72,7 @@ public class ForgotPasswordDataDTO {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
+
 	/**
 	 * To string.
 	 *
@@ -85,6 +83,5 @@ public class ForgotPasswordDataDTO {
 		return "ForgotPasswordDataDTO [userName=" + userName + ", newPassword=" + newPassword + ", confirmPassword="
 				+ confirmPassword + "]";
 	}
-	
-	
+
 }

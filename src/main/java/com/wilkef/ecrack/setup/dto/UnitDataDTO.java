@@ -1,6 +1,5 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class UnitDataDTO.
  */
@@ -8,10 +7,10 @@ public class UnitDataDTO {
 
 	/** The unit id. */
 	private Integer unitId;
-	
+
 	/** The unit name. */
 	private String unitName;
-	
+
 	/** The subject id. */
 	private Integer subjectId;
 

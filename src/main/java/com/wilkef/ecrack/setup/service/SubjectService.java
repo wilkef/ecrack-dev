@@ -7,15 +7,14 @@ import java.util.List;
 
 import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
 
-
 /**
  * The Interface SubjectService.
  *
- * @author chinmaya.dehury
- * This interface will be holding all the service methods related to Subject.
+ * @author chinmaya.dehury This interface will be holding all the service
+ *         methods related to Subject.
  */
 public interface SubjectService {
-	
+
 	/**
 	 * Gets the subjects by grade id.
 	 *

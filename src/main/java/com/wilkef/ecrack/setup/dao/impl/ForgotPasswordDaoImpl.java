@@ -16,12 +16,10 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ForgotPasswordDao;
 import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
 
-
 /**
  * This Class is Used to execute DB operation of Forgot Password.
  *
- * @author Satya
- * Sep 19, 2020
+ * @author Satya Sep 19, 2020
  */
 
 @Repository
@@ -42,17 +40,15 @@ public class ForgotPasswordDaoImpl implements ForgotPasswordDao {
 	 */
 	@Override
 	public Integer forgotPassword(ForgotPasswordDataDTO forgotPwd) {
-
 		String confirmPassword = forgotPwd.getConfirmPassword();
 		Long userName = forgotPwd.getUserName();
-		Integer status=null;
-
+		Integer status = null;
 		try {
 			LOG.fine("Forgot Password DB Execution Started");
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.FORGOTPASSWORD);
 
-			Map<String, Object> execute = simpleJdbcCall.execute(userName,confirmPassword);
+			Map<String, Object> execute = simpleJdbcCall.execute(userName, confirmPassword);
 			status = (Integer) execute.get("v_IsSuccess");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while ForgotPassword ");

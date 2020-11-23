@@ -3,38 +3,35 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class UnitListDataDTO.
  *
- * @author Satya
- * Sep 18, 2020
+ * @author Satya Sep 18, 2020
  */
 
-
 public class UnitListDataDTO {
-	
+
 	/** The unit id. */
 	private Integer unitId;
-	
+
 	/** The unit name. */
 	private String unitName;
-	
+
 	/** The subject id. */
 	private Integer subjectId;
-	
+
 	/** The subject name. */
 	private String subjectName;
-	
+
 	/** The unit serial. */
 	private Integer unitSerial;
-	
+
 	/** The max mark. */
 	private Integer maxMark;
-    
-    /** The no of period. */
-    private Integer noOfPeriod;
-    
+
+	/** The no of period. */
+	private Integer noOfPeriod;
+
 	/**
 	 * Gets the unit id.
 	 *
@@ -43,7 +40,7 @@ public class UnitListDataDTO {
 	public Integer getUnitId() {
 		return unitId;
 	}
-	
+
 	/**
 	 * Sets the unit id.
 	 *
@@ -52,7 +49,7 @@ public class UnitListDataDTO {
 	public void setUnitId(Integer unitId) {
 		this.unitId = unitId;
 	}
-	
+
 	/**
 	 * Gets the unit name.
 	 *
@@ -61,7 +58,7 @@ public class UnitListDataDTO {
 	public String getUnitName() {
 		return unitName;
 	}
-	
+
 	/**
 	 * Sets the unit name.
 	 *
@@ -70,7 +67,7 @@ public class UnitListDataDTO {
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
 	}
-	
+
 	/**
 	 * Gets the subject id.
 	 *
@@ -79,7 +76,7 @@ public class UnitListDataDTO {
 	public Integer getSubjectId() {
 		return subjectId;
 	}
-	
+
 	/**
 	 * Sets the subject id.
 	 *
@@ -88,7 +85,7 @@ public class UnitListDataDTO {
 	public void setSubjectId(Integer subjectId) {
 		this.subjectId = subjectId;
 	}
-	
+
 	/**
 	 * Gets the subject name.
 	 *
@@ -97,7 +94,7 @@ public class UnitListDataDTO {
 	public String getSubjectName() {
 		return subjectName;
 	}
-	
+
 	/**
 	 * Sets the subject name.
 	 *
@@ -106,7 +103,7 @@ public class UnitListDataDTO {
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-	
+
 	/**
 	 * Gets the unit serial.
 	 *
@@ -115,7 +112,7 @@ public class UnitListDataDTO {
 	public Integer getUnitSerial() {
 		return unitSerial;
 	}
-	
+
 	/**
 	 * Sets the unit serial.
 	 *
@@ -124,7 +121,7 @@ public class UnitListDataDTO {
 	public void setUnitSerial(Integer unitSerial) {
 		this.unitSerial = unitSerial;
 	}
-	
+
 	/**
 	 * Gets the max mark.
 	 *
@@ -133,7 +130,7 @@ public class UnitListDataDTO {
 	public Integer getMaxMark() {
 		return maxMark;
 	}
-	
+
 	/**
 	 * Sets the max mark.
 	 *
@@ -142,7 +139,7 @@ public class UnitListDataDTO {
 	public void setMaxMark(Integer maxMark) {
 		this.maxMark = maxMark;
 	}
-	
+
 	/**
 	 * Gets the no of period.
 	 *
@@ -151,7 +148,7 @@ public class UnitListDataDTO {
 	public Integer getNoOfPeriod() {
 		return noOfPeriod;
 	}
-	
+
 	/**
 	 * Sets the no of period.
 	 *
@@ -160,7 +157,7 @@ public class UnitListDataDTO {
 	public void setNoOfPeriod(Integer noOfPeriod) {
 		this.noOfPeriod = noOfPeriod;
 	}
-	
+
 	/**
 	 * To string.
 	 *

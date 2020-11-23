@@ -19,20 +19,18 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.TestTypeListDao;
 import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
 
-
 /**
  * This Class is Used to execute DB operation of TestTypeList.
  *
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 
 @Repository
-public class TestTypeListDaoImpl implements TestTypeListDao{
+public class TestTypeListDaoImpl implements TestTypeListDao {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(TestTypeListDaoImpl.class.getName());
-	
+
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
@@ -49,12 +47,11 @@ public class TestTypeListDaoImpl implements TestTypeListDao{
 		LOG.fine("get TetsTypeList details ");
 		try {
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-			           .withProcedureName(WilkefConstants.TEST_TYPE_LIST)
-			           .returningResultSet("TestTypeList",
-			                 BeanPropertyRowMapper.newInstance(TestTypeListDataDTO.class));
+					.withProcedureName(WilkefConstants.TEST_TYPE_LIST)
+					.returningResultSet("TestTypeList", BeanPropertyRowMapper.newInstance(TestTypeListDataDTO.class));
 
-			    Map<String, Object> execute = simpleJdbcCall.execute();
-			    testTypeDataList=(List<TestTypeListDataDTO>) execute.get("TestTypeList");
+			Map<String, Object> execute = simpleJdbcCall.execute();
+			testTypeDataList = (List<TestTypeListDataDTO>) execute.get("TestTypeList");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for TestTypeList ");
 		}

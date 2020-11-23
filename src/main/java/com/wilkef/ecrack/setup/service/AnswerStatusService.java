@@ -7,15 +7,13 @@ import java.util.List;
 
 import com.wilkef.ecrack.setup.dto.AnswerStatusDataDTO;
 
-
 /**
  * The Interface AnswerStatusService.
  *
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 public interface AnswerStatusService {
-	
+
 	/**
 	 * Find all answer status.
 	 *

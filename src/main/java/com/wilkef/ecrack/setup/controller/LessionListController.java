@@ -23,8 +23,6 @@ import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.LessionListService;
 
-
-
 /**
  * The Class LessionListController.
  */
@@ -48,16 +46,14 @@ public class LessionListController {
 	@GetMapping(value = "/lessionList/{UnitId}")
 	public ResponseEntity<Object> findByGradeId(@PathVariable("UnitId") Integer unitId) {
 		LOG.info("START-Inside findByGradeId ");
-		LOG.log(Level.INFO, () -> "updateProfile Inputs unitId: "+unitId); 
+		LOG.log(Level.INFO, () -> "updateProfile Inputs unitId: " + unitId);
 		ResponseEntity<Object> response = null;
 		List<LessionListDataDTO> lessionList = null;
 		try {
 			lessionList = lessionService.findByUnitId(unitId);
 			response = new ResponseEntity<>(lessionList, HttpStatus.OK);
-		}	
-		catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("START-Inside findByGradeId ");

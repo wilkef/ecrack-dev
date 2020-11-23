@@ -58,34 +58,34 @@ public class WatchedVideoDaoImpl implements WatchedVideoDao {
 	public List<WatchedVideoDataDto> mostWatchedVideo(Integer userId) {
 		LOG.log(Level.INFO, "Start mostWatchedVideo");
 		String query = WilkefConstants.MOST_WATCHED_VIDEOS;
-		List<WatchedVideoDataDto> mostWatchedVideoList = new  ArrayList<>();
+		List<WatchedVideoDataDto> mostWatchedVideoList = new ArrayList<>();
 		try {
-			mostWatchedVideoList = appJdbcTemplate.query(query, new Object[] {userId}, (result, rowNum) -> {					
-					WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
-					videoDto.setWatchedVideoId(result.getInt("WatchedVideoId"));
-					videoDto.setUserId(result.getString("UserId"));
-					videoDto.setLessonId(result.getInt("LessonId"));
-					videoDto.setStartDateTime(result.getDate("StartDateTime"));
-					videoDto.setEndDateTime(result.getDate("EndDateTime"));
-					videoDto.setLessonId(result.getInt("LessonId"));
-					videoDto.setLessonName(result.getString("LessonName"));
-					videoDto.setLessonThumbnail(result.getString("LessonThumbnail"));
-					return videoDto;
-				});
+			mostWatchedVideoList = appJdbcTemplate.query(query, new Object[] { userId }, (result, rowNum) -> {
+				WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
+				videoDto.setWatchedVideoId(result.getInt("WatchedVideoId"));
+				videoDto.setUserId(result.getString("UserId"));
+				videoDto.setLessonId(result.getInt("LessonId"));
+				videoDto.setStartDateTime(result.getDate("StartDateTime"));
+				videoDto.setEndDateTime(result.getDate("EndDateTime"));
+				videoDto.setLessonId(result.getInt("LessonId"));
+				videoDto.setLessonName(result.getString("LessonName"));
+				videoDto.setLessonThumbnail(result.getString("LessonThumbnail"));
+				return videoDto;
+			});
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for mostWatchedVideo");
 		}
 		LOG.log(Level.INFO, "End mostWatchedVideo");
 		return mostWatchedVideoList;
 	}
-	
+
 	@Override
 	public List<WatchedVideoDataDto> videoSuggestion(Integer userId) {
 		LOG.log(Level.INFO, "Started videoSuggestion");
 		String query = WilkefConstants.SUGGESTED_VIDEOS;
-		List<WatchedVideoDataDto> suggestedVideoList = new  ArrayList<>();
+		List<WatchedVideoDataDto> suggestedVideoList = new ArrayList<>();
 		try {
-			suggestedVideoList = appJdbcTemplate.query(query, new Object[] {userId}, (result, rowNum) -> {
+			suggestedVideoList = appJdbcTemplate.query(query, new Object[] { userId }, (result, rowNum) -> {
 				WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
 				videoDto.setVideoId(result.getString("VideoId"));
 				videoDto.setLessonId(result.getInt("LessonId"));
@@ -101,5 +101,5 @@ public class WatchedVideoDaoImpl implements WatchedVideoDao {
 		LOG.log(Level.INFO, "Ended videoSuggestion");
 		return suggestedVideoList;
 	}
-	
+
 }

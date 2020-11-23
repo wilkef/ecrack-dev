@@ -1,33 +1,31 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * This Class is used Subject DTO Class.
  *
- * @author Satya
- * Sep 16, 2020
+ * @author Satya Sep 16, 2020
  */
 
 public class SubjectDataDTO {
-	
+
 	/** The subject id. */
 	private Integer subjectId;
-	
+
 	/** The subject name. */
 	private String subjectName;
-	
+
 	/** The subject code. */
 	private String subjectCode;
-	
+
 	/** The max mark. */
 	private Integer maxMark;
-	
+
 	/** The no of period. */
 	private Integer noOfPeriod;
-	
+
 	/** The grade name. */
 	private String gradeName;
-	
+
 	private String subThumbNail;
 
 	public Integer getSubjectId() {
@@ -99,6 +97,4 @@ public class SubjectDataDTO {
 		this.subThumbNail = subThumbNail;
 	}
 
-
-		
 }

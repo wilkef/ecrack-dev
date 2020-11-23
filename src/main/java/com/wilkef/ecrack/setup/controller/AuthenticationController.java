@@ -40,72 +40,67 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class AuthenticationController {
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(AuthenticationController.class.getName());
-	
+
 	/** The validation dao. */
 	@Autowired
 	private ValidationDao validationDao;
+
 	/**
 	 * Login.
 	 *
 	 * @param username the username
-	 * @param pwd the pwd
+	 * @param pwd      the pwd
 	 * @return the auth data DTO
 	 */
 	@PostMapping("/getAuthToken")
-	public ResponseEntity<Object> getAuthToken(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+	public ResponseEntity<Object> getAuthToken(@RequestParam("user") String username,
+			@RequestParam("password") String pwd) {
 		LOG.info("START-Inside getAuthToken");
-		
 
-	AuthDataDTO user = new AuthDataDTO();
-	ResponseEntity<Object> response=null; 
+		AuthDataDTO user = new AuthDataDTO();
+		ResponseEntity<Object> response = null;
 
-	if(isValidUser(username,pwd)) {
-		String token = getJWTToken(username);
-		user=validationDao.getAuthData(username,token);
-		response =  ResponseEntity.status(HttpStatus.OK).
-				contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
-	}
-	else {
-		throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
-	}
-	LOG.info("END-Inside getAuthToken");
+		if (isValidUser(username, pwd)) {
+			String token = getJWTToken(username);
+			user = validationDao.getAuthData(username, token);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
+		} else {
+			throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+		}
+		LOG.info("END-Inside getAuthToken");
 		return response;
 	}
 
-	
 	@PostMapping("/getMobAuthToken")
-	public ResponseEntity<Object> getMobAuthToken(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+	public ResponseEntity<Object> getMobAuthToken(@RequestParam("user") String username,
+			@RequestParam("password") String pwd) {
 		LOG.info("START-Inside getMobAuthToken");
-		
-	AuthDataDTO user = new AuthDataDTO();
-	ResponseEntity<Object> response=null; 
-	if(isValidUser(username,pwd)) {
-		String token = getJWTMobToken(username);
-		user=validationDao.getAuthData(username,token);
-		response =  ResponseEntity.status(HttpStatus.OK).
-				contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
-	}
-	else {
-		throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
-	}
-	LOG.info("END-Inside getMobAuthToken");
+
+		AuthDataDTO user = new AuthDataDTO();
+		ResponseEntity<Object> response = null;
+		if (isValidUser(username, pwd)) {
+			String token = getJWTMobToken(username);
+			user = validationDao.getAuthData(username, token);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
+		} else {
+			throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+		}
+		LOG.info("END-Inside getMobAuthToken");
 		return response;
 	}
 
-	
-	private boolean isValidUser(String user,String password) { 
-		boolean isValid=Boolean.FALSE;
-		JSONObject object=new JSONObject();
-		List<ValidationDTO> validDto= null;
+	private boolean isValidUser(String user, String password) {
+		boolean isValid = Boolean.FALSE;
+		JSONObject object = new JSONObject();
+		List<ValidationDTO> validDto = null;
 		object.put("user", user);
 		object.put("password", password);
-		validDto=validationDao.validateCredentials(object.toString());
-		if(!validDto.isEmpty() ) {
-			isValid=true;
+		validDto = validationDao.validateCredentials(object.toString());
+		if (!validDto.isEmpty()) {
+			isValid = true;
 		}
 		return isValid;
 	}
-	
 
 	/**
 	 * Gets the JWT token.
@@ -115,43 +110,28 @@ public class AuthenticationController {
 	 */
 	private String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
-		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-				.commaSeparatedStringToAuthorityList("ROLE_USER");
-		
-		String token = Jwts
-				.builder()
-				.setId("softtekJWT")
-				.setSubject(username)
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+
+		String token = Jwts.builder().setId("softtekJWT").setSubject(username)
 				.claim("authorities",
-						grantedAuthorities.stream()
-								.map(GrantedAuthority::getAuthority)
-								.collect(Collectors.toList()))
+						grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 43200000))
-				.signWith(SignatureAlgorithm.HS512,
-						secretKey.getBytes()).compact();
-		
+				.signWith(SignatureAlgorithm.HS512, secretKey.getBytes()).compact();
+
 		return "Bearer " + token;
 	}
-	
-	
+
 	private String getJWTMobToken(String username) {
 		String secretKey = "mySecretKey";
-		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-				.commaSeparatedStringToAuthorityList("ROLE_USER");
-		
-		String token = Jwts
-				.builder()
-				.setId("softtekJWT")
-				.setSubject(username)
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+
+		String token = Jwts.builder().setId("softtekJWT").setSubject(username)
 				.claim("authorities",
-						grantedAuthorities.stream()
-								.map(GrantedAuthority::getAuthority)
-								.collect(Collectors.toList()))
+						grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.signWith(SignatureAlgorithm.HS512,
-						secretKey.getBytes()).compact();
-		
+				.signWith(SignatureAlgorithm.HS512, secretKey.getBytes()).compact();
+
 		return "Bearer " + token;
 	}
 }

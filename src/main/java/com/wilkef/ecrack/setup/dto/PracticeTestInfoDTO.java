@@ -3,33 +3,31 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class PracticeTestInfoDTO.
  *
- * @author Satya
- * Sep 21, 2020
+ * @author Satya Sep 21, 2020
  */
 public class PracticeTestInfoDTO {
-	
-	 /** The student test id. */
- 	private Integer studentTestId;
-	 
- 	/** The test type id. */
- 	private Integer testTypeId;  
-	 
- 	/** The test type. */
- 	private String testType;   
-	 
- 	/** The test time. */
- 	private Integer testTime;   
-	 
- 	/** The no of question. */
- 	private Integer noOfQuestion;     
-	 
- 	/** The is active. */
- 	private Integer isActive;
-	 
+
+	/** The student test id. */
+	private Integer studentTestId;
+
+	/** The test type id. */
+	private Integer testTypeId;
+
+	/** The test type. */
+	private String testType;
+
+	/** The test time. */
+	private Integer testTime;
+
+	/** The no of question. */
+	private Integer noOfQuestion;
+
+	/** The is active. */
+	private Integer isActive;
+
 	/**
 	 * Gets the student test id.
 	 *
@@ -38,7 +36,7 @@ public class PracticeTestInfoDTO {
 	public Integer getStudentTestId() {
 		return studentTestId;
 	}
-	
+
 	/**
 	 * Sets the student test id.
 	 *
@@ -47,7 +45,7 @@ public class PracticeTestInfoDTO {
 	public void setStudentTestId(Integer studentTestId) {
 		this.studentTestId = studentTestId;
 	}
-	
+
 	/**
 	 * Gets the test type id.
 	 *
@@ -56,7 +54,7 @@ public class PracticeTestInfoDTO {
 	public Integer getTestTypeId() {
 		return testTypeId;
 	}
-	
+
 	/**
 	 * Sets the test type id.
 	 *
@@ -65,7 +63,7 @@ public class PracticeTestInfoDTO {
 	public void setTestTypeId(Integer testTypeId) {
 		this.testTypeId = testTypeId;
 	}
-	
+
 	/**
 	 * Gets the test type.
 	 *
@@ -74,7 +72,7 @@ public class PracticeTestInfoDTO {
 	public String getTestType() {
 		return testType;
 	}
-	
+
 	/**
 	 * Sets the test type.
 	 *
@@ -83,7 +81,7 @@ public class PracticeTestInfoDTO {
 	public void setTestType(String testType) {
 		this.testType = testType;
 	}
-	
+
 	/**
 	 * Gets the test time.
 	 *
@@ -92,7 +90,7 @@ public class PracticeTestInfoDTO {
 	public Integer getTestTime() {
 		return testTime;
 	}
-	
+
 	/**
 	 * Sets the test time.
 	 *
@@ -101,7 +99,7 @@ public class PracticeTestInfoDTO {
 	public void setTestTime(Integer testTime) {
 		this.testTime = testTime;
 	}
-	
+
 	/**
 	 * Gets the no of question.
 	 *
@@ -110,7 +108,7 @@ public class PracticeTestInfoDTO {
 	public Integer getNoOfQuestion() {
 		return noOfQuestion;
 	}
-	
+
 	/**
 	 * Sets the no of question.
 	 *
@@ -119,7 +117,7 @@ public class PracticeTestInfoDTO {
 	public void setNoOfQuestion(Integer noOfQuestion) {
 		this.noOfQuestion = noOfQuestion;
 	}
-	
+
 	/**
 	 * Gets the checks if is active.
 	 *
@@ -128,7 +126,7 @@ public class PracticeTestInfoDTO {
 	public Integer getIsActive() {
 		return isActive;
 	}
-	
+
 	/**
 	 * Sets the checks if is active.
 	 *
@@ -137,7 +135,7 @@ public class PracticeTestInfoDTO {
 	public void setIsActive(Integer isActive) {
 		this.isActive = isActive;
 	}
-	
+
 	/**
 	 * To string.
 	 *

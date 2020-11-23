@@ -28,13 +28,13 @@ import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
  *
  * @author Rajani Suprava
  * 
- *  This class is created to handle the requests related to unit.
+ *         This class is created to handle the requests related to unit.
  */
 
 @Controller
 @RequestMapping("service")
 public class UnitController {
-	
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitController.class.getName());
 
@@ -72,7 +72,5 @@ public class UnitController {
 		List<UnitDataDTO> unitDataList = unitDao.getUnitDetails();
 		return serviceOutputTransformer.crateOutput(unitDataList, "200").toString();
 	}
-	
-	
 
 }

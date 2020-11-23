@@ -24,8 +24,7 @@ import com.wilkef.ecrack.setup.dto.LessonDetailsDataDto;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 
 /**
- * @author Satya
- * Nov 2, 2020
+ * @author Satya Nov 2, 2020
  */
 
 @RestController
@@ -47,7 +46,7 @@ public class LessDetailsController {
 		try {
 			LOG.log(Level.INFO, () -> "Before geting LessonDetails information ");
 			lessonDetails = lessonDetailsDao.getAllLessonDetails(lessonId);
-			response = new ResponseEntity<>(lessonDetails,HttpStatus.OK);
+			response = new ResponseEntity<>(lessonDetails, HttpStatus.OK);
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());

@@ -20,7 +20,6 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.UnitDao;
 import com.wilkef.ecrack.setup.dto.UnitDataDTO;
 
-
 /**
  * The Class UnitDaoImpl.
  */
@@ -29,7 +28,7 @@ public class UnitDaoImpl implements UnitDao {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UnitDaoImpl.class.getName());
-	
+
 	/** The unit data list. */
 	List<UnitDataDTO> unitDataList = new ArrayList<>();
 
@@ -59,7 +58,5 @@ public class UnitDaoImpl implements UnitDao {
 		}
 		return unitDataList;
 	}
-
-	
 
 }

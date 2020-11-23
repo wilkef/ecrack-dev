@@ -16,24 +16,22 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ResetPasswordDao;
 import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 
-
 /**
  * This Class is Used to implement DB Operation in ResetPassword.
  *
- * @author Satya
- * Sep 19, 2020
+ * @author Satya Sep 19, 2020
  */
 
 @Repository
-public class ResetPasswordDaoImpl implements ResetPasswordDao{
+public class ResetPasswordDaoImpl implements ResetPasswordDao {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(ResetPasswordDaoImpl.class.getName());
-	
+
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
-	
+
 	/**
 	 * Reset password.
 	 *
@@ -42,19 +40,19 @@ public class ResetPasswordDaoImpl implements ResetPasswordDao{
 	 */
 	@Override
 	public Integer resetPassword(ResetPasswordDataDTO resetPwd) {
-		
+
 		String userName = resetPwd.getUserName();
 		String oldPassword = resetPwd.getOldPassword();
 		String newPassword = resetPwd.getNewPassword();
-		Integer status=null;
-		
+		Integer status = null;
+
 		try {
 			LOG.fine("ResetPassword DB Operation Started ");
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-			           .withProcedureName(WilkefConstants.RESETPASSWORD);
-			           
-			    Map<String, Object> execute = simpleJdbcCall.execute(userName,oldPassword,newPassword);
-			    status = (Integer) execute.get("v_IsSuccess");
+					.withProcedureName(WilkefConstants.RESETPASSWORD);
+
+			Map<String, Object> execute = simpleJdbcCall.execute(userName, oldPassword, newPassword);
+			status = (Integer) execute.get("v_IsSuccess");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while ResetPassword ");
 		}

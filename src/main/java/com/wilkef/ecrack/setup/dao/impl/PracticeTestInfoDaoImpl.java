@@ -21,16 +21,14 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.PracticeTestInfoDao;
 import com.wilkef.ecrack.setup.dto.PracticeTestInfoDTO;
 
-
 /**
  * This Class is Used to execute PracticeTestInfo DB Operation.
  *
- * @author Satya
- * Sep 21, 2020
+ * @author Satya Sep 21, 2020
  */
 
 @Repository
-public class PracticeTestInfoDaoImpl implements PracticeTestInfoDao{
+public class PracticeTestInfoDaoImpl implements PracticeTestInfoDao {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(PracticeTestInfoDaoImpl.class.getName());
@@ -50,20 +48,16 @@ public class PracticeTestInfoDaoImpl implements PracticeTestInfoDao{
 	public List<PracticeTestInfoDTO> findPracticeTestInfo(JSONObject obj) {
 		LOG.fine("Store User Details ");
 		List<PracticeTestInfoDTO> practiceTestInfoStatus = null;
-		try {	
-			SqlParameterSource in = new MapSqlParameterSource().
-					addValue("p_userId", obj.get("userId")).
-					addValue("p_lessonId", obj.get("lessonId")).
-					addValue("p_testName", obj.get("testName")).
-					addValue("p_testLevel", obj.get("testLevelId"));
+		try {
+			SqlParameterSource in = new MapSqlParameterSource().addValue("p_userId", obj.get("userId"))
+					.addValue("p_lessonId", obj.get("lessonId")).addValue("p_testName", obj.get("testName"))
+					.addValue("p_testLevel", obj.get("testLevelId"));
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-					.withProcedureName(WilkefConstants.PRACTICE_TEST_INFO)
-					.returningResultSet("PracticeTestInfoResultSet",
-							BeanPropertyRowMapper.newInstance(PracticeTestInfoDTO.class));
-			
-			
+					.withProcedureName(WilkefConstants.PRACTICE_TEST_INFO).returningResultSet(
+							"PracticeTestInfoResultSet", BeanPropertyRowMapper.newInstance(PracticeTestInfoDTO.class));
+
 			Map<String, Object> execute = simpleJdbcCall.execute(in);
-			practiceTestInfoStatus= (List<PracticeTestInfoDTO>) execute.get("PracticeTestInfoResultSet");
+			practiceTestInfoStatus = (List<PracticeTestInfoDTO>) execute.get("PracticeTestInfoResultSet");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while Inserting User Record ");
 		}

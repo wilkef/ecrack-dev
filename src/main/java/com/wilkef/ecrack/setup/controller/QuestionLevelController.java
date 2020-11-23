@@ -24,7 +24,6 @@ import com.wilkef.ecrack.setup.dto.QuestionLevelDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.QuestionLevelService;
 
-
 /**
  * The Class QuestionLevelController.
  */
@@ -45,19 +44,18 @@ public class QuestionLevelController {
 	 * @return the response entity
 	 */
 	@GetMapping(value = "/difficultyLevel")
-	public ResponseEntity<Object> findDifficultyCode(){
+	public ResponseEntity<Object> findDifficultyCode() {
 		LOG.info("START-Inside findDifficultyCode ");
-		LOG.log(Level.INFO, () -> "No findDifficultyCode Inputs "); 
+		LOG.log(Level.INFO, () -> "No findDifficultyCode Inputs ");
 		ResponseEntity<Object> response = null;
 		List<QuestionLevelDataDTO> questionLevelList = null;
 		LOG.info("Inside find the QuestionLevel ");
 		try {
-			LOG.log(Level.INFO, () -> "Before geting QuestionLevel information : " );
+			LOG.log(Level.INFO, () -> "Before geting QuestionLevel information : ");
 			questionLevelList = questionService.findQuestionLevel();
 			response = new ResponseEntity<>(questionLevelList, HttpStatus.OK);
-		}	
-		catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findDifficultyCode ");

@@ -13,20 +13,19 @@ package com.wilkef.ecrack.setup.dto;
  */
 public class AuthDataDTO {
 
-	
 	/** The Token. */
 	private String token;
-	
+
 	private String emailId;
-	
+
 	private String mobileNumber;
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private int gradeId;
-	
+
 	private String gradeName;
 
 	public String getToken() {
@@ -91,6 +90,5 @@ public class AuthDataDTO {
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", gradeId=" + gradeId + ", gradeName="
 				+ gradeName + "]";
 	}
-	
-	
+
 }

@@ -4,11 +4,10 @@ package com.wilkef.ecrack.setup.dto;
  * The Class UserProfileDTO.
  */
 public class UserProfileDTO {
-	
-	
+
 	/** The data output. */
 	private String dataOutput;
-	
+
 	/** The update count. */
 	private Integer updateCount;
 
@@ -47,5 +46,5 @@ public class UserProfileDTO {
 	public void setDataOutput(String dataOutput) {
 		this.dataOutput = dataOutput;
 	}
-	
+
 }

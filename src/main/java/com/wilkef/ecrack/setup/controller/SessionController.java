@@ -55,8 +55,7 @@ public class SessionController {
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 		} else {
-			response = ResponseEntity.status(HttpStatus.OK)
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 		}
 		LOG.info("END-Inside sessionLogout");

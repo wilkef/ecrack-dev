@@ -11,9 +11,9 @@ public interface UserProfileService {
 	 * Change Password.
 	 *
 	 * @param ChangePassword changePasswordData
-	 * @param String userId
+	 * @param String         userId
 	 * @return the integer
 	 */
 	public Integer changePassword(ChangePasswordDataDTO changePasswordData, String userId);
-	
+
 }

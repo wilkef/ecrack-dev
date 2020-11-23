@@ -5,32 +5,30 @@ package com.wilkef.ecrack.setup.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-
 /**
  * The Class RegistrationDataDTO.
  *
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RegistrationDataDTO {
-	
+
 	/** The User id. */
 	private Long UserId;
-	
+
 	/** The User name. */
 	private String UserName;
-	
+
 	/** The First name. */
 	private String FirstName;
-	
+
 	/** The Last name. */
 	private String LastName;
-	
+
 	/** The message text. */
 	private String MESSAGE_TEXT;
-	
+
 	/**
 	 * Gets the user id.
 	 *
@@ -39,7 +37,6 @@ public class RegistrationDataDTO {
 	public Long getUserId() {
 		return UserId;
 	}
-
 
 	/**
 	 * Sets the user id.
@@ -50,7 +47,6 @@ public class RegistrationDataDTO {
 		UserId = userId;
 	}
 
-
 	/**
 	 * Gets the user name.
 	 *
@@ -59,7 +55,6 @@ public class RegistrationDataDTO {
 	public String getUserName() {
 		return UserName;
 	}
-
 
 	/**
 	 * Sets the user name.
@@ -70,7 +65,6 @@ public class RegistrationDataDTO {
 		UserName = userName;
 	}
 
-
 	/**
 	 * Gets the first name.
 	 *
@@ -79,7 +73,6 @@ public class RegistrationDataDTO {
 	public String getFirstName() {
 		return FirstName;
 	}
-
 
 	/**
 	 * Sets the first name.
@@ -90,7 +83,6 @@ public class RegistrationDataDTO {
 		FirstName = firstName;
 	}
 
-
 	/**
 	 * Gets the last name.
 	 *
@@ -99,7 +91,6 @@ public class RegistrationDataDTO {
 	public String getLastName() {
 		return LastName;
 	}
-
 
 	/**
 	 * Sets the last name.
@@ -110,7 +101,6 @@ public class RegistrationDataDTO {
 		LastName = lastName;
 	}
 
-
 	/**
 	 * Gets the message text.
 	 *
@@ -120,7 +110,6 @@ public class RegistrationDataDTO {
 		return MESSAGE_TEXT;
 	}
 
-
 	/**
 	 * Sets the message text.
 	 *
@@ -129,7 +118,6 @@ public class RegistrationDataDTO {
 	public void setMESSAGE_TEXT(String mESSAGE_TEXT) {
 		MESSAGE_TEXT = mESSAGE_TEXT;
 	}
-
 
 	/**
 	 * To string.
@@ -141,5 +129,5 @@ public class RegistrationDataDTO {
 		return "RegistrationDataDTO [UserId=" + UserId + ", UserName=" + UserName + ", FirstName=" + FirstName
 				+ ", LastName=" + LastName + ", MESSAGE_TEXT=" + MESSAGE_TEXT + "]";
 	}
-	
+
 }

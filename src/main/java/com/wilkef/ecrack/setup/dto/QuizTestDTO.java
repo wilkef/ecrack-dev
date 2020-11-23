@@ -1,6 +1,5 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class QuizTestDTO.
  */
@@ -8,37 +7,37 @@ public class QuizTestDTO {
 
 	/** The Test id. */
 	private Integer TestId;
-	
+
 	/** The Test name. */
 	private String TestName;
-	
+
 	/** The Difficulty level. */
 	private String DifficultyLevel;
-	
+
 	/** The Difficulty code. */
 	private String DifficultyCode;
-	
+
 	/** The Is scheduled. */
 	private String IsScheduled;
-	
+
 	/** The Scheduled date time. */
 	private String ScheduledDateTime;
-	
+
 	/** The End date time. */
 	private String EndDateTime;
-	
+
 	/** The Total question. */
 	private Integer TotalQuestion;
-	
+
 	/** The Total mark. */
 	private Integer TotalMark;
-	
+
 	/** The Is negative marking. */
 	private String IsNegativeMarking;
-	
+
 	/** The Negative mark. */
 	private String NegativeMark;
-	
+
 	/** The Is active. */
 	private String IsActive;
 
@@ -146,5 +145,5 @@ public class QuizTestDTO {
 				+ ", TotalMark=" + TotalMark + ", IsNegativeMarking=" + IsNegativeMarking + ", NegativeMark="
 				+ NegativeMark + ", IsActive=" + IsActive + "]";
 	}
-	
+
 }

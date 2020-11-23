@@ -13,8 +13,7 @@ import com.wilkef.ecrack.setup.dao.AskYourDoubtDao;
 import com.wilkef.ecrack.setup.dto.AskYourDoubt;
 
 /**
- * @author Satya
- * Nov 5, 2020
+ * @author Satya Nov 5, 2020
  */
 
 @Repository
@@ -26,10 +25,11 @@ public class AskYourDoubtDaoImpl implements AskYourDoubtDao {
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
-	
+
 	@Override
 	public Integer saveDoubt(AskYourDoubt askDoubt) {
-		String sql="insert into Doubt values(?,?,?,?,?,?,?)";
-		return appJdbcTemplate.update(sql,askDoubt.getDoubtId(),askDoubt.getStudentId(),askDoubt.getSubjectId(),askDoubt.getLessonId(),askDoubt.getStatus(),askDoubt.getDoubt(),askDoubt.getDoubtPath());
+		String sql = "insert into Doubt values(?,?,?,?,?,?,?)";
+		return appJdbcTemplate.update(sql, askDoubt.getDoubtId(), askDoubt.getStudentId(), askDoubt.getSubjectId(),
+				askDoubt.getLessonId(), askDoubt.getStatus(), askDoubt.getDoubt(), askDoubt.getDoubtPath());
 	}
 }

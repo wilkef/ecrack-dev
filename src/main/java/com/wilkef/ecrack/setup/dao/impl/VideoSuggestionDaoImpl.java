@@ -19,8 +19,7 @@ import com.wilkef.ecrack.setup.dao.VideoSuggestionDao;
 import com.wilkef.ecrack.setup.dto.VideoSuggestion;
 
 /**
- * @author Satya
- * Nov 1, 2020
+ * @author Satya Nov 1, 2020
  */
 
 @Repository
@@ -33,11 +32,10 @@ public class VideoSuggestionDaoImpl implements VideoSuggestionDao {
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
-	
 	@Override
 	public List<VideoSuggestion> videoSuggestion() {
-		
-		List<VideoSuggestion> videoSuggestionList=new ArrayList<>();
+
+		List<VideoSuggestion> videoSuggestionList = new ArrayList<>();
 		RowMapper<VideoSuggestion> rowMapper = (ResultSet result, int rowNum) -> {
 			VideoSuggestion videoSuggestion = new VideoSuggestion();
 			videoSuggestion.setLessonId(result.getInt(1));
@@ -45,7 +43,7 @@ public class VideoSuggestionDaoImpl implements VideoSuggestionDao {
 			videoSuggestion.setLessonThumbnail(result.getString(3));
 			videoSuggestion.setLessonUrl(result.getString(4));
 			videoSuggestion.setLessonThumbnail_Mob(result.getString(5));
-		return videoSuggestion;
+			return videoSuggestion;
 		};
 		try {
 			videoSuggestionList = appJdbcTemplate.query(WilkefConstants.VIDEO_SUGGESTION, rowMapper);

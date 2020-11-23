@@ -24,7 +24,7 @@ import com.wilkef.ecrack.setup.service.GradeInformationService;
 /**
  * @author Chinmaya.dehury
  *
- *         29-Sep-2020
+ * 29-Sep-2020
  *
  */
 @RestController
@@ -40,9 +40,7 @@ public class GradeInformationController {
 
 	@GetMapping(value = "/gradeInfo/{boardId}")
 	public ResponseEntity<Object> findByGradeId(@PathVariable("boardId") Integer boardId) {
-
 		LOG.log(Level.INFO, () -> "updateProfile Inputs unitId: " + boardId);
-
 		try {
 			gradeInfoList = gradeInfoService.getGradeInformation(boardId);
 			response = new ResponseEntity<>(gradeInfoList, HttpStatus.OK);

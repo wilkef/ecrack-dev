@@ -48,49 +48,48 @@ public class UserProfileController {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(UserProfileController.class.getName());
-	
+
 	/** The user profile dao. */
 	@Autowired
-	private  UserProfileDao userProfileDao;	
-	
+	private UserProfileDao userProfileDao;
+
 	@Autowired
-	private  UserProfileService userProfileService;	
-	
+	private UserProfileService userProfileService;
+
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
-	
+
 	@Autowired
 	private ValidationDao validationDao;
-	
+
 	@Autowired
 	private HttpServletRequest request;
 
-	
 	/**
 	 * Update profile.
 	 *
-	 * @param input the input
+	 * @param input  the input
 	 * @param userId the user id
 	 * @return the response entity
 	 */
-	
+
 	@PutMapping(value = "/updateProfile")
-	public ResponseEntity<Object> updateProfile(@Valid @RequestBody String input){
+	public ResponseEntity<Object> updateProfile(@Valid @RequestBody String input) {
 		LOG.info("START-Inside updateProfile");
-		LOG.log(Level.INFO, () -> " updateProfile Inputs: " + input); 
-		
-		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		LOG.log(Level.INFO, () -> " updateProfile Inputs: " + input);
+
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+				"");
 		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
-		
+
 		ResponseEntity<Object> response = null;
 		List<UserProfileDTO> userProfileDTOList = new ArrayList<>();
 		try {
 			userProfileDTOList = userProfileDao.updateProfile(input, loggedinUserInfo.getMobileNumber());
-			if(userProfileDTOList.get(0).getUpdateCount().equals(1)) {
-				response =  ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
-			}
-			else {
+			if (userProfileDTOList.get(0).getUpdateCount().equals(1)) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
+			} else {
 				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
@@ -99,10 +98,9 @@ public class UserProfileController {
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside updateProfile");
-		return  response;
+		return response;
 	}
-	
-	
+
 	/**
 	 * View profile.
 	 *
@@ -110,23 +108,22 @@ public class UserProfileController {
 	 * @return the response entity
 	 */
 	@GetMapping(value = "/viewProfile/{userName}")
-	public ResponseEntity<Object> viewProfile(@Valid @PathVariable String userName){
+	public ResponseEntity<Object> viewProfile(@Valid @PathVariable String userName) {
 		LOG.info("START-Inside viewProfile");
-		LOG.log(Level.INFO, () -> "viewProfile Inputs: " + userName); 
-		
-		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		LOG.log(Level.INFO, () -> "viewProfile Inputs: " + userName);
+
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+				"");
 		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
-		
-		ResponseEntity<Object> response=null;
-		List<UserProfileDTO> userProfileDTOList=new ArrayList<>();
+
+		ResponseEntity<Object> response = null;
+		List<UserProfileDTO> userProfileDTOList = new ArrayList<>();
 		try {
 			userProfileDTOList = userProfileDao.viewProfile(loggedinUserInfo.getMobileNumber());
-			if(!userProfileDTOList.isEmpty()) {
-				response =  ResponseEntity.status(HttpStatus.OK).
-						contentType(MediaType.APPLICATION_JSON_UTF8)
-				        .body(userProfileDTOList.get(0).getDataOutput());
-			}
-			else {
+			if (!userProfileDTOList.isEmpty()) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(userProfileDTOList.get(0).getDataOutput());
+			} else {
 				response = new ResponseEntity<>(userProfileDTOList, HttpStatus.OK);
 			}
 
@@ -135,10 +132,9 @@ public class UserProfileController {
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside viewProfile");
-		return  response;
+		return response;
 	}
-	
-	
+
 	/**
 	 * Change Password
 	 *
@@ -152,30 +148,30 @@ public class UserProfileController {
 		ResponseEntity<Object> response = null;
 		try {
 			LOG.log(Level.INFO, () -> "Before Changing Password");
-			
-			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+					"");
 			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
-			
-			boolean validCurrPwd = validationDao.validateCurrentPassword(changePasswordData.getCurrentPassword(), loggedinUserInfo.getUserId());
-			
+
+			boolean validCurrPwd = validationDao.validateCurrentPassword(changePasswordData.getCurrentPassword(),
+					loggedinUserInfo.getUserId());
+
 			if (validCurrPwd) {
-				userProfileService.changePassword(changePasswordData, loggedinUserInfo.getMobileNumber());				
-				response = ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+				userProfileService.changePassword(changePasswordData, loggedinUserInfo.getMobileNumber());
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 				return response;
 			} else {
-				LOG.log(Level.INFO, () -> "Current Password is not correct" );
-				response = ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+				LOG.log(Level.INFO, () -> "Current Password is not correct");
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("End-Inside changePassword ");
 		return response;
 	}
-	
+
 }

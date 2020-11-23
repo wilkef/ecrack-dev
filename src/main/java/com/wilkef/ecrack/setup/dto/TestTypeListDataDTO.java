@@ -3,30 +3,28 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class TestTypeListDataDTO.
  *
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 public class TestTypeListDataDTO {
-	
+
 	/** The test type id. */
 	private Integer testTypeId;
-	
+
 	/** The test type. */
-	private String testType; 
-	
+	private String testType;
+
 	/** The test time. */
 	private String testTime;
-	
+
 	/** The no of question. */
 	private Integer noOfQuestion;
-	
+
 	/** The is active. */
 	private Integer isActive;
-	
+
 	/**
 	 * Gets the test type id.
 	 *
@@ -35,7 +33,7 @@ public class TestTypeListDataDTO {
 	public Integer getTestTypeId() {
 		return testTypeId;
 	}
-	
+
 	/**
 	 * Sets the test type id.
 	 *
@@ -44,7 +42,7 @@ public class TestTypeListDataDTO {
 	public void setTestTypeId(Integer testTypeId) {
 		this.testTypeId = testTypeId;
 	}
-	
+
 	/**
 	 * Gets the test type.
 	 *
@@ -53,7 +51,7 @@ public class TestTypeListDataDTO {
 	public String getTestType() {
 		return testType;
 	}
-	
+
 	/**
 	 * Sets the test type.
 	 *
@@ -62,7 +60,7 @@ public class TestTypeListDataDTO {
 	public void setTestType(String testType) {
 		this.testType = testType;
 	}
-	
+
 	/**
 	 * Gets the test time.
 	 *
@@ -71,7 +69,7 @@ public class TestTypeListDataDTO {
 	public String getTestTime() {
 		return testTime;
 	}
-	
+
 	/**
 	 * Sets the test time.
 	 *
@@ -80,7 +78,7 @@ public class TestTypeListDataDTO {
 	public void setTestTime(String testTime) {
 		this.testTime = testTime;
 	}
-	
+
 	/**
 	 * Gets the no of question.
 	 *
@@ -89,7 +87,7 @@ public class TestTypeListDataDTO {
 	public Integer getNoOfQuestion() {
 		return noOfQuestion;
 	}
-	
+
 	/**
 	 * Sets the no of question.
 	 *
@@ -98,7 +96,7 @@ public class TestTypeListDataDTO {
 	public void setNoOfQuestion(Integer noOfQuestion) {
 		this.noOfQuestion = noOfQuestion;
 	}
-	
+
 	/**
 	 * Gets the checks if is active.
 	 *
@@ -107,7 +105,7 @@ public class TestTypeListDataDTO {
 	public Integer getIsActive() {
 		return isActive;
 	}
-	
+
 	/**
 	 * Sets the checks if is active.
 	 *
@@ -116,7 +114,7 @@ public class TestTypeListDataDTO {
 	public void setIsActive(Integer isActive) {
 		this.isActive = isActive;
 	}
-	
+
 	/**
 	 * To string.
 	 *
@@ -127,5 +125,5 @@ public class TestTypeListDataDTO {
 		return "TestTypeListDataDTO [testTypeId=" + testTypeId + ", testType=" + testType + ", testTime=" + testTime
 				+ ", noOfQuestion=" + noOfQuestion + ", isActive=" + isActive + "]";
 	}
-	
-	}
+
+}

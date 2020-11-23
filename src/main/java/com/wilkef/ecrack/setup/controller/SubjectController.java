@@ -30,27 +30,26 @@ import com.wilkef.ecrack.setup.dto.SubjectDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.SubjectService;
 
-
 /**
  * The Class SubjectController.
  */
 @RestController
 @RequestMapping("/subject")
 public class SubjectController {
-	
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(SubjectController.class.getName());
 
 	/** The subject service. */
 	@Autowired
 	private SubjectService subjectService;
-	
+
 	@Autowired
 	private ValidationDao validationDao;
-	
+
 	@Autowired
 	private HttpServletRequest request;
-	
+
 	/**
 	 * Find by grade id.
 	 *
@@ -60,20 +59,19 @@ public class SubjectController {
 	@GetMapping(value = "/subjectList/{GradeId}")
 	public ResponseEntity<Object> findByGradeId(@PathVariable("GradeId") Integer gradeId) {
 		LOG.info("START-Inside findByGradeId");
-				
-		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+				"");
 		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
-		
+
 		ResponseEntity<Object> response = null;
 		List<SubjectDataDTO> subjectDataList = null;
 		try {
 			LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + gradeId);
 			subjectDataList = subjectService.getSubjectsByGradeId(loggedinUserInfo.getGradeId());
 			response = new ResponseEntity<>(subjectDataList, HttpStatus.OK);
-		}
-		catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findByGradeId");

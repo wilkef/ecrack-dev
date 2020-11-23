@@ -56,7 +56,8 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		UserProfileDTO dto = new UserProfileDTO();
 		try {
 			JSONObject object = new JSONObject(input);
-			SqlParameterSource in = new MapSqlParameterSource().addValue("p_profile_data", input).addValue("p_mob_num", userId);
+			SqlParameterSource in = new MapSqlParameterSource().addValue("p_profile_data", input).addValue("p_mob_num",
+					userId);
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.UPDATE_PROFILE);
 			Map<String, Object> execute = simpleJdbcCall.execute(in);
@@ -101,24 +102,24 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		}
 		return userProfileDTOList;
 	}
-	
+
 	@Override
-	public Integer changePassword(ChangePasswordDataDTO changePasswordData, String userName) {			
+	public Integer changePassword(ChangePasswordDataDTO changePasswordData, String userName) {
 		String currentPassword = changePasswordData.getCurrentPassword();
 		String newPassword = changePasswordData.getNewPassword();
 		String confirmPassword = changePasswordData.getConfirmPassword();
-		Integer status = null;			
+		Integer status = null;
 		try {
 			LOG.fine("ChangePassword DB Operation Started ");
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-		           .withProcedureName(WilkefConstants.RESETPASSWORD);
-		           
-		    Map<String, Object> execute = simpleJdbcCall.execute(userName, currentPassword, newPassword);
-		    status = (Integer) execute.get("v_IsSuccess");
+					.withProcedureName(WilkefConstants.RESETPASSWORD);
+
+			Map<String, Object> execute = simpleJdbcCall.execute(userName, currentPassword, newPassword);
+			status = (Integer) execute.get("v_IsSuccess");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while ChangePassword ");
 		}
-		return status;		
+		return status;
 	}
-	
+
 }

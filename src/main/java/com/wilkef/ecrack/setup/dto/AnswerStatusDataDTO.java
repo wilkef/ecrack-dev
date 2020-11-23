@@ -3,21 +3,19 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class AnswerStatusDataDTO.
  *
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 public class AnswerStatusDataDTO {
-	
+
 	/** The answer status id. */
-	private Integer answerStatusId; 
-	
+	private Integer answerStatusId;
+
 	/** The status. */
 	private String status;
-	
+
 	/**
 	 * Gets the answer status id.
 	 *
@@ -26,7 +24,7 @@ public class AnswerStatusDataDTO {
 	public Integer getAnswerStatusId() {
 		return answerStatusId;
 	}
-	
+
 	/**
 	 * Sets the answer status id.
 	 *
@@ -35,7 +33,7 @@ public class AnswerStatusDataDTO {
 	public void setAnswerStatusId(Integer answerStatusId) {
 		this.answerStatusId = answerStatusId;
 	}
-	
+
 	/**
 	 * Gets the status.
 	 *
@@ -44,7 +42,7 @@ public class AnswerStatusDataDTO {
 	public String getStatus() {
 		return status;
 	}
-	
+
 	/**
 	 * Sets the status.
 	 *
@@ -53,7 +51,7 @@ public class AnswerStatusDataDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	/**
 	 * To string.
 	 *
@@ -63,5 +61,5 @@ public class AnswerStatusDataDTO {
 	public String toString() {
 		return "AnswerStatusDataDTO [answerStatusId=" + answerStatusId + ", status=" + status + "]";
 	}
-	
+
 }

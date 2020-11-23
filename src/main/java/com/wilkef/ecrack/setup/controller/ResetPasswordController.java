@@ -48,27 +48,25 @@ public class ResetPasswordController {
 	 * @param resetPwd the reset pwd
 	 * @return the response entity
 	 */
-	@PostMapping(value = "/resetPassword",consumes = "application/json")
+	@PostMapping(value = "/resetPassword", consumes = "application/json")
 	public ResponseEntity<Object> resetPwd(@RequestBody ResetPasswordDataDTO resetPwd) {
 		LOG.info("START-Inside ResetPassword ");
-		LOG.log(Level.INFO, () -> " ResetPassword Inputs resetPwd:"+resetPwd);
-		ResponseEntity<Object> response=null;
+		LOG.log(Level.INFO, () -> " ResetPassword Inputs resetPwd:" + resetPwd);
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "Before updating resetPassword : " );
+			LOG.log(Level.INFO, () -> "Before updating resetPassword : ");
 			Integer resetPassword = service.resetPassword(resetPwd);
-			if (resetPassword!=null) {
-				response = ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+			if (resetPassword != null) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 				return response;
-			}else {
-				LOG.log(Level.INFO, () -> "UserId And OldPassword is InValid" );
-				response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+			} else {
+				LOG.log(Level.INFO, () -> "UserId And OldPassword is InValid");
+				response = ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("START-Inside ResetPassword ");

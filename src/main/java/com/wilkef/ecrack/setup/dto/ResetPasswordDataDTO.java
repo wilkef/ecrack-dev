@@ -3,23 +3,20 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * This class is representing POJO class.
  *
- * @author Satya
- * Sep 19, 2020
+ * @author Satya Sep 19, 2020
  */
 
-
 public class ResetPasswordDataDTO {
-	
+
 	/** The user id. */
 	private String userName;
-	
+
 	/** The old password. */
 	private String oldPassword;
-	
+
 	/** The new password. */
 	private String newPassword;
 

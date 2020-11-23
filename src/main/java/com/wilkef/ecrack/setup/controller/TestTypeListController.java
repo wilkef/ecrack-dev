@@ -23,7 +23,6 @@ import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.TestTypeListService;
 
-
 /**
  * The Class TestTypeListController.
  */
@@ -44,18 +43,18 @@ public class TestTypeListController {
 	 * @return the response entity
 	 */
 	@GetMapping("/testTypeList")
-	public ResponseEntity<Object> findAllTestTypeList(){
+	public ResponseEntity<Object> findAllTestTypeList() {
 		LOG.info("START-Inside findAllTestTypeList");
-		LOG.log(Level.INFO, () -> "No findAllTestTypeList Inputs gradeId"); 
-		ResponseEntity<Object> response=null;
+		LOG.log(Level.INFO, () -> "No findAllTestTypeList Inputs gradeId");
+		ResponseEntity<Object> response = null;
 		List<TestTypeListDataDTO> findAllTestTypeList = null;
 		try {
-			LOG.log(Level.INFO, () -> "Before Fetching TestTypeList : " );
+			LOG.log(Level.INFO, () -> "Before Fetching TestTypeList : ");
 			findAllTestTypeList = typeListService.findAllTestTypeList();
-			response = new ResponseEntity<>(findAllTestTypeList,HttpStatus.OK);
+			response = new ResponseEntity<>(findAllTestTypeList, HttpStatus.OK);
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);		
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("START-Inside findAllTestTypeList");
 		return response;

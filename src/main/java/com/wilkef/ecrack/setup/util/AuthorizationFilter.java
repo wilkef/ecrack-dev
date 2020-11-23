@@ -25,7 +25,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class AuthorizationFilter extends OncePerRequestFilter {
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+			throws ServletException, IOException {
 		try {
 			if (checkJWTToken(request, response)) {
 				Claims claims = validateToken(request);
@@ -34,7 +35,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 				} else {
 					SecurityContextHolder.clearContext();
 				}
-			}else {
+			} else {
 				SecurityContextHolder.clearContext();
 			}
 			chain.doFilter(request, response);
@@ -43,10 +44,11 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
 			return;
 		}
-	}	
+	}
 
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+		String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
+				"");
 		return Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
 
@@ -72,4 +74,3 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		return true;
 	}
 }
-

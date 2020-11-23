@@ -27,8 +27,6 @@ import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.RegistrationService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
-
-
 /**
  * The Class RegistrationController.
  */
@@ -55,51 +53,52 @@ public class RegistrationController {
 	 */
 	@PostMapping("/register")
 	public ResponseEntity<Object> saveUser(@RequestBody String register) {
-		
+
 		LOG.info("START-Inside saveUser");
-		LOG.log(Level.INFO, () -> " get All User Details to register: "+register); 
-		ResponseEntity<Object> response=null;
+		LOG.log(Level.INFO, () -> " get All User Details to register: " + register);
+		ResponseEntity<Object> response = null;
 		List<RegistrationDataDTO> save = null;
 		try {
 			JSONObject obj = new JSONObject(register);
-			
+
 			String fname = (String) obj.get("FirstName");
-			String strGender = (String)obj.get("Gender");
-			String mobile = (String)obj.get("MobileNumber");
-			
+			String strGender = (String) obj.get("Gender");
+			String mobile = (String) obj.get("MobileNumber");
+
 			if (!fname.equals("") && !fname.isEmpty()) {
 				if (!strGender.equals("") && !strGender.isEmpty()) {
 					boolean name = Pattern.compile("[A-Za-z]*").matcher(fname).matches();
 					boolean gender = Pattern.compile("[A-Za-z]{2,6}").matcher(strGender).matches();
 					boolean mobileNo = Pattern.compile("\\d{10}").matcher(mobile).matches();
-					
+
 					if (name) {
 						if (gender) {
 							if (mobileNo) {
 								save = registerationService.save(obj);
-							}else
+							} else
 								throw new CustomException("Please Enter a Valid Mobile No.");
-						}else
+						} else
 							throw new CustomException("Please Enter a Valid Gender");
-					}else
+					} else
 						throw new CustomException("Please Enter a Valid Name");
-				}else
+				} else
 					throw new CustomException("Please Enter Gender");
-			}else
+			} else
 				throw new CustomException("Please Enter Name");
 
-			if (save.get(0).getMESSAGE_TEXT()==null) {
-				response=new ResponseEntity<>(save,HttpStatus.OK);
-			}else if(save.get(0).getMESSAGE_TEXT()!=null && save.get(0).getMESSAGE_TEXT().equals("User already exist.")) {		
+			if (save.get(0).getMESSAGE_TEXT() == null) {
+				response = new ResponseEntity<>(save, HttpStatus.OK);
+			} else if (save.get(0).getMESSAGE_TEXT() != null
+					&& save.get(0).getMESSAGE_TEXT().equals("User already exist.")) {
 				throw new CustomException(ErrorConstants.USER_ALREADY_EXISTS);
-			}
-			else {
-				LOG.log(Level.INFO, () -> "Some Problem Occored at the Registration Time" );
-				response = new ResponseEntity<>(serviceOutputTransformer.responseOutput(ErrorConstants.UNABLE_TO_STORE,false),HttpStatus.BAD_REQUEST);
+			} else {
+				LOG.log(Level.INFO, () -> "Some Problem Occored at the Registration Time");
+				response = new ResponseEntity<>(
+						serviceOutputTransformer.responseOutput(ErrorConstants.UNABLE_TO_STORE, false),
+						HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside saveUser");

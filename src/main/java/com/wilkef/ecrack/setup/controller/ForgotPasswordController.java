@@ -49,36 +49,33 @@ public class ForgotPasswordController {
 	 * @return the response entity
 	 */
 	@PostMapping("/forgotPassword")
-	public ResponseEntity<Object> forgotPassword(@RequestBody ForgotPasswordDataDTO forgotPwd){
+	public ResponseEntity<Object> forgotPassword(@RequestBody ForgotPasswordDataDTO forgotPwd) {
 		LOG.info("START-Inside ForgotPassword ");
-		LOG.log(Level.INFO, () -> " forgotPassword Inputs forgotPwd: "+forgotPwd); 
-		ResponseEntity<Object> response=null;
+		LOG.log(Level.INFO, () -> " forgotPassword Inputs forgotPwd: " + forgotPwd);
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "Before updating ForgotPassword : " );
+			LOG.log(Level.INFO, () -> "Before updating ForgotPassword : ");
 			String newPassword = forgotPwd.getNewPassword();
 			String confirmPassword = forgotPwd.getConfirmPassword();
 
 			if (newPassword.equals(confirmPassword)) {
 				Integer forgotPassword = forgotservice.forgotPassword(forgotPwd);
-				if (forgotPassword!=null) {
-					response = ResponseEntity.status(HttpStatus.OK)
-							.contentType(MediaType.APPLICATION_JSON_UTF8)
+				if (forgotPassword != null) {
+					response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 							.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 					return response;
-				}else {
+				} else {
 					LOG.log(Level.INFO, () -> ErrorConstants.INVALID_USER);
-					response = ResponseEntity.status(HttpStatus.OK)
-							.contentType(MediaType.APPLICATION_JSON_UTF8)
+					response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 							.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 				}
-			}else {
+			} else {
 				LOG.log(Level.INFO, () -> ErrorConstants.PASSWORD_MISMATCH);
-				response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+				response = ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput("StatusMessage", ErrorConstants.PROMPT_VALID_PASSWORD));
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("START-Inside ForgotPassword ");

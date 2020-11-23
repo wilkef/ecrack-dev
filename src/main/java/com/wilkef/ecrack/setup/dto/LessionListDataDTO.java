@@ -3,44 +3,42 @@
  */
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
- *  This Class is Used to execute Lession DTO Class.
+ * This Class is Used to execute Lession DTO Class.
  *
- * @author Satya
- * Sep 18, 2020
+ * @author Satya Sep 18, 2020
  */
 
 public class LessionListDataDTO {
-	
+
 	/** The lesson id. */
 	private Integer lessonId;
-	
+
 	/** The unit name. */
 	private String unitName;
-    
-    /** The lesson name. */
-    private String lessonName;
-    
-    /** The lesson serial. */
-    private Integer lessonSerial;
-    
-    /** The lesson mark. */
-    private Integer lessonMark;
-    
-    /** The no of period. */
-    private Integer noOfPeriod;
-    
-    /** The no of question. */
-    private Integer noOfQuestion;
-    
-    /** The video id. */
-    private String videoId;
-    
-    /** The video url. */
-    private String videoUrl;
-    
-    private String thumbNail;
+
+	/** The lesson name. */
+	private String lessonName;
+
+	/** The lesson serial. */
+	private Integer lessonSerial;
+
+	/** The lesson mark. */
+	private Integer lessonMark;
+
+	/** The no of period. */
+	private Integer noOfPeriod;
+
+	/** The no of question. */
+	private Integer noOfQuestion;
+
+	/** The video id. */
+	private String videoId;
+
+	/** The video url. */
+	private String videoUrl;
+
+	private String thumbNail;
 
 	public Integer getLessonId() {
 		return lessonId;
@@ -129,5 +127,5 @@ public class LessionListDataDTO {
 				+ ", noOfQuestion=" + noOfQuestion + ", videoId=" + videoId + ", videoUrl=" + videoUrl + ", thumbNail="
 				+ thumbNail + "]";
 	}
-	
+
 }

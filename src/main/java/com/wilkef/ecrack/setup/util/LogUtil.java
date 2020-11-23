@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 /**
  * The Class LogUtil.
  *
@@ -21,14 +20,13 @@ public class LogUtil {
 	/**
 	 * Instantiates a new log util.
 	 */
-	private LogUtil() {
-	}
+	private LogUtil() {}
 
 	/**
 	 * Debug.
 	 *
 	 * @param message the message
-	 * @param object the object
+	 * @param object  the object
 	 */
 	public static synchronized void debug(String message, Object object) {
 		message = format(message, object);
@@ -41,7 +39,7 @@ public class LogUtil {
 	 * Info.
 	 *
 	 * @param message the message
-	 * @param object the object
+	 * @param object  the object
 	 */
 	public static synchronized void info(String message, Object object) {
 		message = format(message, object);
@@ -54,7 +52,7 @@ public class LogUtil {
 	 * Error.
 	 *
 	 * @param message the message
-	 * @param object the object
+	 * @param object  the object
 	 */
 	public static synchronized void error(String message, Object object) {
 		message = format(message, object);
@@ -67,9 +65,9 @@ public class LogUtil {
 	/**
 	 * Error.
 	 *
-	 * @param message the message
+	 * @param message   the message
 	 * @param exception the exception
-	 * @param object the object
+	 * @param object    the object
 	 */
 	public static synchronized void error(String message, Exception exception, Object object) {
 		message = format(message, object);
@@ -91,7 +89,6 @@ public class LogUtil {
 			log = LogManager.getLogger(object.getClass());
 			loggerThread.set(log);
 		}
-
 		return log;
 	}
 
@@ -110,7 +107,7 @@ public class LogUtil {
 	 * Format.
 	 *
 	 * @param message the message
-	 * @param object the object
+	 * @param object  the object
 	 * @return the string
 	 */
 	public static String format(String message, Object object) {

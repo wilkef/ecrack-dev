@@ -19,16 +19,14 @@ import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.RegistrationDao;
 import com.wilkef.ecrack.setup.dto.RegistrationDataDTO;
 
-
 /**
  * This Class is Used to execute Registration DB Operation.
  *
- * @author Satya
- * Sep 20, 2020
+ * @author Satya Sep 20, 2020
  */
 
 @Repository
-public class RegistrationDaoImpl implements RegistrationDao{
+public class RegistrationDaoImpl implements RegistrationDao {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(RegistrationDaoImpl.class.getName());
@@ -48,13 +46,12 @@ public class RegistrationDaoImpl implements RegistrationDao{
 	public List<RegistrationDataDTO> save(JSONObject obj) {
 		LOG.fine("Store User Details ");
 		List<RegistrationDataDTO> registrationStatus = null;
-		try {			
+		try {
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-					.withProcedureName(WilkefConstants.REGISTRATION)
-					.returningResultSet("RegistrationResultSet",
+					.withProcedureName(WilkefConstants.REGISTRATION).returningResultSet("RegistrationResultSet",
 							BeanPropertyRowMapper.newInstance(RegistrationDataDTO.class));
 			Map<String, Object> execute = simpleJdbcCall.execute(obj);
-			registrationStatus= (List<RegistrationDataDTO>) execute.get("RegistrationResultSet");
+			registrationStatus = (List<RegistrationDataDTO>) execute.get("RegistrationResultSet");
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while Inserting User Record ");
 		}

@@ -20,8 +20,7 @@ import com.wilkef.ecrack.setup.dao.BoardDao;
 import com.wilkef.ecrack.setup.dto.BoardDataDto;
 
 /**
- * @author Satya
- *Oct 3, 2020
+ * @author Satya Oct 3, 2020
  */
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -40,17 +39,14 @@ public class BoardDaoImpl implements BoardDao {
 		try {
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.BOARD_INFO)
-					.returningResultSet("BoardResultSet",
-							BeanPropertyRowMapper.newInstance(BoardDataDto.class));
+					.returningResultSet("BoardResultSet", BeanPropertyRowMapper.newInstance(BoardDataDto.class));
 
 			Map<String, Object> execute = simpleJdbcCall.execute();
-			subjectListData=(List<BoardDataDto>) execute.get("BoardResultSet");
-			
-		}catch (Exception e) {
+			subjectListData = (List<BoardDataDto>) execute.get("BoardResultSet");
+
+		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for board list");
 		}
 		return subjectListData;
 	}
 }
-
-

@@ -15,8 +15,9 @@ public final class WilkefConstants {
 	/**
 	 * Instantiates a new wilkef constants.
 	 */
-	private WilkefConstants() {}
-	
+	private WilkefConstants() {
+	}
+
 	/** Constants related to authentication */
 	public static final String AUTH_HEADER = "Authorization";
 	public static final String AUTH_HEADER_PREFIX = "Bearer ";
@@ -24,7 +25,7 @@ public final class WilkefConstants {
 
 	/** The Constant GET_UNIT_DETAIL. */
 	public static final String GET_UNIT_DETAIL = "Select UnitId ,UnitName ,SubjectId from Unit";
-	
+
 	public static final String GET_CITY_LIST = "Select CityId,CityName from City";
 
 	/** The Constant GET_QUESTIONLEVEL_DETAIL. */
@@ -84,32 +85,32 @@ public final class WilkefConstants {
 	public static final String VALIDATE_LOGIN = "spValidateLogin";
 
 	public static final String OTP_MSG_1 = "Your verification code is ";
-	
+
 	public static final String OTP_MSG_2 = ".Happy Learning !! Wilkef";
-	
+
 	public static final String GRADE_INFO_BY_BOARDID = "select GradeCode, GradeId, GradeName from Grade where BoardId = ?";
-		
+
 	public static final String SESSION_LOGIN = "spSessionLogin";
-	
+
 	public static final String SESSION_LOGOUT = "spSessionLogout";
-	
-	public static final String SET_ACTIVE_STATUS="update Login set IsActive = ? where UserName = ? and Password =? ";
-	
+
+	public static final String SET_ACTIVE_STATUS = "update Login set IsActive = ? where UserName = ? and Password =? ";
+
 	public static final String TOKEN_RETURN = "SELECT u.MobileNumber, u.EmailId, u.FirstName, u.LastName, e.GradeId, g.GradeName FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) INNER JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
-	
+
 	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
-	
+
 	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
-	
+
 	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail FROM Lesson l INNER JOIN Unit u ON(l.UnitId=u.UnitId) INNER JOIN Subject s ON(s.SubjectId=u.SubjectId) WHERE l.LessonId=?";
-	
+
 	public static final String GET_PASSWORD = "SELECT l.Password FROM Login l WHERE l.UserId=?";
-	
-	public static final String MOST_WATCHED_VIDEOS = "SELECT w.WatchedVideoId, w.UserId, w.LessonId, w.StartDateTime, w.EndDateTime, l.LessonId, l.LessonName, l.LessonThumbnail\r\n" + 
-			"FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId = l.LessonId) where w.UserId=?\r\n" + 
-			" GROUP BY w.WatchedVideoId ORDER BY TimeWatched DESC LIMIT 6";
-	
-	public static final String SUGGESTED_VIDEOS = "SELECT VideoId, LessonId, LessonName, LessonThumbnail, UnitId, VideoUrl FROM Lesson \r\n" + 
-			"WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) FROM WatchedVideo WHERE UserId=?) LIMIT 6";
-	
+
+	public static final String MOST_WATCHED_VIDEOS = "SELECT w.WatchedVideoId, w.UserId, w.LessonId, w.StartDateTime, w.EndDateTime, l.LessonId, l.LessonName, l.LessonThumbnail\r\n"
+			+ "FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId = l.LessonId) where w.UserId=?\r\n"
+			+ " GROUP BY w.WatchedVideoId ORDER BY TimeWatched DESC LIMIT 6";
+
+	public static final String SUGGESTED_VIDEOS = "SELECT VideoId, LessonId, LessonName, LessonThumbnail, UnitId, VideoUrl FROM Lesson \r\n"
+			+ "WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) FROM WatchedVideo WHERE UserId=?) LIMIT 6";
+
 }

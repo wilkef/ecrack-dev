@@ -19,8 +19,7 @@ import com.wilkef.ecrack.setup.dao.LessonDetailsDao;
 import com.wilkef.ecrack.setup.dto.LessonDetailsDataDto;
 
 /**
- * @author Satya
- * Nov 2, 2020
+ * @author Satya Nov 2, 2020
  */
 
 @Repository
@@ -35,8 +34,8 @@ public class LessonDetailsDaoImpl implements LessonDetailsDao {
 
 	@Override
 	public List<LessonDetailsDataDto> getAllLessonDetails(Integer lessonId) {
-		
-		List<LessonDetailsDataDto> lessondetailsList=new ArrayList<>();
+
+		List<LessonDetailsDataDto> lessondetailsList = new ArrayList<>();
 		RowMapper<LessonDetailsDataDto> rowMapper = (ResultSet result, int rowNum) -> {
 			LessonDetailsDataDto lessondetails = new LessonDetailsDataDto();
 			lessondetails.setSubjectName(result.getString(1));
@@ -46,10 +45,10 @@ public class LessonDetailsDaoImpl implements LessonDetailsDao {
 			lessondetails.setLessonName(result.getString(5));
 			lessondetails.setVideoUrl(result.getString(6));
 			lessondetails.setLessonThumbnail(result.getString(7));
-		return lessondetails;
+			return lessondetails;
 		};
 		try {
-			lessondetailsList = appJdbcTemplate.query(WilkefConstants.LESSON_DETAILS, rowMapper,lessonId);
+			lessondetailsList = appJdbcTemplate.query(WilkefConstants.LESSON_DETAILS, rowMapper, lessonId);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for LessonDetails");
 		}

@@ -1,6 +1,5 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class TestResultDTO.
  */
@@ -8,41 +7,40 @@ public class TestResultDTO {
 
 	/** The Total question. */
 	private String TotalQuestion;
-	
+
 	/** The Skipped question. */
 	private String SkippedQuestion;
-	
+
 	/** The Attended question. */
 	private String AttendedQuestion;
-	
+
 	/** The Right question. */
 	private String RightQuestion;
-	
+
 	/** The Wrong question. */
 	private String WrongQuestion;
-	
+
 	/** The Total mark. */
 	private String TotalMark;
-	
+
 	/** The Mark secured. */
 	private String MarkSecured;
-	
-	
+
 	/** The v activity id. */
 	private String v_activityId;
-	
+
 	/** The Question id. */
 	private String QuestionId;
-	
+
 	/** The Answer status id. */
 	private String AnswerStatusId;
-	
+
 	/** The Time taken. */
 	private String TimeTaken;
-	
+
 	/** The v userid. */
 	private String v_userid;
-	
+
 	/**
 	 * Gets the v activity id.
 	 *
@@ -51,7 +49,7 @@ public class TestResultDTO {
 	public String getV_activityId() {
 		return v_activityId;
 	}
-	
+
 	/**
 	 * Sets the v activity id.
 	 *
@@ -60,7 +58,7 @@ public class TestResultDTO {
 	public void setV_activityId(String v_activityId) {
 		this.v_activityId = v_activityId;
 	}
-	
+
 	/**
 	 * Gets the question id.
 	 *
@@ -69,7 +67,7 @@ public class TestResultDTO {
 	public String getQuestionId() {
 		return QuestionId;
 	}
-	
+
 	/**
 	 * Sets the question id.
 	 *
@@ -78,7 +76,7 @@ public class TestResultDTO {
 	public void setQuestionId(String questionId) {
 		QuestionId = questionId;
 	}
-	
+
 	/**
 	 * Gets the answer status id.
 	 *
@@ -87,7 +85,7 @@ public class TestResultDTO {
 	public String getAnswerStatusId() {
 		return AnswerStatusId;
 	}
-	
+
 	/**
 	 * Sets the answer status id.
 	 *
@@ -96,7 +94,7 @@ public class TestResultDTO {
 	public void setAnswerStatusId(String answerStatusId) {
 		AnswerStatusId = answerStatusId;
 	}
-	
+
 	/**
 	 * Gets the time taken.
 	 *
@@ -105,7 +103,7 @@ public class TestResultDTO {
 	public String getTimeTaken() {
 		return TimeTaken;
 	}
-	
+
 	/**
 	 * Sets the time taken.
 	 *
@@ -114,7 +112,7 @@ public class TestResultDTO {
 	public void setTimeTaken(String timeTaken) {
 		TimeTaken = timeTaken;
 	}
-	
+
 	/**
 	 * Gets the v userid.
 	 *
@@ -123,7 +121,7 @@ public class TestResultDTO {
 	public String getV_userid() {
 		return v_userid;
 	}
-	
+
 	/**
 	 * Sets the v userid.
 	 *
@@ -132,7 +130,7 @@ public class TestResultDTO {
 	public void setV_userid(String v_userid) {
 		this.v_userid = v_userid;
 	}
-	
+
 	/**
 	 * Gets the total question.
 	 *
@@ -141,7 +139,7 @@ public class TestResultDTO {
 	public String getTotalQuestion() {
 		return TotalQuestion;
 	}
-	
+
 	/**
 	 * Sets the total question.
 	 *
@@ -150,7 +148,7 @@ public class TestResultDTO {
 	public void setTotalQuestion(String totalQuestion) {
 		TotalQuestion = totalQuestion;
 	}
-	
+
 	/**
 	 * Gets the skipped question.
 	 *
@@ -159,7 +157,7 @@ public class TestResultDTO {
 	public String getSkippedQuestion() {
 		return SkippedQuestion;
 	}
-	
+
 	/**
 	 * Sets the skipped question.
 	 *
@@ -168,7 +166,7 @@ public class TestResultDTO {
 	public void setSkippedQuestion(String skippedQuestion) {
 		SkippedQuestion = skippedQuestion;
 	}
-	
+
 	/**
 	 * Gets the attended question.
 	 *
@@ -177,7 +175,7 @@ public class TestResultDTO {
 	public String getAttendedQuestion() {
 		return AttendedQuestion;
 	}
-	
+
 	/**
 	 * Sets the attended question.
 	 *
@@ -186,7 +184,7 @@ public class TestResultDTO {
 	public void setAttendedQuestion(String attendedQuestion) {
 		AttendedQuestion = attendedQuestion;
 	}
-	
+
 	/**
 	 * Gets the right question.
 	 *
@@ -195,7 +193,7 @@ public class TestResultDTO {
 	public String getRightQuestion() {
 		return RightQuestion;
 	}
-	
+
 	/**
 	 * Sets the right question.
 	 *
@@ -204,7 +202,7 @@ public class TestResultDTO {
 	public void setRightQuestion(String rightQuestion) {
 		RightQuestion = rightQuestion;
 	}
-	
+
 	/**
 	 * Gets the wrong question.
 	 *
@@ -213,7 +211,7 @@ public class TestResultDTO {
 	public String getWrongQuestion() {
 		return WrongQuestion;
 	}
-	
+
 	/**
 	 * Sets the wrong question.
 	 *
@@ -222,7 +220,7 @@ public class TestResultDTO {
 	public void setWrongQuestion(String wrongQuestion) {
 		WrongQuestion = wrongQuestion;
 	}
-	
+
 	/**
 	 * Gets the total mark.
 	 *
@@ -231,7 +229,7 @@ public class TestResultDTO {
 	public String getTotalMark() {
 		return TotalMark;
 	}
-	
+
 	/**
 	 * Sets the total mark.
 	 *
@@ -240,7 +238,7 @@ public class TestResultDTO {
 	public void setTotalMark(String totalMark) {
 		TotalMark = totalMark;
 	}
-	
+
 	/**
 	 * Gets the mark secured.
 	 *
@@ -249,7 +247,7 @@ public class TestResultDTO {
 	public String getMarkSecured() {
 		return MarkSecured;
 	}
-	
+
 	/**
 	 * Sets the mark secured.
 	 *

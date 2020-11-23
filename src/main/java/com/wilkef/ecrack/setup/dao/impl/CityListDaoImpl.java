@@ -19,19 +19,18 @@ import com.wilkef.ecrack.setup.dao.CityListDao;
 import com.wilkef.ecrack.setup.dto.CityListDataDTO;
 
 /**
- * @author Satya
- *Oct 25, 2020
+ * @author Satya Oct 25, 2020
  */
 
 @Repository
-public class CityListDaoImpl implements CityListDao{
+public class CityListDaoImpl implements CityListDao {
 
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(CityListDaoImpl.class.getName());
-	
+
 	/** The question level data list. */
 	List<CityListDataDTO> cityList = new ArrayList<>();
-	
+
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
@@ -43,7 +42,6 @@ public class CityListDaoImpl implements CityListDao{
 	 */
 	@Override
 	public List<CityListDataDTO> getCityList() {
-		
 		LOG.fine("get QuestionLevel details ");
 		RowMapper<CityListDataDTO> rowMapper = (ResultSet result, int rowNum) -> {
 			CityListDataDTO cityListData = new CityListDataDTO();

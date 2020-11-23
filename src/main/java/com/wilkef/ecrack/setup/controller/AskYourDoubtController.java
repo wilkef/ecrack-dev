@@ -22,42 +22,39 @@ import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
- * @author Satya
- * Nov 5, 2020
+ * @author Satya Nov 5, 2020
  */
 
 @RestController
 @RequestMapping("/user")
 public class AskYourDoubtController {
-	
+
 	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(AskYourDoubtController.class.getName());
 
 	/** The service. */
 	@Autowired
-	public AskYourDoubtDao dao; 
+	public AskYourDoubtDao dao;
 
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
 
 	@PostMapping(value = "/AskYourDoubt")
-	public ResponseEntity<Object> saveAskYourDoubt(@RequestBody AskYourDoubt askYourDoubt){
-		ResponseEntity<Object> response=null;
+	public ResponseEntity<Object> saveAskYourDoubt(@RequestBody AskYourDoubt askYourDoubt) {
+		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "Inside AskYourDoubt Controller" );
+			LOG.log(Level.INFO, () -> "Inside AskYourDoubt Controller");
 			Integer saveDoubt = dao.saveDoubt(askYourDoubt);
-			if (saveDoubt!=null) {
-				response= ResponseEntity.status(HttpStatus.OK)
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+			if (saveDoubt != null) {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
-			}else {
-				response= ResponseEntity.status(HttpStatus.OK)	
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+			} else {
+				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		return response;

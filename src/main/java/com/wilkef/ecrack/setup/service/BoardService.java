@@ -10,11 +10,10 @@ import com.wilkef.ecrack.setup.dto.BoardDataDto;
 /**
  * The Interface BoardService.
  * 
- * @author Satya
- *Oct 3, 2020
+ * @author Satya Oct 3, 2020
  */
 public interface BoardService {
-	
+
 	/**
 	 * Find all board list.
 	 *

@@ -5,34 +5,31 @@
  *         related to validation of personal Information
  *
  */
- 
 
 package com.wilkef.ecrack.setup.dto;
-
 
 /**
  * The Class ValidationDTO.
  */
 public class ValidationDTO {
 
-	
 	/** The p is valid email id. */
 	private Integer p_isValidEmailId;
-	
+
 	/** The p is valid mobile. */
 	private Integer p_isValidMobile;
 
 	/** The p mobile no. */
 	private String p_mobileNo;
-	
+
 	/** The p otp. */
 	private String p_otp;
-	
+
 	/** The p msg. */
 	private String p_msg;
-	
+
 	private String p_UserId;
-	
+
 	public String getP_UserId() {
 		return p_UserId;
 	}
@@ -41,8 +38,7 @@ public class ValidationDTO {
 		this.p_UserId = p_UserId;
 	}
 
-	private Boolean isSuccess=Boolean.TRUE;
-
+	private Boolean isSuccess = Boolean.TRUE;
 
 	public Boolean getIsSuccess() {
 		return isSuccess;

@@ -20,8 +20,7 @@ import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.BoardService;
 
 /**
- * @author Satya
- * Oct 3, 2020
+ * @author Satya Oct 3, 2020
  */
 
 @RestController
@@ -41,17 +40,16 @@ public class BoardController {
 	 * @return the response entity
 	 */
 	@GetMapping("/boardList")
-	public ResponseEntity<Object> boardList(){
-		LOG.info("START-Inside boardList "); 
-		ResponseEntity<Object> response=null;
+	public ResponseEntity<Object> boardList() {
+		LOG.info("START-Inside boardList ");
+		ResponseEntity<Object> response = null;
 		List<BoardDataDto> findBoardDetails = null;
 		try {
 			findBoardDetails = boardService.getBoard();
-			response = new ResponseEntity<>(findBoardDetails,HttpStatus.OK);
+			response = new ResponseEntity<>(findBoardDetails, HttpStatus.OK);
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);		
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside boardList ");
 		return response;

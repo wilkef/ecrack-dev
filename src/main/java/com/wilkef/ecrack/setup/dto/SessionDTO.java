@@ -3,7 +3,7 @@ package com.wilkef.ecrack.setup.dto;
 public class SessionDTO {
 
 	private long lastInserId;
-	
+
 	private String SessionStatus;
 
 	public String getSessionStatus() {
@@ -21,6 +21,5 @@ public class SessionDTO {
 	public void setLastInserId(long lastInserId) {
 		this.lastInserId = lastInserId;
 	}
-	
-	
+
 }

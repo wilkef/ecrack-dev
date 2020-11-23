@@ -24,7 +24,6 @@ import com.wilkef.ecrack.setup.dto.UnitListDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.UnitListService;
 
-
 /**
  * The Class UnitListController.
  */
@@ -45,21 +44,19 @@ public class UnitListController {
 	 * @param subjectId the subject id
 	 * @return the response entity
 	 */
-	@GetMapping(value = "/unitList/{SubjectId}")	
+	@GetMapping(value = "/unitList/{SubjectId}")
 	public ResponseEntity<Object> findByClassId(@PathVariable("SubjectId") Integer subjectId) {
 		LOG.info("START-Inside findByClassId");
-		LOG.log(Level.INFO, () -> " findByClassId Inputs subjectId: "+subjectId); 
+		LOG.log(Level.INFO, () -> " findByClassId Inputs subjectId: " + subjectId);
 		ResponseEntity<Object> response = null;
 		List<UnitListDataDTO> unitListData = null;
-
 		LOG.info("Inside find the UnitList based on subjectId");
 		try {
 			LOG.log(Level.INFO, () -> "Before geting UnitList information based on subjectId : " + subjectId);
 			unitListData = unitListService.findBySubjectId(subjectId);
 			response = new ResponseEntity<>(unitListData, HttpStatus.OK);
-		}	
-		catch (Exception e) {
-			LOG.log(Level.SEVERE,() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findByClassId");

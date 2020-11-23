@@ -1,39 +1,37 @@
 package com.wilkef.ecrack.setup.dto;
 
-
 /**
  * The Class QuizQuestionDTO.
  */
 public class QuizQuestionDTO {
 
-	
 	/** The Mcq id. */
 	private String McqId;
-	
+
 	/** The Lesson id. */
 	private String LessonId;
-	
+
 	/** The Question. */
 	private String Question;
-	
+
 	/** The Question desc. */
 	private String QuestionDesc;
-	
+
 	/** The Question img. */
 	private String QuestionImg;
-	
+
 	/** The Option list. */
 	private String OptionList;
-	
+
 	/** The Solution. */
 	private String Solution;
-	
+
 	/** The Difficulty code. */
 	private String DifficultyCode;
-	
+
 	/** The Lesson name. */
 	private String LessonName;
-	
+
 	/**
 	 * Gets the lesson name.
 	 *
@@ -42,7 +40,7 @@ public class QuizQuestionDTO {
 	public String getLessonName() {
 		return LessonName;
 	}
-	
+
 	/**
 	 * Sets the lesson name.
 	 *
@@ -51,7 +49,7 @@ public class QuizQuestionDTO {
 	public void setLessonName(String lessonName) {
 		LessonName = lessonName;
 	}
-	
+
 	/**
 	 * Gets the mcq id.
 	 *
@@ -60,7 +58,7 @@ public class QuizQuestionDTO {
 	public String getMcqId() {
 		return McqId;
 	}
-	
+
 	/**
 	 * Sets the mcq id.
 	 *
@@ -69,7 +67,7 @@ public class QuizQuestionDTO {
 	public void setMcqId(String mcqId) {
 		McqId = mcqId;
 	}
-	
+
 	/**
 	 * Gets the lesson id.
 	 *
@@ -78,7 +76,7 @@ public class QuizQuestionDTO {
 	public String getLessonId() {
 		return LessonId;
 	}
-	
+
 	/**
 	 * Sets the lesson id.
 	 *
@@ -87,7 +85,7 @@ public class QuizQuestionDTO {
 	public void setLessonId(String lessonId) {
 		LessonId = lessonId;
 	}
-	
+
 	/**
 	 * Gets the question.
 	 *
@@ -96,7 +94,7 @@ public class QuizQuestionDTO {
 	public String getQuestion() {
 		return Question;
 	}
-	
+
 	/**
 	 * Sets the question.
 	 *
@@ -105,7 +103,7 @@ public class QuizQuestionDTO {
 	public void setQuestion(String question) {
 		Question = question;
 	}
-	
+
 	/**
 	 * Gets the question desc.
 	 *
@@ -114,7 +112,7 @@ public class QuizQuestionDTO {
 	public String getQuestionDesc() {
 		return QuestionDesc;
 	}
-	
+
 	/**
 	 * Sets the question desc.
 	 *
@@ -123,7 +121,7 @@ public class QuizQuestionDTO {
 	public void setQuestionDesc(String questionDesc) {
 		QuestionDesc = questionDesc;
 	}
-	
+
 	/**
 	 * Gets the question img.
 	 *
@@ -132,7 +130,7 @@ public class QuizQuestionDTO {
 	public String getQuestionImg() {
 		return QuestionImg;
 	}
-	
+
 	/**
 	 * Sets the question img.
 	 *
@@ -141,7 +139,7 @@ public class QuizQuestionDTO {
 	public void setQuestionImg(String questionImg) {
 		QuestionImg = questionImg;
 	}
-	
+
 	/**
 	 * Gets the option list.
 	 *
@@ -150,7 +148,7 @@ public class QuizQuestionDTO {
 	public String getOptionList() {
 		return OptionList;
 	}
-	
+
 	/**
 	 * Sets the option list.
 	 *
@@ -159,7 +157,7 @@ public class QuizQuestionDTO {
 	public void setOptionList(String optionList) {
 		OptionList = optionList;
 	}
-	
+
 	/**
 	 * Gets the solution.
 	 *
@@ -168,7 +166,7 @@ public class QuizQuestionDTO {
 	public String getSolution() {
 		return Solution;
 	}
-	
+
 	/**
 	 * Sets the solution.
 	 *
@@ -177,7 +175,7 @@ public class QuizQuestionDTO {
 	public void setSolution(String solution) {
 		Solution = solution;
 	}
-	
+
 	/**
 	 * Gets the difficulty code.
 	 *
@@ -186,7 +184,7 @@ public class QuizQuestionDTO {
 	public String getDifficultyCode() {
 		return DifficultyCode;
 	}
-	
+
 	/**
 	 * Sets the difficulty code.
 	 *
@@ -195,6 +193,5 @@ public class QuizQuestionDTO {
 	public void setDifficultyCode(String difficultyCode) {
 		DifficultyCode = difficultyCode;
 	}
-	
-	
+
 }

@@ -23,14 +23,13 @@ import com.wilkef.ecrack.setup.dto.AnswerStatusDataDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.AnswerStatusService;
 
-
 /**
  * The Class AnswerStatusController.
  */
 @RestController
 @RequestMapping("/exam")
 public class AnswerStatusController {
-	
+
 	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(AnswerStatusController.class.getName());
 
@@ -44,19 +43,18 @@ public class AnswerStatusController {
 	 * @return the response entity
 	 */
 	@GetMapping("/answerStatus")
-	public ResponseEntity<Object> findAllTestTypeList(){
+	public ResponseEntity<Object> findAllTestTypeList() {
 		LOG.info("START-Inside findAllTestTypeList ");
-		LOG.log(Level.INFO, () -> "No updateProfile Inputs: "); 
-		ResponseEntity<Object> response=null;
+		LOG.log(Level.INFO, () -> "No updateProfile Inputs: ");
+		ResponseEntity<Object> response = null;
 		List<AnswerStatusDataDTO> findAllAnswerStatus = null;
 		try {
 			findAllAnswerStatus = answerStatusService.findAllAnswerStatus();
-			response = new ResponseEntity<>(findAllAnswerStatus,HttpStatus.OK);
-			
+			response = new ResponseEntity<>(findAllAnswerStatus, HttpStatus.OK);
+
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					() -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);		
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside findAllTestTypeList ");
 		return response;
