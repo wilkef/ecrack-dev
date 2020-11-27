@@ -106,8 +106,7 @@ public class EcrackSetupApplication {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf()
-				.disable()
+			http.csrf().disable()
 				.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers(
@@ -116,11 +115,13 @@ public class EcrackSetupApplication {
 					PublicApiConstant.GET_BOARD,
 					PublicApiConstant.GET_VALID_EMAIL_ID, 
 					PublicApiConstant.GET_VALIDATE_LOGIN,
-					PublicApiConstant.GET_VERIFY_OTP, 
 					PublicApiConstant.GET_VALIDMOBILE_NO,
 					PublicApiConstant.GET_SEND_OTP, 
-					PublicApiConstant.GET_FORGOT_PWD,
-					PublicApiConstant.GET_GRADE_INFO
+					PublicApiConstant.GET_VERIFY_OTP,
+					PublicApiConstant.GET_GRADE_INFO,
+					PublicApiConstant.FORGOT_PWD,
+					PublicApiConstant.FORGOT_PWD_VERIFY_OTP,
+					PublicApiConstant.RESET_PASSWORD
 				).permitAll()
 				.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
 				.antMatchers(HttpMethod.POST, "/getMobAuthToken").permitAll()

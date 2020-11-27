@@ -29,8 +29,14 @@ public class PublicApiConstant {
 	public static final String GET_VALIDMOBILE_NO = "/user/validateMobileNumber/{mobileNo}";
 
 	public static final String GET_SEND_OTP = "/user/SendOTP/{mobileNo}";
-
-	public static final String GET_FORGOT_PWD = "/user/forgotPassword";
-
+	
 	public static final String GET_GRADE_INFO = "/grade/gradeInfo/{boardId}";
+
+	public static final String FORGOT_PWD = "/user/forgotPassword/{mobileNo}";
+	
+	public static final String FORGOT_PWD_VERIFY_OTP = "/user/forgotPasswordVerifyOtp/{otp}/{mobileNo}";
+	
+	public static final String RESET_PASSWORD = "/user/resetPassword";
+
+	
 }

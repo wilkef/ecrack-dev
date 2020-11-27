@@ -42,5 +42,9 @@ public class ErrorConstants {
 	public static final String SEND_OTP_FRGT = "FRGTPWD";
 
 	public static final String IS_SUCCESS = "isSuccess";
+	
+	public static final String API_STATUS = "isSuccess";
+	public static final String API_DATA = "data";	
+	public static final String API_MESSAGE = "message";
 
 }

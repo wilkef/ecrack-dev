@@ -10,6 +10,8 @@ package com.wilkef.ecrack.setup.util;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+import com.wilkef.ecrack.setup.constant.ErrorConstants;
+
 /**
  * The Class ServiceOutputTransformer.
  */
@@ -41,6 +43,21 @@ public class ServiceOutputTransformer {
 	public String responseOutput(String key, Object val) {
 		JSONObject response = new JSONObject();
 		response.put(key, val);
+		return response.toString();
+	}
+	
+	public String apiResponse(Boolean status, String data) {
+		JSONObject response = new JSONObject();
+		response.put(ErrorConstants.API_STATUS, status);
+		response.put(ErrorConstants.API_DATA, data);
+		return response.toString();
+	}
+
+	public String apiResponse(Boolean status, String data, String message) {
+		JSONObject response = new JSONObject();
+		response.put(ErrorConstants.API_STATUS, status);
+		response.put(ErrorConstants.API_DATA, data);
+		response.put(ErrorConstants.API_MESSAGE, message);
 		return response.toString();
 	}
 }

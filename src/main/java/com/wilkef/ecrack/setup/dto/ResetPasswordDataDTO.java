@@ -11,14 +11,10 @@ package com.wilkef.ecrack.setup.dto;
 
 public class ResetPasswordDataDTO {
 
-	/** The user id. */
 	private String userName;
-
-	/** The old password. */
-	private String oldPassword;
-
-	/** The new password. */
 	private String newPassword;
+	private String confirmPassword;
+	private String verificationCode;
 
 	public String getUserName() {
 		return userName;
@@ -26,14 +22,6 @@ public class ResetPasswordDataDTO {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-	public String getOldPassword() {
-		return oldPassword;
-	}
-
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
 	}
 
 	public String getNewPassword() {
@@ -44,9 +32,25 @@ public class ResetPasswordDataDTO {
 		this.newPassword = newPassword;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
+	}
+
 	@Override
 	public String toString() {
-		return "ResetPasswordDataDTO [userName=" + userName + ", oldPassword=" + oldPassword + ", newPassword="
-				+ newPassword + "]";
+		return "ResetPasswordDataDTO [userName=" + userName + ", newPassword=" + newPassword + ", confirmPassword="
+				+ confirmPassword + "verificationCode=" + verificationCode + "]";
 	}
 }

@@ -114,4 +114,13 @@ public final class WilkefConstants {
 			+ "WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) FROM WatchedVideo WHERE UserId=?) LIMIT 6";
 
 	public static final String CHECK_MOB_AVAILABILITY = "SELECT count(*) FROM Login WHERE UserName = ?";
+	
+	public static final String SET_VERIFICATION_CDOE = "UPDATE Login SET VerificationCode = ? WHERE UserName = ?";
+	
+	public static final String RESET_PASSWORD = "UPDATE Login SET Password=?, VerificationCode=? WHERE UserName=? AND VerificationCode=?";
+	
 }
+
+
+
+

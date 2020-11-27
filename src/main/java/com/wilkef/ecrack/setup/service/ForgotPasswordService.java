@@ -3,7 +3,7 @@
  */
 package com.wilkef.ecrack.setup.service;
 
-import com.wilkef.ecrack.setup.dto.ForgotPasswordDataDTO;
+import com.wilkef.ecrack.setup.dto.ResetPasswordDataDTO;
 
 /**
  * This interface will be holding all the service methods related to Forgot
@@ -19,5 +19,9 @@ public interface ForgotPasswordService {
 	 * @param forgotPwd the forgot pwd
 	 * @return the integer
 	 */
-	public Integer forgotPassword(ForgotPasswordDataDTO forgotPwd);
+	public Boolean resetPassword(ResetPasswordDataDTO resetPasswordData);
+	
+	public String setVerificationCode(String mobileNo);
+	
+	public boolean removeVerificationCode(String mobileNo);
 }

@@ -21,5 +21,5 @@ public interface ResetPasswordDao {
 	 * @param resetPwd the reset pwd
 	 * @return the integer
 	 */
-	public Integer resetPassword(ResetPasswordDataDTO resetPwd);
+	public Boolean resetPassword(ResetPasswordDataDTO resetPwd);
 }
