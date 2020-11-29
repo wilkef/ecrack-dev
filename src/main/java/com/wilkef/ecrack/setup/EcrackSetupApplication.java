@@ -123,8 +123,8 @@ public class EcrackSetupApplication {
 					PublicApiConstant.FORGOT_PWD_VERIFY_OTP,
 					PublicApiConstant.RESET_PASSWORD
 				).permitAll()
-				.antMatchers(HttpMethod.POST, "/getAuthToken").permitAll()
-				.antMatchers(HttpMethod.POST, "/getMobAuthToken").permitAll()
+				.antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
+				.antMatchers(HttpMethod.POST, "/user/getMobAuthToken").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.anyRequest().authenticated();
 		}

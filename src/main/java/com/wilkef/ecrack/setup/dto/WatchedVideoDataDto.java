@@ -11,11 +11,13 @@ import java.util.Date;
 
 public class WatchedVideoDataDto {
 	private long watchedVideoId;
-	private String userId;
+	private Integer userId;
 	private Integer lessonId;
 	private Date startDateTime;
 	private Date endDateTime;
 	private Integer timeWatched;
+	private Integer watchCount;
+	private Boolean isFinished;
 	private String mobileNo;
 	private String lessonName;
 	private String lessonThumbnail;
@@ -72,11 +74,11 @@ public class WatchedVideoDataDto {
 		this.watchedVideoId = watchedVideoId;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -120,11 +122,27 @@ public class WatchedVideoDataDto {
 		this.timeWatched = timeWatched;
 	}
 
+	public Integer getWatchCount() {
+		return watchCount;
+	}
+
+	public void setWatchCount(Integer watchCount) {
+		this.watchCount = watchCount;
+	}
+
+	public Boolean getIsFinished() {
+		return isFinished;
+	}
+
+	public void setIsFinished(Boolean isFinished) {
+		this.isFinished = isFinished;
+	}
+
 	@Override
 	public String toString() {
 		return "WatchedVideoDataDto [watchedVideoId=" + watchedVideoId + ", userId=" + userId + ", lessonId=" + lessonId
 				+ ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", timeWatched=" + timeWatched
-				+ ", mobileNo=" + mobileNo + ", lessonThumbnail=" + lessonThumbnail + "]";
+				+ ", mobileNo=" + mobileNo + ", lessonThumbnail=" + lessonThumbnail + ", watchCount=" + watchCount + ", isFinished=" + isFinished + "]";
 	}
 
 }

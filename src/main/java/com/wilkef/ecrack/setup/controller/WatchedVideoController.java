@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
-import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dao.WatchedVideoDao;
 import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.WatchedVideoDataDto;
-import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
+import com.wilkef.ecrack.setup.service.UserService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
  * @author Satya Oct 31, 2020
+ * @modified by Pradeepta on 29 Nov 2020
  */
 
 @RestController
@@ -38,35 +38,38 @@ public class WatchedVideoController {
 	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(WatchedVideoController.class.getName());
 
-	/** The service. */
 	@Autowired
-	public WatchedVideoDao dao;
+	public WatchedVideoDao watchedVideoDao;
 
 	@Autowired
-	private ValidationDao validationDao;
-
+	private UserService userService;
+	
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
 
 	@Autowired
 	private HttpServletRequest request;
 
-	@PostMapping(value = "/Watchedvideo")
+	@PostMapping(value = "/watchedVideo")
 	public ResponseEntity<Object> saveWatchedVideo(@RequestBody WatchedVideoDataDto watchedVideo) {
 		ResponseEntity<Object> response = null;
 		try {
-			LOG.log(Level.INFO, () -> "save video record : ");
-			Integer saveWatchedVideo = dao.saveWatchedVideo(watchedVideo);
-			if (saveWatchedVideo > 0) {
+			LOG.log(Level.INFO, () -> "save video record : " + watchedVideo);
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			LoggedinUserInfo loggedinUserInfo = userService.getLoggedinUserInfo(jwtToken);
+
+			Boolean isSaved = watchedVideoDao.saveWatchedVideo(watchedVideo, loggedinUserInfo.getUserId());
+			if (isSaved) {
 				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
+						.body(serviceOutput.apiResponse(Boolean.TRUE));
 			} else {
 				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
+						.body(serviceOutput.apiResponse(Boolean.FALSE, ErrorConstants.SMTHNG_WNT_WRONG));
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, ErrorConstants.SMTHNG_WNT_WRONG));
 		}
 		return response;
 	}
@@ -76,18 +79,18 @@ public class WatchedVideoController {
 		LOG.log(Level.INFO, () -> "Start mostWatchedvideo");
 		ResponseEntity<Object> response = null;
 		try {
-			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
-					"");
-			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			LoggedinUserInfo loggedinUserInfo = userService.getLoggedinUserInfo(jwtToken);
 
-			List<WatchedVideoDataDto> mostWatchedvideoList = dao.mostWatchedVideo(loggedinUserInfo.getUserId());
+			List<WatchedVideoDataDto> mostWatchedvideoList = watchedVideoDao.mostWatchedVideo(loggedinUserInfo.getUserId());
 
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(mostWatchedvideoList);
+					.body(serviceOutput.apiResponse(Boolean.TRUE, mostWatchedvideoList));
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, ErrorConstants.SMTHNG_WNT_WRONG));
 		}
 		LOG.log(Level.INFO, () -> "End mostWatchedvideo");
 		return response;
@@ -98,20 +101,21 @@ public class WatchedVideoController {
 		ResponseEntity<Object> response = null;
 		LOG.log(Level.INFO, () -> "videoSuggestion Start");
 		try {
-			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX,
-					"");
-			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(jwtToken);
+			String jwtToken = request.getHeader(WilkefConstants.AUTH_HEADER).replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			LoggedinUserInfo loggedinUserInfo = userService.getLoggedinUserInfo(jwtToken);
 
-			List<WatchedVideoDataDto> suggestedVideoList = dao.videoSuggestion(loggedinUserInfo.getUserId());
+			List<WatchedVideoDataDto> suggestedVideoList = watchedVideoDao.videoSuggestion(loggedinUserInfo.getUserId());
 
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(suggestedVideoList);
+					.body(serviceOutput.apiResponse(Boolean.TRUE, suggestedVideoList));
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, ErrorConstants.SMTHNG_WNT_WRONG));
 		}
 		LOG.log(Level.INFO, () -> "videoSuggestion End ");
 		return response;
 	}
+	
 }

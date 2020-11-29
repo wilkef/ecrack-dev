@@ -7,16 +7,27 @@
  */
 package com.wilkef.ecrack.setup.util;
 
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-
-import com.wilkef.ecrack.setup.constant.ErrorConstants;
+import com.google.gson.Gson;
 
 /**
  * The Class ServiceOutputTransformer.
  */
 @Component
 public class ServiceOutputTransformer {
+
+	public enum Response {
+		isSuccess, data, message;
+	}
+
+	static HashMap responseHashMap;
+
+	public static HashMap getInitialHashMap() {
+		return new HashMap<>();
+	}
 
 	/**
 	 * Crate output.
@@ -45,19 +56,25 @@ public class ServiceOutputTransformer {
 		response.put(key, val);
 		return response.toString();
 	}
-	
-	public String apiResponse(Boolean status, String data) {
-		JSONObject response = new JSONObject();
-		response.put(ErrorConstants.API_STATUS, status);
-		response.put(ErrorConstants.API_DATA, data);
-		return response.toString();
+
+	public String apiResponse(Boolean status) {
+		responseHashMap = ServiceOutputTransformer.getInitialHashMap();
+		responseHashMap.put(Response.isSuccess, status);
+		return new Gson().toJson(responseHashMap);
 	}
 
-	public String apiResponse(Boolean status, String data, String message) {
-		JSONObject response = new JSONObject();
-		response.put(ErrorConstants.API_STATUS, status);
-		response.put(ErrorConstants.API_DATA, data);
-		response.put(ErrorConstants.API_MESSAGE, message);
-		return response.toString();
+	public String apiResponse(Boolean status, Object data) {
+		responseHashMap = ServiceOutputTransformer.getInitialHashMap();
+		responseHashMap.put(Response.isSuccess, status);
+		responseHashMap.put(Response.data, data);
+		return new Gson().toJson(responseHashMap);
+	}
+
+	public String apiResponse(Boolean status, Object data, String message) {
+		responseHashMap = ServiceOutputTransformer.getInitialHashMap();
+		responseHashMap.put(Response.isSuccess, status);
+		responseHashMap.put(Response.data, data);
+		responseHashMap.put(Response.message, message);
+		return new Gson().toJson(responseHashMap);
 	}
 }

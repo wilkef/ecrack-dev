@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,14 +20,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
-import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.AuthDataDTO;
-import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
+import com.wilkef.ecrack.setup.service.UserService;
+import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -37,13 +37,16 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * The Class AuthenticationController.
  */
 @RestController
+@RequestMapping("/user")
 public class AuthenticationController {
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(AuthenticationController.class.getName());
 
-	/** The validation dao. */
 	@Autowired
-	private ValidationDao validationDao;
+	private UserService userService;
+
+	@Autowired
+	private ServiceOutputTransformer serviceOutput;
 
 	/**
 	 * Login.
@@ -57,15 +60,16 @@ public class AuthenticationController {
 			@RequestParam("password") String pwd) {
 		LOG.info("START-Inside getAuthToken");
 
-		AuthDataDTO user = new AuthDataDTO();
 		ResponseEntity<Object> response = null;
 
-		if (isValidUser(username, pwd)) {
+		if (userService.isValidUser(username, pwd)) {
 			String token = getJWTToken(username);
-			user = validationDao.getAuthData(username, token);
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
+			AuthDataDTO userInfo = userService.getAuthData(username, token);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, userInfo));
 		} else {
-			throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.INVALID_LOGIN_CREDENTIALS));
 		}
 		LOG.info("END-Inside getAuthToken");
 		return response;
@@ -75,31 +79,18 @@ public class AuthenticationController {
 	public ResponseEntity<Object> getMobAuthToken(@RequestParam("user") String username,
 			@RequestParam("password") String pwd) {
 		LOG.info("START-Inside getMobAuthToken");
-
-		AuthDataDTO user = new AuthDataDTO();
 		ResponseEntity<Object> response = null;
-		if (isValidUser(username, pwd)) {
+		if (userService.isValidUser(username, pwd)) {
 			String token = getJWTMobToken(username);
-			user = validationDao.getAuthData(username, token);
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8).body(user);
+			AuthDataDTO userInfo = userService.getAuthData(username, token);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, userInfo));
 		} else {
-			throw new CustomException(ErrorConstants.USER_NOT_EXISTS);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.INVALID_LOGIN_CREDENTIALS));
 		}
 		LOG.info("END-Inside getMobAuthToken");
 		return response;
-	}
-
-	private boolean isValidUser(String user, String password) {
-		boolean isValid = Boolean.FALSE;
-		JSONObject object = new JSONObject();
-		List<ValidationDTO> validDto = null;
-		object.put("user", user);
-		object.put("password", password);
-		validDto = validationDao.validateCredentials(object.toString());
-		if (!validDto.isEmpty()) {
-			isValid = true;
-		}
-		return isValid;
 	}
 
 	/**

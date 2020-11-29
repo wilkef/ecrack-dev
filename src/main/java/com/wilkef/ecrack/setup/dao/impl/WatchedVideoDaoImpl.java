@@ -31,27 +31,24 @@ public class WatchedVideoDaoImpl implements WatchedVideoDao {
 	List<WatchedVideoDataDto> list;
 
 	@Override
-	public Integer saveWatchedVideo(WatchedVideoDataDto watchedVideo) {
-		list = new ArrayList<>();
-		int res = 0;
-		String userId = appJdbcTemplate.queryForObject("Select userid from User where MobileNumber = ?",
-				new Object[] { watchedVideo.getMobileNo() }, String.class);
-
-		String userIdinWatchedVdo = appJdbcTemplate.queryForObject(
-				"Select userid from WatchedVideo where WatchedVideoId = ? and userId =? ",
-				new Object[] { watchedVideo.getWatchedVideoId(), userId }, String.class);
-
-		if (!userIdinWatchedVdo.isEmpty()) {
-			String updateSql = "update WatchedVideo set LessonId =? ,StartDateTime =?  ,EndDateTime =? , TimeWatched = TimeWatched+1 where WatchedVideoId=? and UserId= ?";
-			res = appJdbcTemplate.update(updateSql, watchedVideo.getLessonId(), watchedVideo.getStartDateTime(),
-					watchedVideo.getEndDateTime(), watchedVideo.getWatchedVideoId(), userId);
-		} else {
-			String sql = "INSERT INTO WatchedVideo (UserId, LessonId, StartDateTime,EndDateTime,TimeWatched) VALUES (?,?, ?, ?, ?, ?)";
-
-			res = appJdbcTemplate.update(sql, watchedVideo.getWatchedVideoId(), userId, watchedVideo.getLessonId(),
-					watchedVideo.getStartDateTime(), watchedVideo.getEndDateTime(), 1);
+	public Boolean saveWatchedVideo(WatchedVideoDataDto watchedVideo, Integer userId) {
+		Boolean isSaved = Boolean.TRUE;
+		try {
+			Integer timeWatched = watchedVideo.getTimeWatched() > 0 ? watchedVideo.getTimeWatched() : 1;
+			Integer count = appJdbcTemplate.queryForObject(WilkefConstants.CHECK_WATCHED_VIDEO,
+					new Object[] { watchedVideo.getLessonId(), userId }, Integer.class);
+			LOG.log(Level.INFO, "Count:" + count);
+			if (count > 0) {
+				appJdbcTemplate.update(WilkefConstants.UPDATE_WATCHED_VIDEO, timeWatched, userId,
+						watchedVideo.getLessonId());
+			} else {
+				appJdbcTemplate.update(WilkefConstants.SAVE_WATCHED_VIDEO, userId, watchedVideo.getLessonId(),
+						timeWatched);
+			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Some error occured while saving the video:" + e.getMessage());
 		}
-		return res;
+		return isSaved;
 	}
 
 	@Override
@@ -63,7 +60,7 @@ public class WatchedVideoDaoImpl implements WatchedVideoDao {
 			mostWatchedVideoList = appJdbcTemplate.query(query, new Object[] { userId }, (result, rowNum) -> {
 				WatchedVideoDataDto videoDto = new WatchedVideoDataDto();
 				videoDto.setWatchedVideoId(result.getInt("WatchedVideoId"));
-				videoDto.setUserId(result.getString("UserId"));
+				videoDto.setUserId(result.getInt("UserId"));
 				videoDto.setLessonId(result.getInt("LessonId"));
 				videoDto.setStartDateTime(result.getDate("StartDateTime"));
 				videoDto.setEndDateTime(result.getDate("EndDateTime"));

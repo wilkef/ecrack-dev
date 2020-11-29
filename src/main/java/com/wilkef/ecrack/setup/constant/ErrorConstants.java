@@ -13,6 +13,7 @@ public class ErrorConstants {
 	private ErrorConstants() {
 	}
 
+	public static final String INVALID_LOGIN_CREDENTIALS = "Invalid Login Credentials ";
 	public static final String USER_NOT_EXISTS = "User Does Not Exist";
 	public static final String USER_ALREADY_EXISTS = "User Already Exists";
 	public static final String SMTHNG_WNT_WRONG = "something wrong while fetching the information  ";

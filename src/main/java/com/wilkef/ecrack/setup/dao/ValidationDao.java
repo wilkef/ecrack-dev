@@ -55,11 +55,11 @@ public interface ValidationDao {
 	 */
 	String verifyOtp(String otp, String mobileNo);
 
-	List<ValidationDTO> validateCredentials( String input);
+    List<ValidationDTO> validateCredentials( String input);
+
+	Boolean validateUserLogin(String username, String password);
 	
-	
-	
-	boolean setLoginStatus(int status,String input);
+	boolean setLoginStatus(int status, String input);
 	
 	/**
 	 * Get Loggedin User Data
@@ -67,7 +67,7 @@ public interface ValidationDao {
 	 * @param mobileNo the mobile no
 	 * @return AuthDataDTO
 	 */
-	AuthDataDTO getAuthData(String user,String token); 
+	AuthDataDTO getAuthData(String user, String token); 
 	
 	/**
 	 * Get Loggedin User Data

@@ -202,9 +202,9 @@ public class ValidationDaoImpl implements ValidationDao {
 		return stringBuffer;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ValidationDTO> validateCredentials(@Valid String input) {
-
 		List<ValidationDTO> validList = new ArrayList<>();
 		try {
 			JSONObject obj = new JSONObject(input);
@@ -221,6 +221,20 @@ public class ValidationDaoImpl implements ValidationDao {
 			LOG.log(Level.SEVERE, e.getMessage());
 		}
 		return validList;
+	}
+	
+	
+	@Override
+	public Boolean validateUserLogin(String username, String password) {
+		Boolean isValid = Boolean.FALSE;
+		try {
+			String sql = WilkefConstants.CHECK_LOGIN;
+			Integer userId = appJdbcTemplate.queryForObject(sql, new Object[] { username, password }, Integer.class);
+			isValid = userId > 0 ? Boolean.TRUE : Boolean.FALSE;
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+		}
+		return isValid;
 	}
 
 	@Override

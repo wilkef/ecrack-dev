@@ -93,25 +93,32 @@ public final class WilkefConstants {
 	public static final String SESSION_LOGIN = "spSessionLogin";
 
 	public static final String SESSION_LOGOUT = "spSessionLogout";
+	
+	public static final String CHECK_LOGIN = "SELECT l.UserId FROM Login l WHERE l.UserName=? AND l.Password=?";
 
 	public static final String SET_ACTIVE_STATUS = "update Login set IsActive = ? where UserName = ? and Password =? ";
 
-	public static final String TOKEN_RETURN = "SELECT u.MobileNumber, u.EmailId, u.FirstName, u.LastName, e.GradeId, g.GradeName FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) INNER JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
+	public static final String TOKEN_RETURN = "SELECT u.MobileNumber, u.EmailId, u.FirstName, u.LastName, e.GradeId, g.GradeName "
+			+ "FROM User u LEFT JOIN StudentEnv e ON(u.userid = e.UserId) LEFT JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
 
-	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
+	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId "
+			+ "FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
 
-	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
+	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob "
+			+ "FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
 
-	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail FROM Lesson l INNER JOIN Unit u ON(l.UnitId=u.UnitId) INNER JOIN Subject s ON(s.SubjectId=u.SubjectId) WHERE l.LessonId=?";
+	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail "
+			+ "FROM Lesson l INNER JOIN Unit u ON(l.UnitId=u.UnitId) INNER JOIN Subject s ON(s.SubjectId=u.SubjectId) WHERE l.LessonId=?";
 
 	public static final String GET_PASSWORD = "SELECT l.Password FROM Login l WHERE l.UserId=?";
 
-	public static final String MOST_WATCHED_VIDEOS = "SELECT w.WatchedVideoId, w.UserId, w.LessonId, w.StartDateTime, w.EndDateTime, l.LessonId, l.LessonName, l.LessonThumbnail\r\n"
-			+ "FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId = l.LessonId) where w.UserId=?\r\n"
-			+ " GROUP BY w.WatchedVideoId ORDER BY TimeWatched DESC LIMIT 6";
+	public static final String MOST_WATCHED_VIDEOS = "SELECT w.WatchedVideoId, w.UserId, w.LessonId, w.StartDateTime, w.EndDateTime, "
+			+ "l.LessonId, l.LessonName, l.LessonThumbnail FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId = l.LessonId) "
+			+ "WHERE w.UserId=? GROUP BY w.WatchedVideoId ORDER BY TimeWatched DESC LIMIT 6";
 
 	public static final String SUGGESTED_VIDEOS = "SELECT VideoId, LessonId, LessonName, LessonThumbnail, UnitId, VideoUrl FROM Lesson \r\n"
-			+ "WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) FROM WatchedVideo WHERE UserId=?) LIMIT 6";
+			+ "WHERE IsActive=1 AND lessonThumbnail IS NOT NULL AND VideoId NOT IN(SELECT cast(WatchedVideoId As CHAR) "
+			+ "FROM WatchedVideo WHERE UserId=?) LIMIT 6";
 
 	public static final String CHECK_MOB_AVAILABILITY = "SELECT count(*) FROM Login WHERE UserName = ?";
 	
@@ -119,6 +126,13 @@ public final class WilkefConstants {
 	
 	public static final String RESET_PASSWORD = "UPDATE Login SET Password=?, VerificationCode=? WHERE UserName=? AND VerificationCode=?";
 	
+	public static final String CHECK_WATCHED_VIDEO = "SELECT COUNT(*) FROM WatchedVideo WHERE LessonId = ? AND UserId = ?";
+	
+	public static final String SAVE_WATCHED_VIDEO = "INSERT INTO WatchedVideo (UserId, LessonId, StartDateTime, EndDateTime, WatchCount, TimeWatched) "
+			+ "VALUES (?, ?, NOW(), NOW(), 1, ?)";	
+	
+	public static final String UPDATE_WATCHED_VIDEO = "UPDATE WatchedVideo SET TimeWatched=?, EndDateTime=NOW(),  WatchCount = WatchCount + 1 "
+			+ "WHERE UserId=? AND LessonId=?";
 }
 
 
