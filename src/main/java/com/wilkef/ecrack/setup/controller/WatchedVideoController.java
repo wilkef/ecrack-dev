@@ -90,7 +90,7 @@ public class WatchedVideoController {
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.FALSE, ErrorConstants.SMTHNG_WNT_WRONG));
+					.body(serviceOutput.apiResponse(Boolean.FALSE,null, ErrorConstants.SMTHNG_WNT_WRONG));
 		}
 		LOG.log(Level.INFO, () -> "End mostWatchedvideo");
 		return response;

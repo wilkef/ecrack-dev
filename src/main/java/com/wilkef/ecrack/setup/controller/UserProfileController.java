@@ -173,5 +173,4 @@ public class UserProfileController {
 		LOG.info("End-Inside changePassword ");
 		return response;
 	}
-
 }

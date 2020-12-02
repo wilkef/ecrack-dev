@@ -85,7 +85,6 @@ public class UserTestCase {
 	public void resetPwdTest() {
 		ResetPasswordDataDTO resetPwd = new ResetPasswordDataDTO();
 		resetPwd.setUserName("7008508931");
-		resetPwd.setOldPassword("Tanmay@1234");
 		resetPwd.setNewPassword("Tanmay@12345");
 
 		Mockito.when(resetPwdDao.resetPassword(resetPwd)).thenReturn(1);
@@ -205,6 +204,5 @@ public class UserTestCase {
 		Mockito.when(validationDao.saveOtp(mobileNo)).thenReturn(saveOtpList);
 		assertEquals(200, ((ResponseEntity<Object>)validationController.sendOTP(mobileNo)).getStatusCodeValue());
 	}
-	
 }
 
