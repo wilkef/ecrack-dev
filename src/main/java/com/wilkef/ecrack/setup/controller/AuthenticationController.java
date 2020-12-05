@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dto.AuthDataDTO;
-import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.service.UserService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
