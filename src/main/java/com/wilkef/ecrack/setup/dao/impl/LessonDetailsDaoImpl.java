@@ -28,30 +28,27 @@ public class LessonDetailsDaoImpl implements LessonDetailsDao {
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(LessonDetailsDaoImpl.class.getName());
 
-	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
 
 	@Override
-	public List<LessonDetailsDataDto> getAllLessonDetails(Integer lessonId) {
-
-		List<LessonDetailsDataDto> lessondetailsList = new ArrayList<>();
-		RowMapper<LessonDetailsDataDto> rowMapper = (ResultSet result, int rowNum) -> {
-			LessonDetailsDataDto lessondetails = new LessonDetailsDataDto();
-			lessondetails.setSubjectName(result.getString(1));
-			lessondetails.setSubjectId(result.getInt(2));
-			lessondetails.setUnitId(result.getInt(3));
-			lessondetails.setUnitName(result.getString(4));
-			lessondetails.setLessonName(result.getString(5));
-			lessondetails.setVideoUrl(result.getString(6));
-			lessondetails.setLessonThumbnail(result.getString(7));
-			return lessondetails;
-		};
+	public LessonDetailsDataDto getLessonDetails(Integer lessonId) {
+		LessonDetailsDataDto lessonDetails = new LessonDetailsDataDto();
 		try {
-			lessondetailsList = appJdbcTemplate.query(WilkefConstants.LESSON_DETAILS, rowMapper, lessonId);
+			return appJdbcTemplate.queryForObject(WilkefConstants.LESSON_DETAILS, new Object[] { lessonId }, (result, rowNum) -> {
+				lessonDetails.setSubjectName(result.getString(1));
+				lessonDetails.setSubjectId(result.getInt(2));
+				lessonDetails.setUnitId(result.getInt(3));
+				lessonDetails.setUnitName(result.getString(4));
+				lessonDetails.setLessonName(result.getString(5));
+				lessonDetails.setVideoUrl(result.getString(6));
+				lessonDetails.setLessonThumbnail(result.getString(7));
+				lessonDetails.setIsFavorite(result.getInt(8) > 0 ? true : false);
+				return lessonDetails;
+			});
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Error while fetching records for LessonDetails");
+			LOG.log(Level.SEVERE, "Error while fetching Lesson Details : " + e.getMessage());
 		}
-		return lessondetailsList;
+		return lessonDetails;
 	}
 }

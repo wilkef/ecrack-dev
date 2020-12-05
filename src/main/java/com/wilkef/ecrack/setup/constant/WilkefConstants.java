@@ -107,8 +107,9 @@ public final class WilkefConstants {
 	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob "
 			+ "FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
 
-	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail "
-			+ "FROM Lesson l INNER JOIN Unit u ON(l.UnitId=u.UnitId) INNER JOIN Subject s ON(s.SubjectId=u.SubjectId) WHERE l.LessonId=?";
+	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail, f.FavoriteVideoId "
+			+ "FROM Lesson l INNER JOIN Unit u ON(l.UnitId=u.UnitId) INNER JOIN Subject s ON(s.SubjectId=u.SubjectId) "
+			+ "LEFT JOIN FavoriteVideo f ON(f.LessonId=l.LessonId) WHERE l.LessonId=?";
 
 	public static final String GET_PASSWORD = "SELECT l.Password FROM Login l WHERE l.UserId=?";
 
@@ -133,6 +134,13 @@ public final class WilkefConstants {
 	
 	public static final String UPDATE_WATCHED_VIDEO = "UPDATE WatchedVideo SET TimeWatched=?, EndDateTime=NOW(),  WatchCount = WatchCount + 1 "
 			+ "WHERE UserId=? AND LessonId=?";
+	
+	public static final String CHECK_FAVORITE_VIDEO = "SELECT COUNT(*) FROM FavoriteVideo WHERE LessonId = ? AND UserId = ?";
+	public static final String ADD_FAVORITE_VIDEO = "INSERT INTO FavoriteVideo (LessonId, UserId) VALUES (?, ?)";	
+	public static final String REMOVE_FAVORITE_VIDEO = "DELETE FROM FavoriteVideo WHERE LessonId=? AND UserId=?";
+	public static final String FAVORITE_VIDEO_LIST = "SELECT f.FavoriteVideoId, f.UserId, l.LessonId, l.LessonName, l.LessonThumbnail, l.VideoUrl "
+			+ "FROM FavoriteVideo f INNER JOIN Lesson l ON(f.LessonId = l.LessonId) WHERE f.UserId=? ORDER BY f.FavoriteVideoId DESC";
+
 }
 
 

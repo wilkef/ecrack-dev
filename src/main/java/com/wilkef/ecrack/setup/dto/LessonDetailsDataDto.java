@@ -15,6 +15,7 @@ public class LessonDetailsDataDto {
 	private String lessonName;
 	private String videoUrl;
 	private String lessonThumbnail;
+	private Boolean isFavorite;
 
 	public String getSubjectName() {
 		return subjectName;
@@ -72,10 +73,18 @@ public class LessonDetailsDataDto {
 		this.lessonThumbnail = lessonThumbnail;
 	}
 
+	public Boolean getIsFavorite() {
+		return isFavorite;
+	}
+
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+	
 	@Override
 	public String toString() {
 		return "LessonDetailsDataDto [subjectName=" + subjectName + ", subjectId=" + subjectId + ", unitId=" + unitId
 				+ ", unitName=" + unitName + ", lessonName=" + lessonName + ", videoUrl=" + videoUrl
-				+ ", lessonThumbnail=" + lessonThumbnail + "]";
+				+ ", lessonThumbnail=" + lessonThumbnail + ", isFavorite=" + isFavorite + "]";
 	}
 }

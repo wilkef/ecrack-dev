@@ -3,8 +3,6 @@
  */
 package com.wilkef.ecrack.setup.dao;
 
-import java.util.List;
-
 import com.wilkef.ecrack.setup.dto.LessonDetailsDataDto;
 
 /**
@@ -12,5 +10,5 @@ import com.wilkef.ecrack.setup.dto.LessonDetailsDataDto;
  * Nov 2, 2020
  */
 public interface LessonDetailsDao {
-	public List<LessonDetailsDataDto> getAllLessonDetails(Integer lessonId);
+	public LessonDetailsDataDto getLessonDetails(Integer lessonId);
 }

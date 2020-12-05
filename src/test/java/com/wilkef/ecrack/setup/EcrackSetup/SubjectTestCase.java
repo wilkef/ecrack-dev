@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.wilkef.ecrack.setup.controller.LessionListController;
+import com.wilkef.ecrack.setup.controller.LessionController;
 import com.wilkef.ecrack.setup.controller.SubjectController;
 import com.wilkef.ecrack.setup.controller.UnitListController;
 import com.wilkef.ecrack.setup.dao.LessionListDao;
@@ -35,7 +35,7 @@ public class SubjectTestCase {
 
 	/** The Lession status controller. */
 	@Autowired
-	private LessionListController lessionListController;
+	private LessionController lessionListController;
 	
 	/** The Lession status dao. */
 	@MockBean
