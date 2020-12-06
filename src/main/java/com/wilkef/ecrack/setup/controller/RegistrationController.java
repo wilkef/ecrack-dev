@@ -69,7 +69,7 @@ public class RegistrationController {
 				if (!strGender.equals("") && !strGender.isEmpty()) {
 					boolean name = Pattern.compile("[A-Za-z]*").matcher(fname).matches();
 					boolean gender = Pattern.compile("[A-Za-z]{2,6}").matcher(strGender).matches();
-					boolean mobileNo = Pattern.compile("\\d{10}").matcher(mobile).matches();
+					boolean mobileNo = Pattern.compile("\\d{10}").matcher(mobile.trim()).matches();
 
 					if (name) {
 						if (gender) {
