@@ -254,12 +254,15 @@ public class ValidationDaoImpl implements ValidationDao {
 		List<AuthDataDTO> authdataList = new ArrayList<>();
 		RowMapper<AuthDataDTO> rowMapper = (ResultSet result, int rowNum) -> {
 			AuthDataDTO authData = new AuthDataDTO();
-			authData.setMobileNumber(result.getString(1));
-			authData.setEmailId(result.getString(2));
-			authData.setFirstName(result.getString(3));
-			authData.setLastName(result.getString(4));
-			authData.setGradeId(result.getInt(5));
-			authData.setGradeName(result.getString(6));
+			authData.setMobileNumber(result.getString("MobileNumber"));
+			authData.setEmailId(result.getString("EmailId"));
+			authData.setFirstName(result.getString("FirstName"));
+			authData.setMiddleName(result.getString("MiddleName"));
+			authData.setLastName(result.getString("LastName"));			
+			authData.setName(result.getString("Name"));
+			authData.setUserType(result.getInt("UserTypeId") == 2 ? "Admin" : "Student");	
+			authData.setGradeId(result.getInt("GradeId"));
+			authData.setGradeName(result.getString("GradeName"));					
 			return authData;
 		};
 		try {

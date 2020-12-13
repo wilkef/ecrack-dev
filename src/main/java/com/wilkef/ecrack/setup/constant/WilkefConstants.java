@@ -98,7 +98,8 @@ public final class WilkefConstants {
 
 	public static final String SET_ACTIVE_STATUS = "update Login set IsActive = ? where UserName = ? and Password =? ";
 
-	public static final String TOKEN_RETURN = "SELECT u.MobileNumber, u.EmailId, u.FirstName, u.LastName, e.GradeId, g.GradeName "
+	public static final String TOKEN_RETURN = "SELECT u.UserTypeId, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, "
+			+ "CONCAT(FirstName, ' ', MiddleName, ' ', LastName) as Name, e.GradeId, g.GradeName "
 			+ "FROM User u LEFT JOIN StudentEnv e ON(u.userid = e.UserId) LEFT JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
 
 	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId "
