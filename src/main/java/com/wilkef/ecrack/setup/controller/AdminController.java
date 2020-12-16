@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,41 @@ public class AdminController {
 
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+	
+	@GetMapping(value = "getMCQList")
+	public ResponseEntity<Object> getMCQList() {
+		LOG.log(Level.INFO, () -> "Start getMCQList Controller");
+		ResponseEntity<Object> response = null;
+		try {
+			@SuppressWarnings("rawtypes")
+			List<HashMap> MCQList = adminDao.getMCQList();
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, MCQList));
+		} catch (Exception e) {
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.log(Level.INFO, () -> "End getMCQList Controller");
+		return response;
+	}
+	
+	@PutMapping(value = "toggleStatus/{table}/{id}/{status}")
+	public ResponseEntity<Object> toggleStatus(@PathVariable("table") String table, @PathVariable("id") Integer id,  @PathVariable("status") Integer status) {
+		LOG.log(Level.INFO, () -> "Start toggleStatus Controller");
+		ResponseEntity<Object> response = null;
+		try {
+			adminDao.toggleStatus(table, id, status);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE));
+		} catch (Exception e) {
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.log(Level.INFO, () -> "End toggleStatus Controller");
+		return response;
+	}
+
+
 	
 	@GetMapping(value = "getStudentList")
 	public ResponseEntity<Object> getStudentList() {

@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface AdminDao {
+		
+	@SuppressWarnings("rawtypes")
+	public List<HashMap> getMCQList();
+	
+	public Boolean toggleStatus(String table, Integer id, Integer status);
 	
 	@SuppressWarnings("rawtypes")
 	public List<HashMap> getStudentList();

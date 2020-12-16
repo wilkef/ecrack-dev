@@ -25,6 +25,82 @@ public class AdminDaoImpl implements AdminDao {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
+	public List<HashMap> getMCQList() {
+		List<HashMap> list = new ArrayList<>();
+		LOG.log(Level.INFO, () -> "Start getMCQList DAO");
+		try {
+			String query = "SELECT McqId, LessonId, Question, IsActive, DifficultyLevel, CreatedBy, LastUpdatedBy, CreationDate, LastUpdateDate "
+					+ "FROM Mcq WHERE 1 ORDER BY McqId DESC";
+			appJdbcTemplate.query(query, new Object[] {}, (result, rowNum) -> {
+				HashMap item = new HashMap<>();
+				item.put("McqId", result.getLong("McqId"));
+				item.put("LessonId", result.getLong("LessonId"));
+				item.put("Question", result.getString("Question"));
+				item.put("IsActive", result.getInt("IsActive") > 0 ? true : false);
+				item.put("DifficultyLevel", result.getInt("DifficultyLevel"));
+				item.put("CreatedBy", result.getString("CreatedBy"));
+				item.put("LastUpdatedBy", result.getString("LastUpdatedBy"));
+				item.put("CreationDate", result.getString("CreationDate"));
+				item.put("LastUpdateDate", result.getString("LastUpdateDate"));
+				list.add(item);
+				return list;
+			});
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while fetching MCQ list:" + e.getMessage());
+			throw new CustomException("Error while fetching MCQ List:" + e.getMessage());
+		}
+		LOG.log(Level.INFO, () -> "End getMCQList DAO");
+		return list;
+	}
+	
+	@Override
+	public Boolean toggleStatus(String table, Integer id, Integer status) {
+		LOG.log(Level.INFO, "DATA:" + id + table + status);
+		Boolean res = Boolean.TRUE;
+		status = status >= 1 ? 1 : 0;
+		try {
+			String query = "";
+			switch (table) {
+				case "mcq":
+					query = "UPDATE `Mcq` SET `IsActive` = ? WHERE `McqId` = ?";
+					break;
+				case "board":
+					query = "UPDATE `Board` SET `IsActive` = ? WHERE `BoardId` = ?";
+					break;
+				case "grade":
+					query = "UPDATE `Grade` SET `IsActive` = ? WHERE `GradeId` = ?";
+					break;
+				case "subject":
+					query = "UPDATE `Subject` SET `IsActive` = ? WHERE `SubjectId` = ?";
+					break;
+				case "unit":
+					query = "UPDATE `Unit` SET `IsActive` = ? WHERE `UnitId` = ?";
+					break;
+				case "lesson":
+					query = "UPDATE `Lesson` SET `IsActive` = ? WHERE `LessonId` = ?";
+					break;
+				case "city":
+					query = "UPDATE `City` SET `IsActive` = ? WHERE `CityId` = ?";
+					break;
+				case "user":
+					query = "UPDATE `User` SET `IsActive` = ? WHERE `userid` = ?";
+					break;
+			}
+			if (query.length() > 0) {
+				appJdbcTemplate.update(query, status, id);
+			} else {
+				res = Boolean.FALSE;
+			}
+
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while updating the status:" + table + status + e.getMessage());
+			throw new CustomException("Error while updating the status:" + table + status + e.getMessage());
+		}
+		return res;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
 	public List<HashMap> getStudentList() {
 		List<HashMap> list = new ArrayList<>();
 		LOG.log(Level.INFO, () -> "Start getStudentList DAO");
