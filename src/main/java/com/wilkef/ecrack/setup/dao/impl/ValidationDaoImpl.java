@@ -278,6 +278,7 @@ public class ValidationDaoImpl implements ValidationDao {
 	public LoggedinUserInfo getLoggedinUserInfo(String token) {
 		LoggedinUserInfo loggedinUserInfo = new LoggedinUserInfo();
 		try {
+			token = token.replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
 			Jws<Claims> result = Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes())
 					.parseClaimsJws(token);
 			String mobileNumber = result.getBody().getSubject().toString();
@@ -289,6 +290,7 @@ public class ValidationDaoImpl implements ValidationDao {
 				loggedinUserInfo.setFirstName(rs.getString("FirstName"));
 				loggedinUserInfo.setMiddleName(rs.getString("MiddleName"));
 				loggedinUserInfo.setLastName(rs.getString("LastName"));
+				loggedinUserInfo.setName(rs.getString("FirstName") + " " + rs.getString("MiddleName") + " " + rs.getString("LastName"));
 				loggedinUserInfo.setGradeId(rs.getInt("GradeId"));
 				return loggedinUserInfo;
 			});

@@ -6,11 +6,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.wilkef.ecrack.setup.dto.McqDTO;
 import com.wilkef.ecrack.setup.dao.AdminDao;
 import com.wilkef.ecrack.setup.exception.CustomException;
 
@@ -29,7 +34,7 @@ public class AdminDaoImpl implements AdminDao {
 		List<HashMap> list = new ArrayList<>();
 		LOG.log(Level.INFO, () -> "Start getMCQList DAO");
 		try {
-			String query = "SELECT McqId, LessonId, Question, IsActive, DifficultyLevel, CreatedBy, LastUpdatedBy, CreationDate, LastUpdateDate "
+			String query = "SELECT McqId, LessonId, Question, QuestionOptionsJson, IsActive, DifficultyLevel, CreatedBy, LastUpdatedBy, CreationDate, LastUpdateDate "
 					+ "FROM Mcq WHERE 1 ORDER BY McqId DESC";
 			appJdbcTemplate.query(query, new Object[] {}, (result, rowNum) -> {
 				HashMap item = new HashMap<>();
@@ -41,16 +46,33 @@ public class AdminDaoImpl implements AdminDao {
 				item.put("CreatedBy", result.getString("CreatedBy"));
 				item.put("LastUpdatedBy", result.getString("LastUpdatedBy"));
 				item.put("CreationDate", result.getString("CreationDate"));
-				item.put("LastUpdateDate", result.getString("LastUpdateDate"));
+				item.put("LastUpdateDate", result.getString("QuestionOptionsJson"));
+				item.put("QuestionOptionsJson",(JSONArray) result.getObject("QuestionOptionsJson"));
 				list.add(item);
 				return list;
 			});
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching MCQ list:" + e.getMessage());
+			LOG.log(Level.INFO, "Error while fetching MCQ list:" + e.getMessage());
 			throw new CustomException("Error while fetching MCQ List:" + e.getMessage());
 		}
 		LOG.log(Level.INFO, () -> "End getMCQList DAO");
 		return list;
+	}
+	
+	@Override
+	public Boolean createMCQ(JSONObject data, String username) {
+		String query = "INSERT INTO `Mcq` (`LessonId`, `Question`, `QuestionDesc`, `QuestionOptionsJson`, `Answer`, `Solution`, `DifficultyLevel`, `IsActive`, `CreatedBy`, `CreationDate`, `LastUpdatedBy`, `LastUpdateDate`)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?, '', 1, 1, ?, NOW(), ?, NOW())";
+		try {
+//			String QuestionOptionsJson = new Gson().toJson(data.getJSONArray("QuestionOptionsJson"));
+			appJdbcTemplate.update(query, data.getInt("LessonId"), data.getString("Question"),
+					data.getString("QuestionDesc"), data.getString("QuestionOptionsJson"), data.getString("Answer"), username, username);
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while createing a new MCQ:" + e.getMessage());
+			throw new CustomException("Error while createing a new MCQ:" + e.getMessage());
+		}
+		return true;
 	}
 	
 	@Override

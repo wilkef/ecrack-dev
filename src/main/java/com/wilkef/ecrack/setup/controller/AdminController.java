@@ -5,18 +5,29 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonObject;
+import com.wilkef.ecrack.setup.dto.McqDTO;
+import com.wilkef.ecrack.setup.dto.ProfileDTO;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
+import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.AdminDao;
+import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 @RestController
@@ -30,6 +41,12 @@ public class AdminController {
 
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+	
+	@Autowired
+	private ValidationDao validationDao;
+	
+	@Autowired
+	private HttpServletRequest req;
 	
 	@GetMapping(value = "getMCQList")
 	public ResponseEntity<Object> getMCQList() {
@@ -65,6 +82,34 @@ public class AdminController {
 	}
 
 
+	@PostMapping(value = "/createMCQ")
+	public ResponseEntity<Object> createMCQ(@RequestBody McqDTO data) {
+		LOG.log(Level.INFO, () -> "Start createMCQ Controller");
+		LOG.log(Level.INFO, () -> "DATA:" + data);
+		
+//		JSONObject jsonData = new JSONObject(data);
+		return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+				.body(serviceOutput.apiResponse(Boolean.TRUE, data));
+//		LOG.log(Level.INFO, () -> "JSONObject DATA:" + obj);
+//		
+//		CreateMCQ mcq = new CreateMCQ(obj);
+//		LOG.log(Level.INFO, () -> "mcq DATA:" + mcq);
+		
+//		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(req.getHeader(WilkefConstants.AUTH_HEADER));
+//		LOG.log(Level.INFO, () -> "User:" + loggedinUserInfo);
+//		
+//		ResponseEntity<Object> response = null;
+//		try {
+//			adminDao.createMCQ(jsonData, loggedinUserInfo.getName());
+//			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+//					.body(serviceOutput.apiResponse(Boolean.TRUE));
+//		} catch (Exception e) {
+//			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+//					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+//		}
+//		LOG.log(Level.INFO, () -> "End createMCQ Controller");
+//		return response;
+	}
 	
 	@GetMapping(value = "getStudentList")
 	public ResponseEntity<Object> getStudentList() {

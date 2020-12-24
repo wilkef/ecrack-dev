@@ -7,6 +7,7 @@ public class LoggedinUserInfo {
 	private String firstName;
 	private String middleName;
 	private String lastName;
+	private String name;
 	private int gradeId;
 
 	public int getUserId() {
@@ -57,6 +58,14 @@ public class LoggedinUserInfo {
 		this.lastName = lastName;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getGradeId() {
 		return gradeId;
 	}
@@ -64,5 +73,14 @@ public class LoggedinUserInfo {
 	public void setGradeId(int gradeId) {
 		this.gradeId = gradeId;
 	}
+
+	@Override
+	public String toString() {
+		return "LoggedinUserInfo [userId=" + userId + ", emailId=" + emailId + ", mobileNumber=" + mobileNumber
+				+ ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", name="
+				+ name + ", gradeId=" + gradeId + "]";
+	}
+	
+	
 
 }
