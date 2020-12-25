@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import com.wilkef.ecrack.setup.dto.McqDTO;
+import com.wilkef.ecrack.setup.admin.dto.McqDTO;
 
 public interface AdminDao {
 		
@@ -14,7 +14,9 @@ public interface AdminDao {
 	
 	public Boolean toggleStatus(String table, Integer id, Integer status);
 	
-	Boolean createMCQ(JSONObject data, String username);
+	Boolean saveMCQ(McqDTO data, String username);
+	
+	McqDTO getMCQDetails(Integer mcqId);
 	
 	@SuppressWarnings("rawtypes")
 	public List<HashMap> getStudentList();

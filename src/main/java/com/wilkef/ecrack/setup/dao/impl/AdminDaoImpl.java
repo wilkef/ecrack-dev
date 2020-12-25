@@ -6,16 +6,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.wilkef.ecrack.setup.dto.McqDTO;
+import com.wilkef.ecrack.setup.admin.dto.McqDTO;
+import com.wilkef.ecrack.setup.admin.dto.McqOptionsDTO;
 import com.wilkef.ecrack.setup.dao.AdminDao;
 import com.wilkef.ecrack.setup.exception.CustomException;
 
@@ -34,6 +32,7 @@ public class AdminDaoImpl implements AdminDao {
 		List<HashMap> list = new ArrayList<>();
 		LOG.log(Level.INFO, () -> "Start getMCQList DAO");
 		try {
+			Gson gson = new Gson();
 			String query = "SELECT McqId, LessonId, Question, QuestionOptionsJson, IsActive, DifficultyLevel, CreatedBy, LastUpdatedBy, CreationDate, LastUpdateDate "
 					+ "FROM Mcq WHERE 1 ORDER BY McqId DESC";
 			appJdbcTemplate.query(query, new Object[] {}, (result, rowNum) -> {
@@ -47,7 +46,7 @@ public class AdminDaoImpl implements AdminDao {
 				item.put("LastUpdatedBy", result.getString("LastUpdatedBy"));
 				item.put("CreationDate", result.getString("CreationDate"));
 				item.put("LastUpdateDate", result.getString("QuestionOptionsJson"));
-				item.put("QuestionOptionsJson",(JSONArray) result.getObject("QuestionOptionsJson"));
+				item.put("QuestionOptionsJson", gson.fromJson(result.getString("QuestionOptionsJson"), McqOptionsDTO[].class));
 				list.add(item);
 				return list;
 			});
@@ -61,18 +60,54 @@ public class AdminDaoImpl implements AdminDao {
 	}
 	
 	@Override
-	public Boolean createMCQ(JSONObject data, String username) {
-		String query = "INSERT INTO `Mcq` (`LessonId`, `Question`, `QuestionDesc`, `QuestionOptionsJson`, `Answer`, `Solution`, `DifficultyLevel`, `IsActive`, `CreatedBy`, `CreationDate`, `LastUpdatedBy`, `LastUpdateDate`)\r\n"
-				+ "VALUES (?, ?, ?, ?, ?, '', 1, 1, ?, NOW(), ?, NOW())";
+	public Boolean saveMCQ(McqDTO data, String username) {
 		try {
-//			String QuestionOptionsJson = new Gson().toJson(data.getJSONArray("QuestionOptionsJson"));
-			appJdbcTemplate.update(query, data.getInt("LessonId"), data.getString("Question"),
-					data.getString("QuestionDesc"), data.getString("QuestionOptionsJson"), data.getString("Answer"), username, username);
+			String questionOptionsJson = new Gson().toJson(data.getQuestionOptionsJson());
+			if (data.getMcqId() != null && data.getMcqId() > 0) {
+				String query = "UPDATE `Mcq` SET `Question`=?, `QuestionDesc`=?, `QuestionOptionsJson`=?, `Answer`=?, `DifficultyLevel`=?, "
+						+ "`Solution`=?,  `LastUpdatedBy`=?, `LastUpdateDate`= NOW() WHERE McqId=?";
+				appJdbcTemplate.update(query, data.getQuestion(), data.getQuestionDesc(), questionOptionsJson,
+						data.getAnswer(), data.getDifficultyLevel(), data.getSolution(), username, data.getMcqId());
+			} else {
+				String query = "INSERT INTO `Mcq` (`LessonId`, `Question`, `QuestionDesc`, `QuestionOptionsJson`, `Answer`, `DifficultyLevel`, "
+						+ "`Solution`,  `CreatedBy`, `LastUpdatedBy`, `IsActive`, `CreationDate`, `LastUpdateDate`)\r\n"
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, NOW(), NOW())";
+				appJdbcTemplate.update(query, data.getLessonId(), data.getQuestion(), data.getQuestionDesc(),
+						questionOptionsJson, data.getAnswer(), data.getDifficultyLevel(), data.getSolution(), username,
+						username);
+			}
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Error while createing a new MCQ:" + e.getMessage());
-			throw new CustomException("Error while createing a new MCQ:" + e.getMessage());
+			LOG.log(Level.SEVERE, "Error while creating a new MCQ:" + e.getMessage());
+			throw new CustomException("Error while creating a new MCQ:" + e.getMessage());
 		}
 		return true;
+	}
+	
+	@Override
+	public McqDTO getMCQDetails(Integer mcqId) {
+		McqDTO mcq = new McqDTO();
+		LOG.log(Level.INFO, () -> "Start getMCQDetails DAO");
+		try {
+			String query = "SELECT McqId, LessonId, Question, QuestionDesc, QuestionOptionsJson, IsActive, Answer, Solution, DifficultyLevel, CreatedBy, LastUpdatedBy, CreationDate, LastUpdateDate "
+					+ "FROM Mcq WHERE McqId=?";
+			appJdbcTemplate.query(query, new Object[] { mcqId }, (result, rowNum) -> {
+				mcq.setMcqId(result.getLong("McqId"));
+				mcq.setLessonId(result.getLong("LessonId"));
+				mcq.setQuestion(result.getString("Question"));
+				mcq.setQuestionDesc(result.getString("QuestionDesc"));
+				mcq.setQuestionOptionsJson(
+						new Gson().fromJson(result.getString("QuestionOptionsJson"), McqOptionsDTO[].class));
+				mcq.setSolution(result.getString("Solution"));
+				mcq.setAnswer(result.getString("Answer"));
+				mcq.setDifficultyLevel(result.getInt("DifficultyLevel"));
+				return mcq;
+			});
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Error while fetching MCQ Details:" + e.getMessage());
+			throw new CustomException("Error while fetching MCQ Details:" + e.getMessage());
+		}
+		LOG.log(Level.INFO, () -> "End getMCQDetails DAO");
+		return mcq;
 	}
 	
 	@Override
@@ -260,7 +295,6 @@ public class AdminDaoImpl implements AdminDao {
 		return list;
 	}
 
-	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<HashMap> getLessonList(Integer unitId) {

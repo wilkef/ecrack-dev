@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
-import com.wilkef.ecrack.setup.dto.McqDTO;
 import com.wilkef.ecrack.setup.dto.ProfileDTO;
+import com.wilkef.ecrack.setup.admin.dto.McqDTO;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.AdminDao;
@@ -65,6 +65,22 @@ public class AdminController {
 		return response;
 	}
 	
+	@GetMapping(value = "getMCQDetails/{mcqId}")
+	public ResponseEntity<Object> getMCQDetails(@PathVariable Integer mcqId) {
+		LOG.log(Level.INFO, () -> "Start getMCQDetails Controller");
+		ResponseEntity<Object> response = null;
+		try {
+			McqDTO mcq = adminDao.getMCQDetails(mcqId);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, mcq));
+		} catch (Exception e) {
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.log(Level.INFO, () -> "End getMCQDetails Controller");
+		return response;
+	}
+	
 	@PutMapping(value = "toggleStatus/{table}/{id}/{status}")
 	public ResponseEntity<Object> toggleStatus(@PathVariable("table") String table, @PathVariable("id") Integer id,  @PathVariable("status") Integer status) {
 		LOG.log(Level.INFO, () -> "Start toggleStatus Controller");
@@ -82,33 +98,25 @@ public class AdminController {
 	}
 
 
-	@PostMapping(value = "/createMCQ")
+	@PostMapping(value = "createMCQ")
 	public ResponseEntity<Object> createMCQ(@RequestBody McqDTO data) {
 		LOG.log(Level.INFO, () -> "Start createMCQ Controller");
 		LOG.log(Level.INFO, () -> "DATA:" + data);
-		
-//		JSONObject jsonData = new JSONObject(data);
-		return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-				.body(serviceOutput.apiResponse(Boolean.TRUE, data));
-//		LOG.log(Level.INFO, () -> "JSONObject DATA:" + obj);
-//		
-//		CreateMCQ mcq = new CreateMCQ(obj);
-//		LOG.log(Level.INFO, () -> "mcq DATA:" + mcq);
-		
-//		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(req.getHeader(WilkefConstants.AUTH_HEADER));
-//		LOG.log(Level.INFO, () -> "User:" + loggedinUserInfo);
-//		
-//		ResponseEntity<Object> response = null;
-//		try {
-//			adminDao.createMCQ(jsonData, loggedinUserInfo.getName());
-//			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-//					.body(serviceOutput.apiResponse(Boolean.TRUE));
-//		} catch (Exception e) {
-//			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-//					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
-//		}
-//		LOG.log(Level.INFO, () -> "End createMCQ Controller");
-//		return response;
+
+		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(req.getHeader(WilkefConstants.AUTH_HEADER));
+		LOG.log(Level.INFO, () -> "User:" + loggedinUserInfo);
+
+		ResponseEntity<Object> response = null;
+		try {
+			adminDao.saveMCQ(data, loggedinUserInfo.getName());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE));
+		} catch (Exception e) {
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.log(Level.INFO, () -> "End createMCQ Controller");
+		return response;
 	}
 	
 	@GetMapping(value = "getStudentList")
