@@ -105,7 +105,7 @@ public final class WilkefConstants {
 	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId "
 			+ "FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
 
-	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob "
+	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob, l.videoId "
 			+ "FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
 
 	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail, f.FavoriteVideoId "

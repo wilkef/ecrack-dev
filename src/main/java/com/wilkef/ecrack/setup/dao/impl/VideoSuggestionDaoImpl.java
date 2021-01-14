@@ -42,12 +42,14 @@ public class VideoSuggestionDaoImpl implements VideoSuggestionDao {
 			videoSuggestion.setLessonName(result.getString(2));
 			videoSuggestion.setLessonThumbnail(result.getString(3));
 			videoSuggestion.setLessonUrl(result.getString(4));
-			videoSuggestion.setLessonThumbnail_Mob(result.getString(5));
+			videoSuggestion.setLessonThumbnailMob(result.getString(5));
+			videoSuggestion.setVideoId(result.getString(6));
 			return videoSuggestion;
 		};
 		try {
 			videoSuggestionList = appJdbcTemplate.query(WilkefConstants.VIDEO_SUGGESTION, rowMapper);
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOG.log(Level.SEVERE, "Error while fetching records for VideoSuggestion");
 		}
 		return videoSuggestionList;
