@@ -1,4 +1,4 @@
-package com.wilkef.ecrack.setup.controller;
+package com.wilkef.ecrack.setup.admin.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
 import com.wilkef.ecrack.setup.dto.ProfileDTO;
+import com.wilkef.ecrack.setup.admin.dao.AdminDao;
+import com.wilkef.ecrack.setup.admin.dto.TestInfoDTO;
+import com.wilkef.ecrack.setup.admin.dto.ExamList;
 import com.wilkef.ecrack.setup.admin.dto.McqDTO;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
-import com.wilkef.ecrack.setup.dao.AdminDao;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
@@ -41,48 +43,16 @@ public class AdminController {
 
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
-	
+
 	@Autowired
 	private ValidationDao validationDao;
-	
+
 	@Autowired
 	private HttpServletRequest req;
-	
-	@GetMapping(value = "getMCQList")
-	public ResponseEntity<Object> getMCQList() {
-		LOG.log(Level.INFO, () -> "Start getMCQList Controller");
-		ResponseEntity<Object> response = null;
-		try {
-			@SuppressWarnings("rawtypes")
-			List<HashMap> MCQList = adminDao.getMCQList();
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.TRUE, MCQList));
-		} catch (Exception e) {
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
-		}
-		LOG.log(Level.INFO, () -> "End getMCQList Controller");
-		return response;
-	}
-	
-	@GetMapping(value = "getMCQDetails/{mcqId}")
-	public ResponseEntity<Object> getMCQDetails(@PathVariable Integer mcqId) {
-		LOG.log(Level.INFO, () -> "Start getMCQDetails Controller");
-		ResponseEntity<Object> response = null;
-		try {
-			McqDTO mcq = adminDao.getMCQDetails(mcqId);
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.TRUE, mcq));
-		} catch (Exception e) {
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
-		}
-		LOG.log(Level.INFO, () -> "End getMCQDetails Controller");
-		return response;
-	}
-	
+
 	@PutMapping(value = "toggleStatus/{table}/{id}/{status}")
-	public ResponseEntity<Object> toggleStatus(@PathVariable("table") String table, @PathVariable("id") Integer id,  @PathVariable("status") Integer status) {
+	public ResponseEntity<Object> toggleStatus(@PathVariable("table") String table, @PathVariable("id") Integer id,
+			@PathVariable("status") Integer status) {
 		LOG.log(Level.INFO, () -> "Start toggleStatus Controller");
 		ResponseEntity<Object> response = null;
 		try {
@@ -97,28 +67,6 @@ public class AdminController {
 		return response;
 	}
 
-
-	@PostMapping(value = "createMCQ")
-	public ResponseEntity<Object> createMCQ(@RequestBody McqDTO data) {
-		LOG.log(Level.INFO, () -> "Start createMCQ Controller");
-		LOG.log(Level.INFO, () -> "DATA:" + data);
-
-		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(req.getHeader(WilkefConstants.AUTH_HEADER));
-		LOG.log(Level.INFO, () -> "User:" + loggedinUserInfo);
-
-		ResponseEntity<Object> response = null;
-		try {
-			adminDao.saveMCQ(data, loggedinUserInfo.getName());
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.TRUE));
-		} catch (Exception e) {
-			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
-					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
-		}
-		LOG.log(Level.INFO, () -> "End createMCQ Controller");
-		return response;
-	}
-	
 	@GetMapping(value = "getStudentList")
 	public ResponseEntity<Object> getStudentList() {
 		LOG.log(Level.INFO, () -> "Start getStudentList Controller");
@@ -186,7 +134,7 @@ public class AdminController {
 		LOG.log(Level.INFO, () -> "End getSubjectList Controller");
 		return response;
 	}
-	
+
 	@GetMapping(value = "getUnitList/{subjectId}")
 	public ResponseEntity<Object> getUnitList(@PathVariable("subjectId") Integer subjectId) {
 		LOG.log(Level.INFO, () -> "Start getUnitList Controller");
@@ -203,7 +151,7 @@ public class AdminController {
 		LOG.log(Level.INFO, () -> "End getUnitList Controller");
 		return response;
 	}
-	
+
 	@GetMapping(value = "getLessonList/{unitId}")
 	public ResponseEntity<Object> getLessonList(@PathVariable("unitId") Integer unitId) {
 		LOG.log(Level.INFO, () -> "Start getLessonList Controller");

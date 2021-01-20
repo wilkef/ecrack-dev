@@ -84,26 +84,26 @@ public class SubjectTestCase {
 	/**
 	 * Test Subject test.
 	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void subjectTest() {
-		
-		List<SubjectDataDTO> subjectList =new ArrayList<SubjectDataDTO>();
-		
-		SubjectDataDTO subject =new SubjectDataDTO();
-		
-		subject.setGradeName("CBSE-9");
-		subject.setMaxMark(100);
-		subject.setNoOfPeriod(20);
-		subject.setSubjectCode("MATH");
-		subject.setSubjectId(1);
-		subject.setSubjectName("Mathmatics");
-		subjectList.add(subject);
-		
-		int gradeId=1;
-		Mockito.when(subjectDao.findByGradeId(gradeId)).thenReturn(subjectList);
-		assertEquals(1, ((List<SubjectDataDTO>)subjectController.findByGradeId(gradeId).getBody()).size());
-	}
+//	@SuppressWarnings("unchecked")
+//	@Test
+//	public void subjectTest() {
+//		
+//		List<SubjectDataDTO> subjectList =new ArrayList<SubjectDataDTO>();
+//		
+//		SubjectDataDTO subject =new SubjectDataDTO();
+//		
+//		subject.setGradeName("CBSE-9");
+//		subject.setMaxMark(100);
+//		subject.setNoOfPeriod(20);
+//		subject.setSubjectCode("MATH");
+//		subject.setSubjectId(1);
+//		subject.setSubjectName("Mathmatics");
+//		subjectList.add(subject);
+//		
+//		int gradeId=1;
+//		Mockito.when(subjectDao.findByGradeId(gradeId)).thenReturn(subjectList);
+//		assertEquals(1, ((List<SubjectDataDTO>)subjectController.findByGradeId(gradeId).getBody()).size());
+//	}
 	
 	/**
 	 * This Test Method to Identify Subject TestCase Method

@@ -106,27 +106,17 @@ public class EcrackSetupApplication {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-				.addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(
-					PublicApiConstant.CHECK_MOB_AVAILABILITY,
-					PublicApiConstant.GET_REGISTER, 
-					PublicApiConstant.GET_BOARD,
-					PublicApiConstant.GET_VALID_EMAIL_ID, 
-					PublicApiConstant.GET_VALIDATE_LOGIN,
-					PublicApiConstant.GET_VALIDMOBILE_NO,
-					PublicApiConstant.GET_SEND_OTP, 
-					PublicApiConstant.GET_VERIFY_OTP,
-					PublicApiConstant.GET_GRADE_INFO,
-					PublicApiConstant.FORGOT_PWD,
-					PublicApiConstant.FORGOT_PWD_VERIFY_OTP,
-					PublicApiConstant.RESET_PASSWORD
-				).permitAll()
-				.antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
-				.antMatchers(HttpMethod.POST, "/user/getMobAuthToken").permitAll()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.anyRequest().authenticated();
+			http.csrf().disable().addFilterAfter(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+					.authorizeRequests()
+					.antMatchers(PublicApiConstant.CHECK_MOB_AVAILABILITY, PublicApiConstant.GET_REGISTER,
+							PublicApiConstant.GET_BOARD, PublicApiConstant.GET_VALID_EMAIL_ID,
+							PublicApiConstant.GET_VALIDATE_LOGIN, PublicApiConstant.GET_VALIDMOBILE_NO,
+							PublicApiConstant.GET_SEND_OTP, PublicApiConstant.GET_VERIFY_OTP,
+							PublicApiConstant.GET_GRADE_INFO, PublicApiConstant.FORGOT_PWD,
+							PublicApiConstant.FORGOT_PWD_VERIFY_OTP, PublicApiConstant.RESET_PASSWORD)
+					.permitAll().antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
+					.antMatchers(HttpMethod.POST, "/user/getMobAuthToken").permitAll()
+					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated();
 		}
 
 		@Override
