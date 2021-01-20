@@ -3,15 +3,11 @@
  */
 package com.wilkef.ecrack.setup.dao.impl;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
@@ -35,19 +31,20 @@ public class LessonDetailsDaoImpl implements LessonDetailsDao {
 	public LessonDetailsDataDto getLessonDetails(Integer lessonId) {
 		LessonDetailsDataDto lessonDetails = new LessonDetailsDataDto();
 		try {
-			return appJdbcTemplate.queryForObject(WilkefConstants.LESSON_DETAILS, new Object[] { lessonId }, (result, rowNum) -> {
-				lessonDetails.setSubjectName(result.getString(1));
-				lessonDetails.setSubjectId(result.getInt(2));
-				lessonDetails.setUnitId(result.getInt(3));
-				lessonDetails.setUnitName(result.getString(4));
-				lessonDetails.setLessonName(result.getString(5));
-				lessonDetails.setVideoUrl(result.getString(6));
-				lessonDetails.setLessonThumbnail(result.getString(7));
-				lessonDetails.setIsFavorite(result.getInt(8) > 0 ? true : false);
-				return lessonDetails;
-			});
+			return appJdbcTemplate.queryForObject(WilkefConstants.LESSON_DETAILS, new Object[] { lessonId },
+					(result, rowNum) -> {
+						lessonDetails.setSubjectName(result.getString(1));
+						lessonDetails.setSubjectId(result.getInt(2));
+						lessonDetails.setUnitId(result.getInt(3));
+						lessonDetails.setUnitName(result.getString(4));
+						lessonDetails.setLessonName(result.getString(5));
+						lessonDetails.setVideoUrl(result.getString(6));
+						lessonDetails.setLessonThumbnail(result.getString(7));
+						lessonDetails.setIsFavorite(result.getInt(8) > 0 ? true : false);
+						return lessonDetails;
+					});
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE, "Error while fetching Lesson Details : " + e.getMessage());
+			LOG.log(Level.SEVERE, e.getMessage());
 		}
 		return lessonDetails;
 	}

@@ -93,7 +93,7 @@ public final class WilkefConstants {
 	public static final String SESSION_LOGIN = "spSessionLogin";
 
 	public static final String SESSION_LOGOUT = "spSessionLogout";
-	
+
 	public static final String CHECK_LOGIN = "SELECT l.UserId FROM Login l WHERE l.UserName=? AND l.Password=?";
 
 	public static final String SET_ACTIVE_STATUS = "update Login set IsActive = ? where UserName = ? and Password =? ";
@@ -124,27 +124,27 @@ public final class WilkefConstants {
 			+ "FROM WatchedVideo WHERE UserId=?) LIMIT 6";
 
 	public static final String CHECK_MOB_AVAILABILITY = "SELECT count(*) FROM Login WHERE UserName = ?";
-	
+
 	public static final String SET_VERIFICATION_CDOE = "UPDATE Login SET VerificationCode = ? WHERE UserName = ?";
-	
+
 	public static final String RESET_PASSWORD = "UPDATE Login SET Password=?, VerificationCode=? WHERE UserName=? AND VerificationCode=?";
-	
+
 	public static final String CHECK_WATCHED_VIDEO = "SELECT COUNT(*) FROM WatchedVideo WHERE LessonId = ? AND UserId = ?";
-	
+
 	public static final String SAVE_WATCHED_VIDEO = "INSERT INTO WatchedVideo (UserId, LessonId, StartDateTime, EndDateTime, WatchCount, TimeWatched) "
-			+ "VALUES (?, ?, NOW(), NOW(), 1, ?)";	
-	
+			+ "VALUES (?, ?, NOW(), NOW(), 1, ?)";
+
 	public static final String UPDATE_WATCHED_VIDEO = "UPDATE WatchedVideo SET TimeWatched=?, EndDateTime=NOW(),  WatchCount = WatchCount + 1 "
 			+ "WHERE UserId=? AND LessonId=?";
-	
+
 	public static final String CHECK_FAVORITE_VIDEO = "SELECT COUNT(*) FROM FavoriteVideo WHERE LessonId = ? AND UserId = ?";
-	public static final String ADD_FAVORITE_VIDEO = "INSERT INTO FavoriteVideo (LessonId, UserId) VALUES (?, ?)";	
+	public static final String ADD_FAVORITE_VIDEO = "INSERT INTO FavoriteVideo (LessonId, UserId) VALUES (?, ?)";
 	public static final String REMOVE_FAVORITE_VIDEO = "DELETE FROM FavoriteVideo WHERE LessonId=? AND UserId=?";
 	public static final String FAVORITE_VIDEO_LIST = "SELECT f.FavoriteVideoId, f.UserId, l.LessonId, l.LessonName, l.LessonThumbnail, l.VideoUrl "
 			+ "FROM FavoriteVideo f INNER JOIN Lesson l ON(f.LessonId = l.LessonId) WHERE f.UserId=? ORDER BY f.FavoriteVideoId DESC";
 
+	public static final String VIDEO_PLAY_LIST = "SELECT l.LessonName, l.VideoId, s.SubjectName, l.LessonThumbnail, l.LessonThumbnail_Mob, u.UnitName FROM Grade g INNER JOIN Subject s \n"
+			+ "ON g.GradeId = s.GradeId\n" + "INNER JOIN Unit u\n" + "ON s.SubjectId = u.SubjectId\n"
+			+ "INNER JOIN Lesson l\n" + "ON u.UnitId = l.UnitId\n" + "WHERE g.GradeId = ?\n" + "AND l.IsActive = 1\n"
+			+ "ORDER BY s.SubjectId, u.UnitId, l.LessonId;";
 }
-
-
-
-
