@@ -75,7 +75,6 @@ public class ValidationDaoImpl implements ValidationDao {
 	 */
 	@Override
 	public List<ValidationDTO> validateEmail(String email) {
-
 		List<ValidationDTO> validList = new ArrayList<>();
 		try {
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
@@ -89,6 +88,7 @@ public class ValidationDaoImpl implements ValidationDao {
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
 		return validList;
 	}
@@ -99,6 +99,7 @@ public class ValidationDaoImpl implements ValidationDao {
 	 * @param mobileNo the mobile no
 	 * @return the list
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ValidationDTO> validateMobileNo(String mobileNo) {
 		List<ValidationDTO> validList = new ArrayList<>();
@@ -109,9 +110,9 @@ public class ValidationDaoImpl implements ValidationDao {
 
 			Map<String, Object> execute = simpleJdbcCall.execute(mobileNo);
 			validList = (List<ValidationDTO>) execute.get("ValidMobileResultSet");
-
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
 		return validList;
 	}
@@ -122,6 +123,7 @@ public class ValidationDaoImpl implements ValidationDao {
 	 * @param mobileNo the mobile no
 	 * @return the list
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ValidationDTO> saveOtp(String mobileNo) {
 		Random num = new Random();
@@ -142,6 +144,7 @@ public class ValidationDaoImpl implements ValidationDao {
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
 		return validList;
 	}
@@ -168,6 +171,7 @@ public class ValidationDaoImpl implements ValidationDao {
 
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
 		return msgTOUse;
 	}
@@ -216,14 +220,13 @@ public class ValidationDaoImpl implements ValidationDao {
 
 			Map<String, Object> execute = simpleJdbcCall.execute(in);
 			validList = (List<ValidationDTO>) execute.get("ResultSet");
-
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
 		return validList;
 	}
-	
-	
+
 	@Override
 	public Boolean validateUserLogin(String username, String password) {
 		Boolean isValid = Boolean.FALSE;
@@ -233,6 +236,7 @@ public class ValidationDaoImpl implements ValidationDao {
 			isValid = userId > 0 ? Boolean.TRUE : Boolean.FALSE;
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
 		return isValid;
 	}
@@ -240,11 +244,15 @@ public class ValidationDaoImpl implements ValidationDao {
 	@Override
 	public boolean setLoginStatus(int status, String input) {
 		boolean isValid = Boolean.FALSE;
-		JSONObject obj = new JSONObject(input);
-		String updateQuery = WilkefConstants.SET_ACTIVE_STATUS;
-		int update = appJdbcTemplate.update(updateQuery, status, obj.get("user"), obj.get("password"));
-		if (update == 1) {
-			isValid = Boolean.TRUE;
+		try {
+			JSONObject obj = new JSONObject(input);
+			String updateQuery = WilkefConstants.SET_ACTIVE_STATUS;
+			int update = appJdbcTemplate.update(updateQuery, status, obj.get("user"), obj.get("password"));
+			if (update == 1) {
+				isValid = Boolean.TRUE;
+			}
+		} catch (Exception e) {
+			throw new CustomException(e.getMessage());
 		}
 		return isValid;
 	}
@@ -258,17 +266,18 @@ public class ValidationDaoImpl implements ValidationDao {
 			authData.setEmailId(result.getString("EmailId"));
 			authData.setFirstName(result.getString("FirstName"));
 			authData.setMiddleName(result.getString("MiddleName"));
-			authData.setLastName(result.getString("LastName"));			
+			authData.setLastName(result.getString("LastName"));
 			authData.setName(result.getString("Name"));
-			authData.setUserType(result.getInt("UserTypeId") == 2 ? "Admin" : "Student");	
+			authData.setUserType(result.getInt("UserTypeId") == 2 ? "Admin" : "Student");
 			authData.setGradeId(result.getInt("GradeId"));
-			authData.setGradeName(result.getString("GradeName"));					
+			authData.setGradeName(result.getString("GradeName"));
 			return authData;
 		};
 		try {
 			authdataList = appJdbcTemplate.query(WilkefConstants.TOKEN_RETURN, rowMapper, user);
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for auth list");
+			throw new CustomException(e.getMessage());
 		}
 		authdataList.get(0).setToken(token);
 		return authdataList.get(0);
@@ -290,7 +299,7 @@ public class ValidationDaoImpl implements ValidationDao {
 				loggedinUserInfo.setFirstName(rs.getString("FirstName"));
 				loggedinUserInfo.setMiddleName(rs.getString("MiddleName"));
 				loggedinUserInfo.setLastName(rs.getString("LastName"));
-				loggedinUserInfo.setName(rs.getString("FirstName") + " " + rs.getString("MiddleName") + " " + rs.getString("LastName"));
+				loggedinUserInfo.setName(rs.getString("Name"));
 				loggedinUserInfo.setGradeId(rs.getInt("GradeId"));
 				return loggedinUserInfo;
 			});
@@ -304,7 +313,7 @@ public class ValidationDaoImpl implements ValidationDao {
 	@Override
 	public boolean validateCurrentPassword(String currentPassword, Integer userId) {
 		boolean validCurrentPassword = Boolean.FALSE;
-		LOG.log(Level.INFO, "Start validateCurrentPassword");
+		LOG.log(Level.INFO, "Start validateCurrentPassword DAO");
 		try {
 			String sql = WilkefConstants.GET_PASSWORD;
 			String password = appJdbcTemplate.queryForObject(sql, new Object[] { userId }, String.class);
@@ -313,8 +322,9 @@ public class ValidationDaoImpl implements ValidationDao {
 			}
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException(e.getMessage());
 		}
-		LOG.log(Level.INFO, "End validateCurrentPassword");
+		LOG.log(Level.INFO, "End validateCurrentPassword DAO");
 		return validCurrentPassword;
 	}
 }

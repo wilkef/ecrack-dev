@@ -102,7 +102,8 @@ public final class WilkefConstants {
 			+ "CONCAT(FirstName, ' ', MiddleName, ' ', LastName) as Name, e.GradeId, g.GradeName "
 			+ "FROM User u LEFT JOIN StudentEnv e ON(u.userid = e.UserId) LEFT JOIN Grade g ON(g.GradeId = e.GradeId) WHERE u.MobileNumber=?";
 
-	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, e.GradeId "
+	public static final String LOGGEDIN_USER_INFO = "SELECT u.userid, u.MobileNumber, u.EmailId, u.FirstName, u.MiddleName, u.LastName, "
+			+ "CONCAT(FirstName, ' ', MiddleName, ' ', LastName) as Name, e.GradeId  "
 			+ "FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
 
 	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob, l.videoId "
