@@ -8,6 +8,7 @@
 package com.wilkef.ecrack.setup.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -24,11 +25,14 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ExamDao;
+import com.wilkef.ecrack.setup.dto.QuestionOptionsDTO;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
+import com.wilkef.ecrack.setup.exception.CustomException;
 
 /**
  * The Class ExamDaoImpl.
@@ -70,6 +74,47 @@ public class ExamDaoImpl implements ExamDao {
 		return questionTestDTOList;
 
 	}
+	
+	/**
+	 * Gets the quiz questions.
+	 *
+	 * @param lessonId      the lesson id
+	 * @param noOfQuestion  the no of question
+	 * @param questionLevel the question level
+	 * @return the quiz questions
+	 */
+
+	@Override
+	public List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer questionLevel) {
+		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
+		try {
+			Gson gson = new Gson();
+			Integer limit = (int) appJdbcTemplate.queryForObject("SELECT CASE WHEN NoOfQuestion > 0 THEN NoOfQuestion ELSE 10 END "
+					+ "AS NoOfQuestion FROM `Lesson` WHERE LessonId=?", new Object[] {lessonId}, Integer.class);
+			
+			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, Solution, DifficultyLevel, QuestionOptionsJson, Answer "
+					+ "FROM Mcq WHERE LessonId=? AND DifficultyLevel=? ORDER BY RAND() LIMIT ?";
+			
+			appJdbcTemplate.query(query, new Object[] { lessonId, questionLevel, limit }, (result, rowNum) -> {
+				QuizQuestionDTO item = new QuizQuestionDTO();
+				item.setMcqId(result.getString("McqId"));
+				item.setQuestion(result.getString("Question"));
+				item.setQuestionDesc(result.getString("QuestionDesc"));
+				item.setQuestionImg(result.getString("QuestionImg"));
+				item.setSolution(result.getString("Solution"));
+				item.setDifficultyCode(result.getString("DifficultyLevel"));
+				item.setOptionList(gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
+				item.setAnswer(result.getString("Answer"));
+				quizTestDTOList.add(item);
+				return quizTestDTOList;
+			});
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException("Error while fetaching quiz questions:" + e.getMessage());
+		}
+		return quizTestDTOList;
+	}
+
 
 	/**
 	 * Gets the quiz questions.
@@ -84,13 +129,16 @@ public class ExamDaoImpl implements ExamDao {
 	public List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel) {
 		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
 		try {
-			SqlParameterSource in = new MapSqlParameterSource().addValue("p_lessonId", lessonId)
-					.addValue("p_qLevel", questionLevel).addValue("p_noOfQuestions", noOfQuestion);
+			SqlParameterSource parameters = new MapSqlParameterSource()
+					.addValue("p_lessonId", lessonId)
+					.addValue("p_qLevel", questionLevel)
+					.addValue("p_noOfQuestions", noOfQuestion);
+			
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
 					.withProcedureName(WilkefConstants.GET_QUIZ_QSTN)
 					.returningResultSet("ResultSet", BeanPropertyRowMapper.newInstance(QuizQuestionDTO.class));
 
-			Map<String, Object> execute = simpleJdbcCall.execute(in);
+			Map<String, Object> execute = simpleJdbcCall.execute(parameters);
 			quizTestDTOList = (List<QuizQuestionDTO>) execute.get("ResultSet");
 			if (!quizTestDTOList.isEmpty()) {
 				LOG.fine("Data Retrieved Successfully");

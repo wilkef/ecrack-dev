@@ -104,6 +104,35 @@ public class ExamController {
 		LOG.info("END-Inside getQuizQuestions");
 		return response;
 	}
+	
+	/**
+	 * Gets the quiz questions.
+	 *
+	 * @param lessonId      the lesson id
+	 * @param questionLevel the question level
+	 * @return the quiz questions
+	 */
+	@GetMapping(value = "quizQuestions/{lessonId}/{questionLevel}")
+	public ResponseEntity<Object> getQuizQuestions(@Valid @PathVariable Integer lessonId,
+			@Valid @PathVariable Integer questionLevel) {
+		LOG.info("START Controller quizQuestions");
+		LOG.log(Level.INFO, () -> " getQuizQuestions Inputs noOfQuestion: " + lessonId);
+		LOG.log(Level.INFO, () -> " getQuizQuestions Inputs questionLevel: " + questionLevel);
+		ResponseEntity<Object> response = null;
+		List<QuizQuestionDTO> questionTestDTOList = new ArrayList<>();
+		try {
+			questionTestDTOList = examDao.getQuizQuestions(lessonId, questionLevel);
+			response = new ResponseEntity<>(questionTestDTOList, HttpStatus.OK);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, questionTestDTOList));
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> e.getMessage());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.info("END Controller getQuizQuestions");
+		return response;
+	}
 
 	/**
 	 * Gets the questions.
@@ -113,25 +142,25 @@ public class ExamController {
 	 * @param questionLevel the question level
 	 * @return the questions
 	 */
-	@GetMapping(value = "questions/{lessonId}/{noOfQuestion}/{questionLevel}")
-	public ResponseEntity<Object> getQuestions(@Valid @PathVariable Integer lessonId,
-			@Valid @PathVariable Integer noOfQuestion, @Valid @PathVariable Integer questionLevel) {
-		LOG.info("START-Inside getQuestions");
-		LOG.log(Level.INFO, () -> " getQuestions Inputs noOfQuestion: " + lessonId);
-		LOG.log(Level.INFO, () -> " getQuestions Inputs noOfQuestion: " + noOfQuestion);
-		LOG.log(Level.INFO, () -> " getQuestions Inputs questionLevel: " + questionLevel);
-		ResponseEntity<Object> response = null;
-		List<QuizQuestionDTO> questionTestDTOList = new ArrayList<>();
-		try {
-			questionTestDTOList = examDao.getQuestions(lessonId, noOfQuestion, questionLevel);
-			response = new ResponseEntity<>(questionTestDTOList, HttpStatus.OK);
-		} catch (Exception e) {
-			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
-			return new CustomExceptionHandler().handleAllExceptions(e);
-		}
-		LOG.info("END-Inside getQuestions");
-		return response;
-	}
+//	@GetMapping(value = "questions/{lessonId}/{noOfQuestion}/{questionLevel}")
+//	public ResponseEntity<Object> getQuestions(@Valid @PathVariable Integer lessonId,
+//			@Valid @PathVariable Integer noOfQuestion, @Valid @PathVariable Integer questionLevel) {
+//		LOG.info("START-Inside getQuestions");
+//		LOG.log(Level.INFO, () -> " getQuestions Inputs noOfQuestion: " + lessonId);
+//		LOG.log(Level.INFO, () -> " getQuestions Inputs noOfQuestion: " + noOfQuestion);
+//		LOG.log(Level.INFO, () -> " getQuestions Inputs questionLevel: " + questionLevel);
+//		ResponseEntity<Object> response = null;
+//		List<QuizQuestionDTO> questionTestDTOList = new ArrayList<>();
+//		try {
+//			questionTestDTOList = examDao.getQuestions(lessonId, noOfQuestion, questionLevel);
+//			response = new ResponseEntity<>(questionTestDTOList, HttpStatus.OK);
+//		} catch (Exception e) {
+//			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+//			return new CustomExceptionHandler().handleAllExceptions(e);
+//		}
+//		LOG.info("END-Inside getQuestions");
+//		return response;
+//	}
 
 	/**
 	 * Gets the student result summary.

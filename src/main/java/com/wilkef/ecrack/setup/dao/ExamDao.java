@@ -31,6 +31,8 @@ public interface ExamDao {
 	 */
 	List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer noOfQuestion,
 			Integer questionLevel);
+	
+	List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer questionLevel);
 
 	/**
 	 * Gets the questions.
