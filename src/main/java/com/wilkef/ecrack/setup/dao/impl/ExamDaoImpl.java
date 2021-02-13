@@ -116,39 +116,39 @@ public class ExamDaoImpl implements ExamDao {
 	}
 
 
-	/**
-	 * Gets the quiz questions.
-	 *
-	 * @param lessonId      the lesson id
-	 * @param noOfQuestion  the no of question
-	 * @param questionLevel the question level
-	 * @return the quiz questions
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel) {
-		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
-		try {
-			SqlParameterSource parameters = new MapSqlParameterSource()
-					.addValue("p_lessonId", lessonId)
-					.addValue("p_qLevel", questionLevel)
-					.addValue("p_noOfQuestions", noOfQuestion);
-			
-			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-					.withProcedureName(WilkefConstants.GET_QUIZ_QSTN)
-					.returningResultSet("ResultSet", BeanPropertyRowMapper.newInstance(QuizQuestionDTO.class));
-
-			Map<String, Object> execute = simpleJdbcCall.execute(parameters);
-			quizTestDTOList = (List<QuizQuestionDTO>) execute.get("ResultSet");
-			if (!quizTestDTOList.isEmpty()) {
-				LOG.fine("Data Retrieved Successfully");
-			}
-		} catch (Exception e) {
-			LOG.log(Level.SEVERE, e.getMessage());
-		}
-		return quizTestDTOList;
-	}
-
+//	/**
+//	 * Gets the quiz questions.
+//	 *
+//	 * @param lessonId      the lesson id
+//	 * @param noOfQuestion  the no of question
+//	 * @param questionLevel the question level
+//	 * @return the quiz questions
+//	 */
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel) {
+//		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
+//		try {
+//			SqlParameterSource parameters = new MapSqlParameterSource()
+//					.addValue("p_lessonId", lessonId)
+//					.addValue("p_qLevel", questionLevel)
+//					.addValue("p_noOfQuestions", noOfQuestion);
+//			
+//			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
+//					.withProcedureName(WilkefConstants.GET_QUIZ_QSTN)
+//					.returningResultSet("ResultSet", BeanPropertyRowMapper.newInstance(QuizQuestionDTO.class));
+//
+//			Map<String, Object> execute = simpleJdbcCall.execute(parameters);
+//			quizTestDTOList = (List<QuizQuestionDTO>) execute.get("ResultSet");
+//			if (!quizTestDTOList.isEmpty()) {
+//				LOG.fine("Data Retrieved Successfully");
+//			}
+//		} catch (Exception e) {
+//			LOG.log(Level.SEVERE, e.getMessage());
+//		}
+//		return quizTestDTOList;
+//	}
+	
 	/**
 	 * Gets the questions.
 	 *
@@ -158,25 +158,58 @@ public class ExamDaoImpl implements ExamDao {
 	 * @return the questions
 	 */
 	@Override
-	public List<QuizQuestionDTO> getQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel) {
+	public List<QuizQuestionDTO> getQuestions(Integer lessonId, Integer questionLevel) {
 		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
 		try {
-			SqlParameterSource in = new MapSqlParameterSource().addValue("p_lessonId", lessonId)
-					.addValue("p_qLevel", questionLevel).addValue("p_noOfQuestion", noOfQuestion);
-			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
-					.withProcedureName(WilkefConstants.GET_QUESTION)
-					.returningResultSet("ResultSet", BeanPropertyRowMapper.newInstance(QuizQuestionDTO.class));
+			Gson gson = new Gson();
+			Integer limit = 25;
 
-			Map<String, Object> execute = simpleJdbcCall.execute(in);
-			quizTestDTOList = (List<QuizQuestionDTO>) execute.get("ResultSet");
-			if (!quizTestDTOList.isEmpty()) {
-				LOG.fine("Data Retrieved Successfully");
-			}
+			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, QuestionOptionsJson "
+					+ " FROM Mcq WHERE LessonId=? AND DifficultyLevel=? ORDER BY RAND() LIMIT ?";
+			appJdbcTemplate.query(query, new Object[] { lessonId, questionLevel, limit }, (result, rowNum) -> {
+				QuizQuestionDTO item = new QuizQuestionDTO();
+				item.setMcqId(result.getString("McqId"));
+				item.setQuestion(result.getString("Question"));
+				item.setQuestionDesc(result.getString("QuestionDesc"));
+				item.setQuestionImg(result.getString("QuestionImg"));				
+				item.setOptionList(gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
+				quizTestDTOList.add(item);
+				return quizTestDTOList;
+			});
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, e.getMessage());
 		}
 		return quizTestDTOList;
 	}
+
+//	/**
+//	 * Gets the questions.
+//	 *
+//	 * @param lessonId      the lesson id
+//	 * @param noOfQuestion  the no of question
+//	 * @param questionLevel the question level
+//	 * @return the questions
+//	 */
+//	@Override
+//	public List<QuizQuestionDTO> getQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel) {
+//		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
+//		try {
+//			SqlParameterSource in = new MapSqlParameterSource().addValue("p_lessonId", lessonId)
+//					.addValue("p_qLevel", questionLevel).addValue("p_noOfQuestion", noOfQuestion);
+//			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
+//					.withProcedureName(WilkefConstants.GET_QUESTION)
+//					.returningResultSet("ResultSet", BeanPropertyRowMapper.newInstance(QuizQuestionDTO.class));
+//
+//			Map<String, Object> execute = simpleJdbcCall.execute(in);
+//			quizTestDTOList = (List<QuizQuestionDTO>) execute.get("ResultSet");
+//			if (!quizTestDTOList.isEmpty()) {
+//				LOG.fine("Data Retrieved Successfully");
+//			}
+//		} catch (Exception e) {
+//			LOG.log(Level.SEVERE, e.getMessage());
+//		}
+//		return quizTestDTOList;
+//	}
 
 	/**
 	 * Gets the student result summary.

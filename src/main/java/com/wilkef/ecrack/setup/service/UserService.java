@@ -7,7 +7,7 @@ public interface UserService {
 
 	public Boolean isValidUser(String username, String password);
 	
-	public AuthDataDTO getAuthData(String username, String token);
+	public AuthDataDTO getAuthData(String token);
 	
 	public LoggedinUserInfo getLoggedinUserInfo(String token);
 

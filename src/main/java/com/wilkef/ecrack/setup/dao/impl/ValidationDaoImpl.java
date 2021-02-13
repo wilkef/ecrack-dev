@@ -258,29 +258,32 @@ public class ValidationDaoImpl implements ValidationDao {
 	}
 
 	@Override
-	public AuthDataDTO getAuthData(String user, String token) {
-		List<AuthDataDTO> authdataList = new ArrayList<>();
-		RowMapper<AuthDataDTO> rowMapper = (ResultSet result, int rowNum) -> {
-			AuthDataDTO authData = new AuthDataDTO();
-			authData.setMobileNumber(result.getString("MobileNumber"));
-			authData.setEmailId(result.getString("EmailId"));
-			authData.setFirstName(result.getString("FirstName"));
-			authData.setMiddleName(result.getString("MiddleName"));
-			authData.setLastName(result.getString("LastName"));
-			authData.setName(result.getString("Name"));
-			authData.setUserType(result.getInt("UserTypeId") == 2 ? "Admin" : "Student");
-			authData.setGradeId(result.getInt("GradeId"));
-			authData.setGradeName(result.getString("GradeName"));
-			return authData;
-		};
+	public AuthDataDTO getAuthData(String token) {
+		AuthDataDTO authData = new AuthDataDTO();
 		try {
-			authdataList = appJdbcTemplate.query(WilkefConstants.TOKEN_RETURN, rowMapper, user);
+			token = token.replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
+			Jws<Claims> res = Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes())
+					.parseClaimsJws(token);
+			String mobileNumber = res.getBody().getSubject().toString();
+			
+			String sql = WilkefConstants.TOKEN_RETURN;
+			appJdbcTemplate.queryForObject(sql, new Object[] { mobileNumber }, (rs, rowNum) -> {
+				authData.setMobileNumber(rs.getString("MobileNumber"));
+				authData.setEmailId(rs.getString("EmailId"));
+				authData.setFirstName(rs.getString("FirstName"));
+				authData.setMiddleName(rs.getString("MiddleName"));
+				authData.setLastName(rs.getString("LastName"));
+				authData.setName(rs.getString("Name"));
+				authData.setUserType(rs.getInt("UserTypeId") == 2 ? "Admin" : "Student");
+				authData.setGradeId(rs.getInt("GradeId"));
+				authData.setGradeName(rs.getString("GradeName"));
+				return authData;
+			});
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching records for auth list");
 			throw new CustomException(e.getMessage());
 		}
-		authdataList.get(0).setToken(token);
-		return authdataList.get(0);
+		return authData;
 	}
 
 	@Override

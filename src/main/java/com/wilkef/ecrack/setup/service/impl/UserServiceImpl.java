@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public AuthDataDTO getAuthData(String username, String token) {
-		return validationDao.getAuthData(username, token);
+	public AuthDataDTO getAuthData(String token) {
+		return validationDao.getAuthData(token);
 	}
 	
 	@Override

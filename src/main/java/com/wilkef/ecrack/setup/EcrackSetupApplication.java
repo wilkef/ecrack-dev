@@ -114,8 +114,10 @@ public class EcrackSetupApplication {
 							PublicApiConstant.GET_SEND_OTP, PublicApiConstant.GET_VERIFY_OTP,
 							PublicApiConstant.GET_GRADE_INFO, PublicApiConstant.FORGOT_PWD,
 							PublicApiConstant.FORGOT_PWD_VERIFY_OTP, PublicApiConstant.RESET_PASSWORD)
-					.permitAll().antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
+					.permitAll()
+					.antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
 					.antMatchers(HttpMethod.POST, "/user/getMobAuthToken").permitAll()
+					.antMatchers(HttpMethod.GET, "/user/getSessionData").permitAll()
 					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated();
 		}
 

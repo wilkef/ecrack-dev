@@ -24,25 +24,23 @@ public interface ExamDao {
 	/**
 	 * Gets the quiz questions.
 	 *
-	 * @param lessonId the lesson id
-	 * @param noOfQuestion the no of question
+	 * @param lessonId      the lesson id
+	 * @param noOfQuestion  the no of question
 	 * @param questionLevel the question level
 	 * @return the quiz questions
 	 */
-	List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer noOfQuestion,
-			Integer questionLevel);
-	
+//	List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel);
+
 	List<QuizQuestionDTO> getQuizQuestions(Integer lessonId, Integer questionLevel);
 
 	/**
 	 * Gets the questions.
 	 *
-	 * @param lessonId the lesson id
-	 * @param noOfQuestion the no of question
+	 * @param lessonId      the lesson id
 	 * @param questionLevel the question level
 	 * @return the questions
 	 */
-	List<QuizQuestionDTO> getQuestions(Integer lessonId, Integer noOfQuestion, Integer questionLevel);
+	List<QuizQuestionDTO> getQuestions(Integer lessonId, Integer questionLevel);
 
 	/**
 	 * Gets the student result summary.
@@ -51,7 +49,6 @@ public interface ExamDao {
 	 * @return the student result summary
 	 */
 	List<TestResultDTO> getStudentResultSummary(Integer testId);
-
 
 	/**
 	 * Save student result.
