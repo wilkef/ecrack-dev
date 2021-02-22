@@ -3,31 +3,9 @@ package com.wilkef.ecrack.setup.admin.dao;
 import java.util.HashMap;
 import java.util.List;
 
-public interface AdminDao {
+import com.wilkef.ecrack.setup.admin.dto.InstructorDTO;
 
-//	@SuppressWarnings("rawtypes")
-//	public List<HashMap> getExamDetails(Integer examId);
-//	
-//	@SuppressWarnings("rawtypes")
-//	public List<HashMap> getExamSubjectsDetails(Integer testHeaderId);
-//	
-//	@SuppressWarnings("rawtypes")
-//	public List<HashMap> getMCQList();
-//	
-//	@SuppressWarnings("rawtypes")
-//	public List<HashMap> getMCQData(McqFilterDTO data);
-//	
-//	public Boolean toggleStatus(String table, Integer id, Integer status);
-//	
-//	Boolean updateTestLineQuestionSet(TestLineDTO data, String username);
-//	
-//	Boolean saveMCQ(McqDTO data, String username);
-//	
-//	Boolean saveExam(CreateExamDTO data, String username);
-//	
-//	public List<ExamList> getExamList();
-//	
-//	McqDTO getMCQDetails(Integer mcqId);
+public interface AdminDao {
 
 	@SuppressWarnings("rawtypes")
 	public List<HashMap> getStudentList();
@@ -47,6 +25,12 @@ public interface AdminDao {
 	@SuppressWarnings("rawtypes")
 	public List<HashMap> getLessonList(Integer unitId);
 
+	public List<InstructorDTO> getInstructorList();
+
 	public Boolean toggleStatus(String table, Integer id, Integer status);
+
+	public Boolean addInstructor(InstructorDTO data, String username);
+	
+	public Boolean deleteInstructor(Integer instructorId);
 
 }

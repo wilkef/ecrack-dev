@@ -67,7 +67,7 @@ public interface ValidationDao {
 	 * @param mobileNo the mobile no
 	 * @return AuthDataDTO
 	 */
-	AuthDataDTO getAuthData(String user, String token); 
+	AuthDataDTO getAuthData(String token); 
 	
 	/**
 	 * Get Loggedin User Data
