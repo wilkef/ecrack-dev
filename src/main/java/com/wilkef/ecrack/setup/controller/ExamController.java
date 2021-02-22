@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
+import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ExamDao;
+import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
+import com.wilkef.ecrack.setup.dto.McqTestItemDto;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
+import com.wilkef.ecrack.setup.dto.TestSummaryDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
@@ -51,6 +57,12 @@ public class ExamController {
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
+	
+	@Autowired
+	private ValidationDao validationDao;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	
 	/**
@@ -156,6 +168,47 @@ public class ExamController {
 		LOG.info("END-Inside scheduledTest");
 		return response;
 	}
+	
+	@PostMapping(value = "/saveQuizTest/{lessonId}/{difficultyLevel}")
+	public ResponseEntity<Object> saveQuizTest(@PathVariable Integer lessonId, @PathVariable Integer difficultyLevel,
+			@Valid @RequestBody ArrayList<McqTestItemDto> questions) {
+		LOG.info("START-Inside saveQuizTest");
+		LOG.log(Level.INFO, () -> " saveQuizTest Inputs: " + lessonId);
+		LOG.log(Level.INFO, () -> " saveQuizTest Inputs: " + difficultyLevel);
+		LOG.log(Level.INFO, () -> " saveQuizTest Inputs: " + questions);
+
+		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(request.getHeader(WilkefConstants.AUTH_HEADER));
+
+		ResponseEntity<Object> response = null;
+		try {
+			String uniqueId = examDao.saveQuizTest(loggedinUserInfo.getUserId(), lessonId, difficultyLevel, questions);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, uniqueId));
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.info("END-Inside saveQuizTest");
+		return response;
+	}
+	
+	@GetMapping(value = "testSummary/{uniqueId}")
+	public ResponseEntity<Object> testSummary(@PathVariable String uniqueId) {
+		LOG.info("START-Inside testSummary");
+		ResponseEntity<Object> response = null;
+		try {
+			TestSummaryDTO testSummary = examDao.getTestResultSummary(uniqueId);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, testSummary));
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.info("END-Inside testSummary");
+		return response;
+	}
 
 //	/**
 //	 * Gets the quiz questions.
@@ -209,7 +262,8 @@ public class ExamController {
 		LOG.info("END-Inside getStudentResultSummary");
 		return response;
 	}
-
+	
+	
 	/**
 	 * Save student result.
 	 *

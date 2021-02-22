@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,10 +29,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ExamDao;
+import com.wilkef.ecrack.setup.dto.McqTestItemDto;
 import com.wilkef.ecrack.setup.dto.QuestionOptionsDTO;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
+import com.wilkef.ecrack.setup.dto.TestSummaryDTO;
+import com.wilkef.ecrack.setup.dto.TestSummaryQuestionDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 
 /**
@@ -47,7 +51,90 @@ public class ExamDaoImpl implements ExamDao {
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
+	
+	@Override
+	public TestSummaryDTO getTestResultSummary(String uniqueId) {
+		TestSummaryDTO testSummary = new TestSummaryDTO();
+		try {
+			String sql = "SELECT ActivityId, UserId, UniqueId, LessonId, DifficultyLevel FROM `ActivityTest` WHERE UniqueId=?";
+			appJdbcTemplate.queryForObject(sql, new Object[] { uniqueId }, (rs, rowNum) -> {
+				testSummary.setActivityId(rs.getInt("ActivityId"));
+				testSummary.setUserId(rs.getInt("UserId"));
+				testSummary.setUniqueId(rs.getString("UniqueId"));
+				testSummary.setLessonId(rs.getInt("LessonId"));
+				testSummary.setDifficultyLevel(rs.getInt("DifficultyLevel"));
+				return testSummary;
+			});
 
+			Gson gson = new Gson();
+			List<TestSummaryQuestionDTO> mcqList = new ArrayList<TestSummaryQuestionDTO>();
+			String query = "SELECT q.McqId, q.Question, q.QuestionDesc, q.QuestionImg, q.Solution, q.QuestionOptionsJson, q.Answer FROM ActivityTestLine l\r\n" + 
+					" JOIN Mcq q ON(l.QuestionId=q.McqId) WHERE l.ActivityId=? ORDER BY l.ActivityLineId DESC";
+			
+			appJdbcTemplate.query(query, new Object[] { testSummary.getActivityId() }, (result, rowNum) -> {
+				TestSummaryQuestionDTO item = new TestSummaryQuestionDTO();
+				item.setMcqId(result.getLong("McqId"));
+				item.setQuestion(result.getString("Question"));
+				item.setQuestionDesc(result.getString("QuestionDesc"));
+				item.setQuestionImg(result.getString("QuestionImg"));
+				item.setSolution(result.getString("Solution"));
+				item.setOptionList(gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
+				item.setAnswer(result.getString("Answer"));
+				mcqList.add(item);
+				return mcqList;
+			});
+			testSummary.setQuestions(mcqList);
+			
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Some error occured while saving the video:" + e.getMessage());
+			throw new CustomException("Error while saving quiz questions:" + e.getMessage());
+		}
+		return testSummary;
+	}
+
+	@Override
+	public String saveQuizTest(Integer userId, Integer lessonId, Integer difficultyLevel,
+			ArrayList<McqTestItemDto> mcqList) {
+		String uniqueId = UUID.randomUUID().toString();
+		try {
+			// Save to `ActivityTest` table
+			String sql = "INSERT INTO `ActivityTest` (`UserId`, `UniqueId`, `LessonId`, `DifficultyLevel`) VALUES (?,?,?,?)";
+			appJdbcTemplate.update(sql, userId, uniqueId, lessonId, difficultyLevel);
+			Integer activityId = (int) appJdbcTemplate.queryForObject(
+					"SELECT ActivityId FROM ActivityTest ORDER BY ActivityId DESC LIMIT 1", new Object[] {},
+					Integer.class);
+
+			// Save to `ActivityTestLine` table
+			for (McqTestItemDto mcq : mcqList) {
+				String query = "INSERT INTO `ActivityTestLine` (`ActivityId`, `QuestionId`, `AnswerStatusId`, `TimeTaken`, "
+						+ "`IsAttempted`) VALUES (?, ?, ?, ?, ?)";
+				Integer answerStatusId = getAnswerStatus(mcq.getMcqId(), mcq.getSelectedAnswers());
+				appJdbcTemplate.update(query, activityId, mcq.getMcqId(), answerStatusId, mcq.getTimeTaken(),
+						mcq.getIsAttempted());
+			}
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Some error occured while saving the video:" + e.getMessage());
+			throw new CustomException("Error while saving quiz questions:" + e.getMessage());
+		}
+		return uniqueId;
+	}
+
+	private Integer getAnswerStatus(Integer mcqId, String selectedAnswer) {
+		// If not attempted
+		if (selectedAnswer.isEmpty()) {
+			return 3;
+		}
+		String answer = (String) appJdbcTemplate.queryForObject("SELECT Answer FROM `Mcq` WHERE McqId = ?",
+				new Object[] { mcqId }, String.class);
+		// Attempted with correct answer
+		if (answer.equals(selectedAnswer)) {
+			return 1;
+		}
+		// Wrong Answer
+		return 2;
+	}
+	
+	
 	/**
 	 * Gets the scheduled test.
 	 *

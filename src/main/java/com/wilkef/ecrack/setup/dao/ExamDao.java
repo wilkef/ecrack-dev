@@ -1,12 +1,15 @@
 package com.wilkef.ecrack.setup.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.wilkef.ecrack.setup.dto.McqTestItemDto;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
+import com.wilkef.ecrack.setup.dto.TestSummaryDTO;
 
 /**
  * The Interface ExamDao.
@@ -57,5 +60,8 @@ public interface ExamDao {
 	 * @return the integer
 	 */
 	Integer saveStudentResult(String result);
-
+	
+	String saveQuizTest(Integer userId, Integer lessonId, Integer difficultyLevel, ArrayList<McqTestItemDto> questions);
+	
+	TestSummaryDTO getTestResultSummary(String uniqueId);
 }
