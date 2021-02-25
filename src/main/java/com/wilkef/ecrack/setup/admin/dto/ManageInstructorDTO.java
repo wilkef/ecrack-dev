@@ -1,6 +1,6 @@
 package com.wilkef.ecrack.setup.admin.dto;
 
-public class InstructorDTO {
+public class ManageInstructorDTO {
 	private Integer instructorId;
 	private String name;
 	private String designation;

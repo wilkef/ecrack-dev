@@ -1,6 +1,6 @@
 package com.wilkef.ecrack.setup.admin.dto;
 
-public class ExamList {
+public class ManageExamDTO {
 	private Integer testId;
 	private String testName;
 	private String startDateTime;

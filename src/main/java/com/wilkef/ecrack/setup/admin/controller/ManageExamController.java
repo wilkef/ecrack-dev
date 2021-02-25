@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.admin.dao.ManageExamDao;
 import com.wilkef.ecrack.setup.admin.dto.TestInfoDTO;
-import com.wilkef.ecrack.setup.admin.dto.ExamList;
-import com.wilkef.ecrack.setup.admin.dto.McqDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageExamDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageMcqDTO;
 import com.wilkef.ecrack.setup.admin.dto.McqFilterDTO;
 import com.wilkef.ecrack.setup.admin.dto.TestLineDTO;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
@@ -146,7 +146,7 @@ public class ManageExamController {
 		LOG.log(Level.INFO, () -> "Start getMCQDetails Controller");
 		ResponseEntity<Object> response = null;
 		try {
-			McqDTO mcq = manageExamDao.getMCQDetails(mcqId);
+			ManageMcqDTO mcq = manageExamDao.getMCQDetails(mcqId);
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.apiResponse(Boolean.TRUE, mcq));
 		} catch (Exception e) {
@@ -158,7 +158,7 @@ public class ManageExamController {
 	}
 
 	@PostMapping(value = "createMCQ")
-	public ResponseEntity<Object> createMCQ(@RequestBody McqDTO data) {
+	public ResponseEntity<Object> createMCQ(@RequestBody ManageMcqDTO data) {
 		LOG.log(Level.INFO, () -> "Start createMCQ Controller");
 		LOG.log(Level.INFO, () -> "DATA:" + data);
 
@@ -225,7 +225,7 @@ public class ManageExamController {
 		LOG.log(Level.INFO, () -> "Start getExamList Controller");
 		ResponseEntity<Object> response = null;
 		try {
-			List<ExamList> examList = manageExamDao.getExamList();
+			List<ManageExamDTO> examList = manageExamDao.getExamList();
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.apiResponse(Boolean.TRUE, examList));
 		} catch (Exception e) {
