@@ -180,7 +180,7 @@ public class ExamDaoImpl implements ExamDao {
 			Integer limit = (int) appJdbcTemplate.queryForObject("SELECT CASE WHEN NoOfQuestion > 0 THEN NoOfQuestion ELSE 10 END "
 					+ "AS NoOfQuestion FROM `Lesson` WHERE LessonId=?", new Object[] {lessonId}, Integer.class);
 			
-			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, Solution, DifficultyLevel, QuestionOptionsJson, Answer "
+			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, Solution, DifficultyLevel, QuestionOptionsJson, Answer, IsMultiChoice "
 					+ "FROM Mcq WHERE LessonId=? AND DifficultyLevel=? ORDER BY RAND() LIMIT ?";
 			
 			appJdbcTemplate.query(query, new Object[] { lessonId, questionLevel, limit }, (result, rowNum) -> {
@@ -193,6 +193,7 @@ public class ExamDaoImpl implements ExamDao {
 				item.setDifficultyCode(result.getString("DifficultyLevel"));
 				item.setOptionList(gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
 				item.setAnswer(result.getString("Answer"));
+				item.setIsMultiChoice(result.getInt("IsMultiChoice") == 1 ? true : false);
 				quizTestDTOList.add(item);
 				return quizTestDTOList;
 			});
@@ -277,7 +278,7 @@ public class ExamDaoImpl implements ExamDao {
 			Gson gson = new Gson();
 			Integer limit = 25;
 
-			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, QuestionOptionsJson "
+			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, QuestionOptionsJson, IsMultiChoice "
 					+ " FROM Mcq WHERE LessonId=? AND DifficultyLevel=? ORDER BY RAND() LIMIT ?";
 			appJdbcTemplate.query(query, new Object[] { lessonId, questionLevel, limit }, (result, rowNum) -> {
 				QuizQuestionDTO item = new QuizQuestionDTO();
@@ -286,6 +287,7 @@ public class ExamDaoImpl implements ExamDao {
 				item.setQuestionDesc(result.getString("QuestionDesc"));
 				item.setQuestionImg(result.getString("QuestionImg"));				
 				item.setOptionList(gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
+				item.setIsMultiChoice(result.getInt("IsMultiChoice") == 1 ? true : false);
 				quizTestDTOList.add(item);
 				return quizTestDTOList;
 			});

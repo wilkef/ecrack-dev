@@ -12,6 +12,7 @@ public class QuizQuestionDTO {
 	private String solution;
 	private String difficultyCode;
 	private String answer;
+	private Boolean isMultiChoice;
 
 	public String getMcqId() {
 		return mcqId;
@@ -77,11 +78,20 @@ public class QuizQuestionDTO {
 		this.answer = answer;
 	}
 
+	public Boolean getIsMultiChoice() {
+		return isMultiChoice;
+	}
+
+	public void setIsMultiChoice(Boolean isMultiChoice) {
+		this.isMultiChoice = isMultiChoice;
+	}
+
 	@Override
 	public String toString() {
 		return "QuizQuestionDTO [mcqId=" + mcqId + ", question=" + question + ", questionDesc=" + questionDesc
 				+ ", questionImg=" + questionImg + ", optionList=" + Arrays.toString(optionList) + ", solution="
-				+ solution + ", difficultyCode=" + difficultyCode + ", answer=" + answer + "]";
+				+ solution + ", difficultyCode=" + difficultyCode + ", answer=" + answer + ", isMultiChoice="
+				+ isMultiChoice + "]";
 	}
 
 }
