@@ -31,6 +31,7 @@ import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ExamDao;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.ApperedTestListDTO;
 import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
 import com.wilkef.ecrack.setup.dto.McqTestItemDto;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
@@ -209,6 +210,27 @@ public class ExamController {
 		LOG.info("END-Inside testSummary");
 		return response;
 	}
+	
+	
+	@GetMapping(value = "/getApperedTestList")
+	public ResponseEntity<Object> getApperedTestList() { 
+		LOG.info("START-Inside getApperedTestList");
+		ResponseEntity<Object> response = null;
+		List<ApperedTestListDTO> testList = new ArrayList<>();
+		try {
+			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(request.getHeader(WilkefConstants.AUTH_HEADER));
+			testList = examDao.getApperedTestList(loggedinUserInfo.getUserId());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, testList));
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.info("END-Inside getApperedTestList");
+		return response;
+	}
+	
 
 //	/**
 //	 * Gets the quiz questions.

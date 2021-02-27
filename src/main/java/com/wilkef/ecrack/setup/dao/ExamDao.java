@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.wilkef.ecrack.setup.dto.ApperedTestListDTO;
 import com.wilkef.ecrack.setup.dto.McqTestItemDto;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
@@ -16,6 +17,9 @@ import com.wilkef.ecrack.setup.dto.TestSummaryDTO;
  */
 public interface ExamDao {
 
+	List<ApperedTestListDTO> getApperedTestList(Integer userId);
+	
+	
 	/**
 	 * Gets the scheduled test.
 	 *

@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ExamDao;
+import com.wilkef.ecrack.setup.dto.ApperedTestListDTO;
 import com.wilkef.ecrack.setup.dto.McqTestItemDto;
 import com.wilkef.ecrack.setup.dto.QuestionOptionsDTO;
 import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
@@ -202,6 +203,31 @@ public class ExamDaoImpl implements ExamDao {
 		return quizTestDTOList;
 	}
 
+	@Override
+	public List<ApperedTestListDTO> getApperedTestList(Integer userId) {
+		List<ApperedTestListDTO> testList = new ArrayList<>();
+		try {
+
+			String query = "SELECT a.ActivityId, a.LessonId, a.UserId, a.UniqueId, a.CreationDate, a.TotalQuestion, s.SubjectName FROM ActivityTest a \r\n"
+					+ "INNER JOIN Lesson l ON(a.LessonId = l.LessonId) INNER JOIN Unit u ON(l.UnitId= u.UnitId) INNER JOIN Subject s ON(u.SubjectId= s.SubjectId)\r\n"
+					+ "WHERE UserId=? ORDER BY ActivityId DESC LIMIT 10";
+
+			appJdbcTemplate.query(query, new Object[] { userId, }, (result, rowNum) -> {
+				ApperedTestListDTO item = new ApperedTestListDTO();
+				item.setUniqueId(result.getString("UniqueId"));
+				item.setSubjectName(result.getString("SubjectName"));
+				item.setTotalQuestion(result.getInt("TotalQuestion"));
+				item.setCreationDate(result.getString("CreationDate"));
+				testList.add(item);
+				return testList;
+			});
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+			throw new CustomException("Error while fetaching appered test:" + e.getMessage());
+		}
+		return testList;
+	}
+	
 
 //	/**
 //	 * Gets the quiz questions.
