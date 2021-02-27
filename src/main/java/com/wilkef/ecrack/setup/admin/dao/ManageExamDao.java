@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.wilkef.ecrack.setup.admin.dto.TestInfoDTO;
-import com.wilkef.ecrack.setup.admin.dto.ExamList;
-import com.wilkef.ecrack.setup.admin.dto.McqDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageExamDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageMcqDTO;
 import com.wilkef.ecrack.setup.admin.dto.McqFilterDTO;
 import com.wilkef.ecrack.setup.admin.dto.TestLineDTO;
 
@@ -29,11 +29,11 @@ public interface ManageExamDao {
 
 	public Boolean updateTestLineQuestionSet(TestLineDTO data, String username);
 
-	public Boolean saveMCQ(McqDTO data, String username);
+	public Boolean saveMCQ(ManageMcqDTO data, String username);
 
 	public Integer saveExam(TestInfoDTO data, String username);
 
-	public List<ExamList> getExamList();
+	public List<ManageExamDTO> getExamList();
 
-	public McqDTO getMCQDetails(Integer mcqId);
+	public ManageMcqDTO getMCQDetails(Integer mcqId);
 }

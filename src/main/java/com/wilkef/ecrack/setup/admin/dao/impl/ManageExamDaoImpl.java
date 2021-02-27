@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.wilkef.ecrack.setup.admin.dao.ManageExamDao;
 import com.wilkef.ecrack.setup.admin.dto.TestInfoDTO;
-import com.wilkef.ecrack.setup.admin.dto.ExamList;
-import com.wilkef.ecrack.setup.admin.dto.McqDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageExamDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageMcqDTO;
 import com.wilkef.ecrack.setup.admin.dto.McqFilterDTO;
-import com.wilkef.ecrack.setup.admin.dto.McqOptionsDTO;
+import com.wilkef.ecrack.setup.admin.dto.ManageMcqOptionsDTO;
 import com.wilkef.ecrack.setup.admin.dto.TestLineDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 
@@ -219,7 +219,7 @@ public class ManageExamDaoImpl implements ManageExamDao {
 	}
 
 	@Override
-	public Boolean saveMCQ(McqDTO data, String username) {
+	public Boolean saveMCQ(ManageMcqDTO data, String username) {
 		try {
 			String questionOptionsJson = new Gson().toJson(data.getQuestionOptionsJson());
 			if (data.getMcqId() != null && data.getMcqId() > 0) {
@@ -309,13 +309,13 @@ public class ManageExamDaoImpl implements ManageExamDao {
 	}
 
 	@Override
-	public List<ExamList> getExamList() {
-		List<ExamList> list = new ArrayList<>();
+	public List<ManageExamDTO> getExamList() {
+		List<ManageExamDTO> list = new ArrayList<>();
 		LOG.log(Level.INFO, () -> "Start getExamList DAO");
 		try {
 			String query = "SELECT TestId, GradeId, TestName, IsActive, DifficultyLevel, StartDateTime, CreatedBy, CreationDate, LastUpdatedBy, LastUpdateDate FROM `TestHeader` ORDER BY TestId DESC";
 			appJdbcTemplate.query(query, new Object[] {}, (result, rowNum) -> {
-				ExamList exam = new ExamList();
+				ManageExamDTO exam = new ManageExamDTO();
 				exam.setTestId(result.getInt("TestId"));
 				exam.setTestName(result.getString("TestName"));
 				exam.setStartDateTime(result.getString("StartDateTime"));
@@ -333,8 +333,8 @@ public class ManageExamDaoImpl implements ManageExamDao {
 	}
 
 	@Override
-	public McqDTO getMCQDetails(Integer mcqId) {
-		McqDTO mcq = new McqDTO();
+	public ManageMcqDTO getMCQDetails(Integer mcqId) {
+		ManageMcqDTO mcq = new ManageMcqDTO();
 		LOG.log(Level.INFO, () -> "Start getMCQDetails DAO");
 		try {
 			String query = "SELECT McqId, LessonId, Question, QuestionDesc, QuestionOptionsJson, IsActive, Answer, Solution, DifficultyLevel, CreatedBy, LastUpdatedBy, CreationDate, LastUpdateDate "
@@ -345,7 +345,7 @@ public class ManageExamDaoImpl implements ManageExamDao {
 				mcq.setQuestion(result.getString("Question"));
 				mcq.setQuestionDesc(result.getString("QuestionDesc"));
 				mcq.setQuestionOptionsJson(
-						new Gson().fromJson(result.getString("QuestionOptionsJson"), McqOptionsDTO[].class));
+						new Gson().fromJson(result.getString("QuestionOptionsJson"), ManageMcqOptionsDTO[].class));
 				mcq.setSolution(result.getString("Solution"));
 				mcq.setAnswer(result.getString("Answer"));
 				mcq.setDifficultyLevel(result.getInt("DifficultyLevel"));

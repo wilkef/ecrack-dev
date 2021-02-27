@@ -7,7 +7,10 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,11 +18,17 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import com.wilkef.ecrack.setup.admin.dao.UploadFileDao;
 
 @Service
 public class UploadFileDaoImpl implements UploadFileDao {
+
+	public static final Logger LOG = Logger.getLogger(UploadFileDaoImpl.class.getName());
+
+	@Autowired
+	private JdbcTemplate appJdbcTemplate;
 
 	private AmazonS3 amazonS3;
 

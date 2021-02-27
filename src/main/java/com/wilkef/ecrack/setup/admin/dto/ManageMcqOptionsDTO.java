@@ -1,6 +1,6 @@
 package com.wilkef.ecrack.setup.admin.dto;
 
-public class McqOptionsDTO {
+public class ManageMcqOptionsDTO {
 	private String value;
 
 	public String getValue() {

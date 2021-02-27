@@ -5,14 +5,14 @@ import java.util.Arrays;
 /**
  * The Class CreateMCQDTO.
  */
-public class McqDTO {
+public class ManageMcqDTO {
 
 	private Long mcqId;
 	private Long lessonId;
 	private String question;
 	private String questionDesc;
 	private String solution;
-	private McqOptionsDTO[] questionOptionsJson;
+	private ManageMcqOptionsDTO[] questionOptionsJson;
 	public String answer;
 	public Integer difficultyLevel;
 
@@ -56,11 +56,11 @@ public class McqDTO {
 		this.solution = solution;
 	}
 
-	public McqOptionsDTO[] getQuestionOptionsJson() {
+	public ManageMcqOptionsDTO[] getQuestionOptionsJson() {
 		return questionOptionsJson;
 	}
 
-	public void setQuestionOptionsJson(McqOptionsDTO[] questionOptionsJson) {
+	public void setQuestionOptionsJson(ManageMcqOptionsDTO[] questionOptionsJson) {
 		this.questionOptionsJson = questionOptionsJson;
 	}
 
