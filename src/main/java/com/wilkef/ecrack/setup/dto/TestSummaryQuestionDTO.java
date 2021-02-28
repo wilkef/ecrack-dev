@@ -11,9 +11,11 @@ public class TestSummaryQuestionDTO {
 	private String questionImg;
 	private QuestionOptionsDTO[] optionList;
 	public String answer;
-	public String answerStatus;
+	public Integer answerStatus;
 	private String solution;
 	public Integer timeTaken;
+	public String selectedOptions;
+	public Boolean isMultiChoice;
 
 	public Long getMcqId() {
 		return mcqId;
@@ -63,11 +65,11 @@ public class TestSummaryQuestionDTO {
 		this.answer = answer;
 	}
 
-	public String getAnswerStatus() {
+	public Integer getAnswerStatus() {
 		return answerStatus;
 	}
 
-	public void setAnswerStatus(String answerStatus) {
+	public void setAnswerStatus(Integer answerStatus) {
 		this.answerStatus = answerStatus;
 	}
 
@@ -87,11 +89,28 @@ public class TestSummaryQuestionDTO {
 		this.timeTaken = timeTaken;
 	}
 
+	public Boolean getIsMultiChoice() {
+		return isMultiChoice;
+	}
+
+	public void setIsMultiChoice(Boolean isMultiChoice) {
+		this.isMultiChoice = isMultiChoice;
+	}
+
+	public String getSelectedOptions() {
+		return selectedOptions;
+	}
+
+	public void setSelectedOptions(String selectedOptions) {
+		this.selectedOptions = selectedOptions;
+	}
+
 	@Override
 	public String toString() {
 		return "TestSummaryQuestionDTO [mcqId=" + mcqId + ", question=" + question + ", questionDesc=" + questionDesc
-				+ ", optionList=" + Arrays.toString(optionList) + ", answer=" + answer + ", answerStatus="
-				+ answerStatus + ", solution=" + solution + ", timeTaken=" + timeTaken + "]";
+				+ ", questionImg=" + questionImg + ", optionList=" + Arrays.toString(optionList) + ", answer=" + answer
+				+ ", answerStatus=" + answerStatus + ", solution=" + solution + ", timeTaken=" + timeTaken
+				+ ", selectedOptions=" + selectedOptions + ", isMultiChoice=" + isMultiChoice + "]";
 	}
 
 }
