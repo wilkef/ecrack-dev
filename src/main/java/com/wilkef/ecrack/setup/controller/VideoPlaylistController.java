@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 import com.wilkef.ecrack.setup.dto.PlaylistDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 import com.wilkef.ecrack.setup.service.VideoPlaylistService;
@@ -38,7 +39,7 @@ public class VideoPlaylistController {
 		LOG.info("video playlist method started...");
 		LOG.log(Level.INFO, () -> "Before geting Subject information based on gradeId : " + gradeId);
 		ResponseEntity<Object> response = null;
-		List<PlaylistDTO> videoList = null;
+		List<LessionListDataDTO> videoList = null;
 
 		try {
 			videoList = videoPlaylistService.fetchVideoPlaylist(gradeId);

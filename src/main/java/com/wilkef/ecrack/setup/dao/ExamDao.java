@@ -49,6 +49,8 @@ public interface ExamDao {
 	 */
 	List<QuizQuestionDTO> getQuestions(Integer lessonId, Integer questionLevel);
 
+	List<QuizQuestionDTO> getQuestionsForPracticeTest(Integer unitId, Integer questionLevel);
+
 	/**
 	 * Gets the student result summary.
 	 *
@@ -64,8 +66,8 @@ public interface ExamDao {
 	 * @return the integer
 	 */
 	Integer saveStudentResult(String result);
-	
+
 	String saveQuizTest(Integer userId, Integer lessonId, Integer difficultyLevel, ArrayList<McqTestItemDto> questions);
-	
+
 	TestSummaryDTO getTestResultSummary(String uniqueId);
 }

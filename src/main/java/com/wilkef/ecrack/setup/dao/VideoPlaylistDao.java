@@ -5,7 +5,7 @@ package com.wilkef.ecrack.setup.dao;
 
 import java.util.List;
 
-import com.wilkef.ecrack.setup.dto.PlaylistDTO;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 
 /**
  * @author Chinmaya.dehury
@@ -14,6 +14,6 @@ import com.wilkef.ecrack.setup.dto.PlaylistDTO;
  *
  */
 public interface VideoPlaylistDao {
-	public List<PlaylistDTO> fetchDBPlaylist(int gradeId);
+	public List<LessionListDataDTO> fetchDBPlaylist(int gradeId);
 
 }

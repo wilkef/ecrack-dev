@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
@@ -52,7 +53,10 @@ public class ExamDaoImpl implements ExamDao {
 	/** The app jdbc template. */
 	@Autowired
 	private JdbcTemplate appJdbcTemplate;
-	
+
+	@Autowired
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
 	@Override
 	public TestSummaryDTO getTestResultSummary(String uniqueId) {
 		TestSummaryDTO testSummary = new TestSummaryDTO();
@@ -79,7 +83,7 @@ public class ExamDaoImpl implements ExamDao {
 			String query = "SELECT q.McqId, q.Question, q.QuestionDesc, q.QuestionImg, q.Solution, q.QuestionOptionsJson, q.Answer, "
 					+ "q.IsMultiChoice, l.AnswerStatusId, l.SelectedOptions "
 					+ "FROM ActivityTestLine l JOIN Mcq q ON(l.QuestionId=q.McqId) WHERE l.ActivityId=? ORDER BY l.ActivityLineId DESC";
-			
+
 			appJdbcTemplate.query(query, new Object[] { testSummary.getActivityId() }, (result, rowNum) -> {
 				TestSummaryQuestionDTO item = new TestSummaryQuestionDTO();
 				item.setMcqId(result.getLong("McqId"));
@@ -96,7 +100,7 @@ public class ExamDaoImpl implements ExamDao {
 				return mcqList;
 			});
 			testSummary.setQuestions(mcqList);
-			
+
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error while fetching exam summary:" + e.getMessage());
 			throw new CustomException("Error while fetching exam summary:" + e.getMessage());
@@ -124,18 +128,17 @@ public class ExamDaoImpl implements ExamDao {
 				appJdbcTemplate.update(query, activityId, mcq.getMcqId(), answerStatusId, mcq.getTimeTaken(),
 						mcq.getIsAttempted(), mcq.getSelectedAnswers());
 			}
-			
-			String updateSql = "UPDATE ActivityTest t SET \r\n" + 
-					"TotalQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId),\r\n" + 
-					"AttendedQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId IN(1, 2)),\r\n" + 
-					"SkippedQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId = 3),\r\n" + 
-					"RightQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId = 1),\r\n" + 
-					"WrongQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId IN(2, 3)),\r\n" + 
-					"TimeExhausted=(SELECT SUM(TimeTaken) FROM ActivityTestLine WHERE ActivityId=t.ActivityId),\r\n" + 
-					"ExamEndTime=NOW()\r\n" + 
-					"WHERE ActivityId = ?";
+
+			String updateSql = "UPDATE ActivityTest t SET \r\n"
+					+ "TotalQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId),\r\n"
+					+ "AttendedQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId IN(1, 2)),\r\n"
+					+ "SkippedQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId = 3),\r\n"
+					+ "RightQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId = 1),\r\n"
+					+ "WrongQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId IN(2, 3)),\r\n"
+					+ "TimeExhausted=(SELECT SUM(TimeTaken) FROM ActivityTestLine WHERE ActivityId=t.ActivityId),\r\n"
+					+ "ExamEndTime=NOW()\r\n" + "WHERE ActivityId = ?";
 			appJdbcTemplate.update(updateSql, activityId);
-			
+
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Some error occured while saving the video:" + e.getMessage());
 			throw new CustomException("Error while saving quiz questions:" + e.getMessage());
@@ -157,8 +160,7 @@ public class ExamDaoImpl implements ExamDao {
 		// Wrong Answer
 		return 2;
 	}
-	
-	
+
 	/**
 	 * Gets the scheduled test.
 	 *
@@ -185,7 +187,7 @@ public class ExamDaoImpl implements ExamDao {
 		return questionTestDTOList;
 
 	}
-	
+
 	/**
 	 * Gets the quiz questions.
 	 *
@@ -200,12 +202,14 @@ public class ExamDaoImpl implements ExamDao {
 		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
 		try {
 			Gson gson = new Gson();
-			Integer limit = (int) appJdbcTemplate.queryForObject("SELECT CASE WHEN NoOfQuestion > 0 THEN NoOfQuestion ELSE 10 END "
-					+ "AS NoOfQuestion FROM `Lesson` WHERE LessonId=?", new Object[] {lessonId}, Integer.class);
-			
+			Integer limit = (int) appJdbcTemplate.queryForObject(
+					"SELECT CASE WHEN NoOfQuestion > 0 THEN NoOfQuestion ELSE 10 END "
+							+ "AS NoOfQuestion FROM `Lesson` WHERE LessonId=?",
+					new Object[] { lessonId }, Integer.class);
+
 			String query = "SELECT McqId, Question, QuestionDesc, QuestionImg, Solution, DifficultyLevel, QuestionOptionsJson, Answer, IsMultiChoice "
 					+ "FROM Mcq WHERE LessonId=? AND DifficultyLevel=? ORDER BY RAND() LIMIT ?";
-			
+
 			appJdbcTemplate.query(query, new Object[] { lessonId, questionLevel, limit }, (result, rowNum) -> {
 				QuizQuestionDTO item = new QuizQuestionDTO();
 				item.setMcqId(result.getString("McqId"));
@@ -251,7 +255,41 @@ public class ExamDaoImpl implements ExamDao {
 		}
 		return testList;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<QuizQuestionDTO> getQuestionsForPracticeTest(Integer unitId, Integer questionLevel) {
+		List<QuizQuestionDTO> quizTestDTOList = new ArrayList<>();
+		try {
+			Gson gson = new Gson();
+			Integer limit = 25;
+			Map namedParameters = new HashMap();
+			namedParameters.put("unitId", unitId);
+			namedParameters.put("questionLevel", questionLevel);
+			namedParameters.put("limit", limit);
+
+			String query = WilkefConstants.QUESTIONS_FOR_PRACTICE_TEST;
+			namedParameterJdbcTemplate.queryForObject(query, namedParameters, (result, rowNum) -> {
+				QuizQuestionDTO item = new QuizQuestionDTO();
+				item.setMcqId(result.getString(1));
+				item.setQuestion(result.getString(2));
+				item.setQuestionDesc(result.getString(3));
+				item.setQuestionImg(result.getString(4));
+				item.setOptionList(gson.fromJson(result.getString(5), QuestionOptionsDTO[].class));
+				item.setDifficultyCode(result.getString(6));
+				item.setUnitId(result.getInt(7));
+				quizTestDTOList.add(item);
+
+				return quizTestDTOList;
+			});
+		} catch (
+
+		Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+		}
+		System.out.println(quizTestDTOList);
+		return quizTestDTOList;
+	}
 
 //	/**
 //	 * Gets the quiz questions.
@@ -285,7 +323,7 @@ public class ExamDaoImpl implements ExamDao {
 //		}
 //		return quizTestDTOList;
 //	}
-	
+
 	/**
 	 * Gets the questions.
 	 *
@@ -308,7 +346,7 @@ public class ExamDaoImpl implements ExamDao {
 				item.setMcqId(result.getString("McqId"));
 				item.setQuestion(result.getString("Question"));
 				item.setQuestionDesc(result.getString("QuestionDesc"));
-				item.setQuestionImg(result.getString("QuestionImg"));				
+				item.setQuestionImg(result.getString("QuestionImg"));
 				item.setOptionList(gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
 				item.setIsMultiChoice(result.getInt("IsMultiChoice") == 1 ? true : false);
 				quizTestDTOList.add(item);

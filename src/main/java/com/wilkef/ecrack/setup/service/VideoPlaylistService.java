@@ -5,7 +5,7 @@ package com.wilkef.ecrack.setup.service;
 
 import java.util.List;
 
-import com.wilkef.ecrack.setup.dto.PlaylistDTO;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 
 /**
  * @author Chinmaya.dehury
@@ -14,6 +14,6 @@ import com.wilkef.ecrack.setup.dto.PlaylistDTO;
  *
  */
 public interface VideoPlaylistService {
-	public List<PlaylistDTO> fetchVideoPlaylist(int gradeId);
+	public List<LessionListDataDTO> fetchVideoPlaylist(int gradeId);
 
 }

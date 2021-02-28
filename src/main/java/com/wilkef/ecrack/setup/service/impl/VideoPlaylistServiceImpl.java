@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wilkef.ecrack.setup.dao.VideoPlaylistDao;
-import com.wilkef.ecrack.setup.dto.PlaylistDTO;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 import com.wilkef.ecrack.setup.service.VideoPlaylistService;
 
 /**
@@ -25,7 +25,7 @@ public class VideoPlaylistServiceImpl implements VideoPlaylistService{
 	private VideoPlaylistDao videoPlaylistDao;
 
 	@Override
-	public List<PlaylistDTO> fetchVideoPlaylist(int gradeId) {
+	public List<LessionListDataDTO> fetchVideoPlaylist(int gradeId) {
 		return videoPlaylistDao.fetchDBPlaylist(gradeId);
 	}
 

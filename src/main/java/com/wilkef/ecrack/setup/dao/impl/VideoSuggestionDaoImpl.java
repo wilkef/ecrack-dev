@@ -16,7 +16,8 @@ import org.springframework.stereotype.Repository;
 
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.VideoSuggestionDao;
-import com.wilkef.ecrack.setup.dto.VideoSuggestion;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
+import com.wilkef.ecrack.setup.dto.LessonDetailsDataDto;
 
 /**
  * @author Satya Nov 1, 2020
@@ -33,17 +34,21 @@ public class VideoSuggestionDaoImpl implements VideoSuggestionDao {
 	private JdbcTemplate appJdbcTemplate;
 
 	@Override
-	public List<VideoSuggestion> videoSuggestion() {
+	public List<LessionListDataDTO> videoSuggestion() {
 
-		List<VideoSuggestion> videoSuggestionList = new ArrayList<>();
-		RowMapper<VideoSuggestion> rowMapper = (ResultSet result, int rowNum) -> {
-			VideoSuggestion videoSuggestion = new VideoSuggestion();
+		List<LessionListDataDTO> videoSuggestionList = new ArrayList<>();
+		RowMapper<LessionListDataDTO> rowMapper = (ResultSet result, int rowNum) -> {
+			LessionListDataDTO videoSuggestion = new LessionListDataDTO();
 			videoSuggestion.setLessonId(result.getInt(1));
 			videoSuggestion.setLessonName(result.getString(2));
-			videoSuggestion.setLessonThumbnail(result.getString(3));
-			videoSuggestion.setLessonUrl(result.getString(4));
-			videoSuggestion.setLessonThumbnailMob(result.getString(5));
-			videoSuggestion.setVideoId(result.getString(6));
+			videoSuggestion.setLessonSerial(result.getInt(3));
+			videoSuggestion.setLessonMark(result.getInt(4));
+			videoSuggestion.setNoOfPeriod(result.getInt(5));
+			videoSuggestion.setNoOfQuestion(result.getInt(6));
+			videoSuggestion.setVideoId(result.getString(7));
+			videoSuggestion.setVideoUrl(result.getString(8));
+			videoSuggestion.setThumbNail(result.getString(9));
+			videoSuggestion.setThumbnailMob(result.getString(10));
 			return videoSuggestion;
 		};
 		try {

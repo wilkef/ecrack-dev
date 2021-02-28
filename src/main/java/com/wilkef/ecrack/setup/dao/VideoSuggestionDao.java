@@ -5,7 +5,7 @@ package com.wilkef.ecrack.setup.dao;
 
 import java.util.List;
 
-import com.wilkef.ecrack.setup.dto.VideoSuggestion;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
 
 /**
  * @author Satya
@@ -13,5 +13,5 @@ import com.wilkef.ecrack.setup.dto.VideoSuggestion;
  */
 public interface VideoSuggestionDao {
 
-	public List<VideoSuggestion> videoSuggestion();
+	public List<LessionListDataDTO> videoSuggestion();
 }

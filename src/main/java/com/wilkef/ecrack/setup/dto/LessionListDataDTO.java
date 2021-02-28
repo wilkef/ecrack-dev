@@ -40,6 +40,22 @@ public class LessionListDataDTO {
 
 	private String thumbNail;
 
+	/**
+	 * @return the thumbnailMob
+	 */
+	public String getThumbnailMob() {
+		return thumbnailMob;
+	}
+
+	/**
+	 * @param thumbnailMob the thumbnailMob to set
+	 */
+	public void setThumbnailMob(String thumbnailMob) {
+		this.thumbnailMob = thumbnailMob;
+	}
+
+	private String thumbnailMob;
+
 	public Integer getLessonId() {
 		return lessonId;
 	}
@@ -125,7 +141,7 @@ public class LessionListDataDTO {
 		return "LessionListDataDTO [lessonId=" + lessonId + ", unitName=" + unitName + ", lessonName=" + lessonName
 				+ ", lessonSerial=" + lessonSerial + ", lessonMark=" + lessonMark + ", noOfPeriod=" + noOfPeriod
 				+ ", noOfQuestion=" + noOfQuestion + ", videoId=" + videoId + ", videoUrl=" + videoUrl + ", thumbNail="
-				+ thumbNail + "]";
+				+ thumbNail + ", thumbnailMob=" + thumbnailMob + "]";
 	}
 
 }

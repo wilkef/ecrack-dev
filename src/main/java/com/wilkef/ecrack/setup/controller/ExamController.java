@@ -58,14 +58,13 @@ public class ExamController {
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
-	
+
 	@Autowired
 	private ValidationDao validationDao;
-	
+
 	@Autowired
 	private HttpServletRequest request;
 
-	
 	/**
 	 * Gets the quiz questions.
 	 *
@@ -82,7 +81,7 @@ public class ExamController {
 		ResponseEntity<Object> response = null;
 		List<QuizQuestionDTO> questionTestDTOList = new ArrayList<>();
 		try {
-			questionTestDTOList = examDao.getQuizQuestions(lessonId, questionLevel);			
+			questionTestDTOList = examDao.getQuizQuestions(lessonId, questionLevel);
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.apiResponse(Boolean.TRUE, questionTestDTOList));
 		} catch (Exception e) {
@@ -93,7 +92,7 @@ public class ExamController {
 		LOG.info("END Controller getQuizQuestions");
 		return response;
 	}
-	
+
 	/**
 	 * Gets the questions.
 	 *
@@ -121,7 +120,34 @@ public class ExamController {
 		LOG.info("END-Inside getQuestions");
 		return response;
 	}
-	
+
+	/*
+	 * Get questions for Practice test based on Unit Id and level.
+	 * 
+	 * 
+	 * 
+	 */
+	@GetMapping(value = "questionsForPracticeTest/{unitId}/{questionLevel}")
+	public ResponseEntity<Object> getQuestionsForPraticeTest(@Valid @PathVariable Integer unitId,
+			@Valid @PathVariable Integer questionLevel) {
+		LOG.info("START-Inside getQuestions");
+		LOG.log(Level.INFO, () -> " getQuestions Inputs noOfQuestion: " + unitId);
+		LOG.log(Level.INFO, () -> " getQuestions Inputs questionLevel: " + questionLevel);
+		ResponseEntity<Object> response = null;
+		List<QuizQuestionDTO> questionTestDTOList = new ArrayList<>();
+		try {
+			questionTestDTOList = examDao.getQuestionsForPracticeTest(unitId, questionLevel);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, questionTestDTOList));
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
+		LOG.info("END-Inside getQuestions for Practice Test");
+		return response;
+	}
+
 	/**
 	 * Scheduled test.
 	 *
@@ -129,11 +155,11 @@ public class ExamController {
 	 * @return the response entity
 	 */
 	@GetMapping(value = "/getPracticeTests}")
-	public ResponseEntity<Object> getPracticeTests() {		
+	public ResponseEntity<Object> getPracticeTests() {
 		LOG.log(Level.INFO, () -> "START Controller getPracticeTests");
 		ResponseEntity<Object> response = null;
 		List<QuizTestDTO> questionTestDTOList = new ArrayList<>();
-		try {			
+		try {
 			questionTestDTOList = examDao.getScheduledTest(111);
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.apiResponse(Boolean.TRUE, questionTestDTOList));
@@ -144,7 +170,7 @@ public class ExamController {
 		LOG.log(Level.INFO, () -> "END Controller getPracticeTests");
 		return response;
 	}
-	
+
 	/**
 	 * Scheduled test.
 	 *
@@ -169,7 +195,7 @@ public class ExamController {
 		LOG.info("END-Inside scheduledTest");
 		return response;
 	}
-	
+
 	@PostMapping(value = "/saveQuizTest/{lessonId}/{difficultyLevel}")
 	public ResponseEntity<Object> saveQuizTest(@PathVariable Integer lessonId, @PathVariable Integer difficultyLevel,
 			@Valid @RequestBody ArrayList<McqTestItemDto> questions) {
@@ -178,7 +204,8 @@ public class ExamController {
 		LOG.log(Level.INFO, () -> " saveQuizTest Inputs: " + difficultyLevel);
 		LOG.log(Level.INFO, () -> " saveQuizTest Inputs: " + questions);
 
-		LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(request.getHeader(WilkefConstants.AUTH_HEADER));
+		LoggedinUserInfo loggedinUserInfo = validationDao
+				.getLoggedinUserInfo(request.getHeader(WilkefConstants.AUTH_HEADER));
 
 		ResponseEntity<Object> response = null;
 		try {
@@ -193,7 +220,7 @@ public class ExamController {
 		LOG.info("END-Inside saveQuizTest");
 		return response;
 	}
-	
+
 	@GetMapping(value = "testSummary/{uniqueId}")
 	public ResponseEntity<Object> testSummary(@PathVariable String uniqueId) {
 		LOG.info("START-Inside testSummary");
@@ -260,7 +287,6 @@ public class ExamController {
 //		LOG.info("END-Inside getQuizQuestions");
 //		return response;
 //	}
-	
 
 	/**
 	 * Gets the student result summary.
@@ -284,8 +310,7 @@ public class ExamController {
 		LOG.info("END-Inside getStudentResultSummary");
 		return response;
 	}
-	
-	
+
 	/**
 	 * Save student result.
 	 *

@@ -12,7 +12,24 @@ public class QuizQuestionDTO {
 	private String solution;
 	private String difficultyCode;
 	private String answer;
+
 	private Boolean isMultiChoice;
+
+	private int unitId;
+
+	/**
+	 * @return the unitId
+	 */
+	public int getUnitId() {
+		return unitId;
+	}
+
+	/**
+	 * @param unitId the unitId to set
+	 */
+	public void setUnitId(int unitId) {
+		this.unitId = unitId;
+	}
 
 	public String getMcqId() {
 		return mcqId;
@@ -91,7 +108,7 @@ public class QuizQuestionDTO {
 		return "QuizQuestionDTO [mcqId=" + mcqId + ", question=" + question + ", questionDesc=" + questionDesc
 				+ ", questionImg=" + questionImg + ", optionList=" + Arrays.toString(optionList) + ", solution="
 				+ solution + ", difficultyCode=" + difficultyCode + ", answer=" + answer + ", isMultiChoice="
-				+ isMultiChoice + "]";
+				+ isMultiChoice + ", unitId=" + unitId + "]";
 	}
 
 }

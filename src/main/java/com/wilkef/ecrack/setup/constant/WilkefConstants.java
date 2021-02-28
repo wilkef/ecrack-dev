@@ -106,7 +106,8 @@ public final class WilkefConstants {
 			+ "CONCAT(FirstName, ' ', COALESCE(MiddleName,''), ' ', COALESCE(LastName, '')) as Name, e.GradeId  "
 			+ "FROM User u INNER JOIN StudentEnv e ON(u.userid = e.UserId) WHERE u.MobileNumber=?";
 
-	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.VideoUrl,l.LessonThumbnail,l.LessonThumbnail_Mob, l.videoId "
+	public static final String VIDEO_SUGGESTION = "SELECT l.LessonId,l.LessonName,l.LessonSerial,l.LessonMark,l.NoOfPeriod,l.NoOfQuestion,l.VideoId,"
+			+ "l.VideoUrl,l.LessonThumbnail thumbnail,l.LessonThumbnail_Mob thumbnailMob "
 			+ "FROM WatchedVideo w INNER JOIN Lesson l ON(w.LessonId=l.LessonId) GROUP BY w.LessonId";
 
 	public static final String LESSON_DETAILS = "SELECT s.SubjectName,s.SubjectId,u.UnitId, u.UnitName, l.LessonName, l.VideoUrl, l.LessonThumbnail, f.FavoriteVideoId "
@@ -143,8 +144,41 @@ public final class WilkefConstants {
 	public static final String FAVORITE_VIDEO_LIST = "SELECT f.FavoriteVideoId, f.UserId, l.LessonId, l.LessonName, l.LessonThumbnail, l.VideoUrl "
 			+ "FROM FavoriteVideo f INNER JOIN Lesson l ON(f.LessonId = l.LessonId) WHERE f.UserId=? ORDER BY f.FavoriteVideoId DESC";
 
-	public static final String VIDEO_PLAY_LIST = "SELECT l.LessonName, l.VideoId, s.SubjectName, l.LessonThumbnail, l.LessonThumbnail_Mob, u.UnitName FROM Grade g INNER JOIN Subject s \n"
-			+ "ON g.GradeId = s.GradeId\n" + "INNER JOIN Unit u\n" + "ON s.SubjectId = u.SubjectId\n"
-			+ "INNER JOIN Lesson l\n" + "ON u.UnitId = l.UnitId\n" + "WHERE g.GradeId = ?\n" + "AND l.IsActive = 1\n"
-			+ "ORDER BY s.SubjectId, u.UnitId, l.LessonId;";
+	public static final String VIDEO_PLAY_LIST = "SELECT l.LessonId,l.LessonName,l.LessonSerial,u.UnitName,l.LessonMark,l.NoOfPeriod,l.NoOfQuestion,l.VideoId,"
+			+ "l.VideoUrl,l.LessonThumbnail thumbnail,l.LessonThumbnail_Mob thumbnailMob "
+			+ " FROM Grade g INNER JOIN Subject s \n" + "ON g.GradeId = s.GradeId\n" + "INNER JOIN Unit u\n"
+			+ "ON s.SubjectId = u.SubjectId\n" + "INNER JOIN Lesson l\n" + "ON u.UnitId = l.UnitId\n"
+			+ "WHERE g.GradeId = ?\n" + "AND l.IsActive = 1\n" + "ORDER BY s.SubjectId, u.UnitId, l.LessonId;";
+	
+	public static final String QUESTIONS_FOR_PRACTICE_TEST = "(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n" + 
+			"l.UnitId from Mcq m\n" + 
+			"INNER JOIN \n" + 
+			"Lesson l\n" + 
+			"on m.LessonId = l.LessonId\n" + 
+			"where l.UnitId = :unitId\n" + 
+			"AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 1 ELSE :questionLevel END)\n" + 
+			"ORDER BY RAND()\n" + 
+			"limit :limit)\n" + 
+			"UNION \n" + 
+			"(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n" + 
+			"l.UnitId from Mcq m\n" + 
+			"INNER JOIN \n" + 
+			"Lesson l\n" + 
+			"on m.LessonId = l.LessonId\n" + 
+			"where l.UnitId = :unitId\n" + 
+			"AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 2 ELSE :questionLevel END)\n" + 
+			"ORDER BY RAND()\n" + 
+			"limit :limit)\n" + 
+			"UNION\n" + 
+			"(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n" + 
+			"l.UnitId from Mcq m\n" + 
+			"INNER JOIN \n" + 
+			"Lesson l\n" + 
+			"on m.LessonId = l.LessonId\n" + 
+			"where l.UnitId = :unitId\n" + 
+			"AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 3 ELSE :questionLevel END)\n" + 
+			"ORDER BY RAND()\n" + 
+			"limit :limit\n" + 
+			") \n" + 
+			"ORDER BY RAND()";
 }

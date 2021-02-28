@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dao.VideoSuggestionDao;
-import com.wilkef.ecrack.setup.dto.VideoSuggestion;
+import com.wilkef.ecrack.setup.dto.LessionListDataDTO;
+import com.wilkef.ecrack.setup.dto.LessonDetailsDataDto;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
 
 /**
@@ -37,7 +38,7 @@ public class VideoSuggestionController {
 	public ResponseEntity<Object> getVideoSuggestion() {
 		LOG.info("START-Inside VideoSuggestion");
 		ResponseEntity<Object> response = null;
-		List<VideoSuggestion> videoSuggestionList = null;
+		List<LessionListDataDTO> videoSuggestionList = null;
 
 		LOG.info("Inside VideoSuggestion Controller");
 		try {
