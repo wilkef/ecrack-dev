@@ -59,7 +59,7 @@ public class ExamDaoImpl implements ExamDao {
 		try {
 			String sql = "SELECT a.ActivityId, l.LessonName, a.UserId, a.UniqueId, a.LessonId, a.DifficultyLevel, a.TotalQuestion,"
 					+ " a.RightQuestion, a.WrongQuestion, a.TimeExhausted  FROM `ActivityTest` a "
-					+ "LEFT JOIN Lesson l ON(a.LessonId = l.LessonId) WHERE a.UniqueId=? limit 5";
+					+ "LEFT JOIN Lesson l ON(a.LessonId = l.LessonId) WHERE a.UniqueId=?";
 			appJdbcTemplate.queryForObject(sql, new Object[] { uniqueId }, (rs, rowNum) -> {
 				testSummary.setActivityId(rs.getInt("ActivityId"));
 				testSummary.setUserId(rs.getInt("UserId"));
@@ -119,10 +119,10 @@ public class ExamDaoImpl implements ExamDao {
 			// Save to `ActivityTestLine` table
 			for (McqTestItemDto mcq : mcqList) {
 				String query = "INSERT INTO `ActivityTestLine` (`ActivityId`, `QuestionId`, `AnswerStatusId`, `TimeTaken`, "
-						+ "`IsAttempted`) VALUES (?, ?, ?, ?, ?)";
+						+ "`IsAttempted`, `SelectedOptions`) VALUES (?, ?, ?, ?, ?, ?)";
 				Integer answerStatusId = getAnswerStatus(mcq.getMcqId(), mcq.getSelectedAnswers());
 				appJdbcTemplate.update(query, activityId, mcq.getMcqId(), answerStatusId, mcq.getTimeTaken(),
-						mcq.getIsAttempted());
+						mcq.getIsAttempted(), mcq.getSelectedAnswers());
 			}
 			
 			String updateSql = "UPDATE ActivityTest t SET \r\n" + 
@@ -133,7 +133,7 @@ public class ExamDaoImpl implements ExamDao {
 					"WrongQuestion=(SELECT COUNT(*) FROM ActivityTestLine WHERE ActivityId=t.ActivityId AND AnswerStatusId IN(2, 3)),\r\n" + 
 					"TimeExhausted=(SELECT SUM(TimeTaken) FROM ActivityTestLine WHERE ActivityId=t.ActivityId),\r\n" + 
 					"ExamEndTime=NOW()\r\n" + 
-					"WHERE ActivityId = 1436";
+					"WHERE ActivityId = ?";
 			appJdbcTemplate.update(updateSql, activityId);
 			
 		} catch (Exception e) {
