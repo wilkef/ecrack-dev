@@ -3,6 +3,7 @@
  */
 package com.wilkef.ecrack.setup.dao.impl;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,12 @@ import com.wilkef.ecrack.setup.dao.InquiryDao;
 import com.wilkef.ecrack.setup.dto.InquiryDataDto;
 
 /**
- * @author Satya
- *Dec 2, 2020
+ * @author Satya Dec 2, 2020
  */
 
 @Repository
-public class InquiryDaoImpl implements InquiryDao{
-	
-	
+public class InquiryDaoImpl implements InquiryDao {
+
 	/** The Constant LOG. */
 	public static final Logger LOG = Logger.getLogger(InquiryDaoImpl.class.getName());
 
@@ -30,8 +29,14 @@ public class InquiryDaoImpl implements InquiryDao{
 
 	@Override
 	public Integer saveInquiry(InquiryDataDto inquiry) {
-		String sql = "insert into Inquiry values(?,?,?,?,?)";
-		return appJdbcTemplate.update(sql, inquiry.getInquiryId(), inquiry.getName(), inquiry.getPhoneNumber(),
-				inquiry.getEmail(), inquiry.getMessage());
+		try {
+			String sql = "INSERT INTO `Inquiry` (`Name`, `PhoneNumber`, `Email`, `Subject`, `Message`, `CreatedAt`)\r\n"
+					+ "VALUES (?, ?, ?, ?, ?, NOW())";
+			return appJdbcTemplate.update(sql, inquiry.getName(), inquiry.getPhone(), inquiry.getEmail(),
+					inquiry.getSubject(), inquiry.getMessage());
+		} catch (Exception e) {
+			LOG.log(Level.INFO, () -> "Error in DAO" + e.getMessage());
+			return 0;
+		}
 	}
 }
