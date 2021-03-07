@@ -30,8 +30,8 @@ public class ManageUnitDaoImpl implements ManageUnitDao {
 		List<HashMap> list = new ArrayList<>();
 		LOG.log(Level.INFO, () -> "Start getUnitList DAO");
 		try {
-			String query = "SELECT u.UnitId, u.UnitName, u.MaxMark, u.NoOfPeriod, u.IsActive, s.UnitName FROM Unit u "
-					+ "JOIN Unit s ON(s.UnitId=u.UnitId) WHERE u.UnitId=? ORDER BY u.UnitSerial ASC";
+			String query = "SELECT u.UnitId, u.UnitName, u.MaxMark, u.NoOfPeriod, u.IsActive, s.SubjectName FROM Unit u "
+					+ "JOIN Subject s ON(u.SubjectId=s.SubjectId) WHERE u.SubjectId=? ORDER BY u.UnitSerial ASC";
 			appJdbcTemplate.query(query, new Object[] { UnitId }, (result, rowNum) -> {
 				HashMap item = new HashMap<>();
 				item.put("unitId", result.getInt("UnitId"));
@@ -39,7 +39,7 @@ public class ManageUnitDaoImpl implements ManageUnitDao {
 				item.put("maxMark", result.getInt("MaxMark"));
 				item.put("noOfPeriod", result.getInt("NoOfPeriod"));
 				item.put("isActive", result.getInt("IsActive") > 0 ? true : false);
-				item.put("UnitName", result.getString("UnitName"));
+				item.put("subjectName", result.getString("SubjectName"));
 				list.add(item);
 				return list;
 			});
