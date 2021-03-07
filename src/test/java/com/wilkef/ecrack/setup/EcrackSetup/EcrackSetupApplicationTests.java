@@ -167,28 +167,28 @@ public class EcrackSetupApplicationTests {
 	/**
 	 * Test quizQuestions test.
 	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void quizQuestionsTest() {
-		List<QuizQuestionDTO> quizQuestionList = new ArrayList<>();
-		QuizQuestionDTO quizQuestion = new QuizQuestionDTO();
-		quizQuestion.setDifficultyCode("Easy");
-		quizQuestion.setLessonId("1");
-		quizQuestion.setLessonName("");
-		quizQuestion.setMcqId("1");
-		quizQuestion.setOptionList("satya");
-		quizQuestion.setQuestion("what is Exception");
-		quizQuestion.setQuestionDesc("i want answer");
-		quizQuestion.setQuestionImg("satya");
-		quizQuestion.setSolution("ok");
-
-		quizQuestionList.add(quizQuestion);
-		Integer lessonId =1;
-		Integer noOfQuestion =10;
-		Integer questionLevel =2;
-		Mockito.when(examDao.getQuizQuestions(lessonId, noOfQuestion, questionLevel)).thenReturn(quizQuestionList);
-		assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuizQuestions(lessonId, noOfQuestion, questionLevel).getBody()).size());
-	}
+//	@SuppressWarnings("unchecked")
+//	@Test
+//	public void quizQuestionsTest() {
+//		List<QuizQuestionDTO> quizQuestionList = new ArrayList<>();
+//		QuizQuestionDTO quizQuestion = new QuizQuestionDTO();
+//		quizQuestion.setDifficultyCode("Easy");
+//		quizQuestion.setLessonId("1");
+//		quizQuestion.setLessonName("");
+//		quizQuestion.setMcqId("1");
+//		quizQuestion.setOptionList("satya");
+//		quizQuestion.setQuestion("what is Exception");
+//		quizQuestion.setQuestionDesc("i want answer");
+//		quizQuestion.setQuestionImg("satya");
+//		quizQuestion.setSolution("ok");
+//
+//		quizQuestionList.add(quizQuestion);
+//		Integer lessonId =1;
+//		Integer noOfQuestion =10;
+//		Integer questionLevel =2;
+//		Mockito.when(examDao.getQuizQuestions(lessonId, noOfQuestion, questionLevel)).thenReturn(quizQuestionList);
+//		assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuizQuestions(lessonId, noOfQuestion, questionLevel).getBody()).size());
+//	}
 
 	/**
 	 * This Test Method to Identify getQuestions TestCase Method
@@ -197,29 +197,29 @@ public class EcrackSetupApplicationTests {
 	/**
 	 * Test getQuestions test.
 	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	public void getQuestionsTest() {
-		List<QuizQuestionDTO> getQuestionList = new ArrayList<>();
-		QuizQuestionDTO getQuestion = new QuizQuestionDTO();
-		getQuestion.setDifficultyCode("Easy");
-		getQuestion.setLessonId("1");
-		getQuestion.setLessonName("Real Numbers  (15 Periods)");
-		getQuestion.setMcqId("1");
-		getQuestion.setOptionList("1");
-		getQuestion.setQuestion("what is Exception");
-		getQuestion.setQuestionDesc("Details about question");
-		getQuestion.setQuestionImg("No");
-		getQuestion.setSolution("ok");
-
-		getQuestionList.add(getQuestion);
-		Integer lessonId =1;
-		Integer noOfQuestion =10;
-		Integer questionLevel =2;
-
-		Mockito.when(examDao.getQuestions(lessonId, noOfQuestion, questionLevel)).thenReturn(getQuestionList);
-		assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuestions(lessonId, noOfQuestion, questionLevel).getBody()).size());
-	}
+//	@SuppressWarnings("unchecked")
+//	@Test
+//	public void getQuestionsTest() {
+//		List<QuizQuestionDTO> getQuestionList = new ArrayList<>();
+//		QuizQuestionDTO getQuestion = new QuizQuestionDTO();
+//		getQuestion.setDifficultyCode("Easy");
+//		getQuestion.setLessonId("1");
+//		getQuestion.setLessonName("Real Numbers  (15 Periods)");
+//		getQuestion.setMcqId("1");
+//		getQuestion.setOptionList("1");
+//		getQuestion.setQuestion("what is Exception");
+//		getQuestion.setQuestionDesc("Details about question");
+//		getQuestion.setQuestionImg("No");
+//		getQuestion.setSolution("ok");
+//
+//		getQuestionList.add(getQuestion);
+//		Integer lessonId =1;
+//		Integer noOfQuestion =10;
+//		Integer questionLevel =2;
+//
+//		Mockito.when(examDao.getQuestions(lessonId, noOfQuestion, questionLevel)).thenReturn(getQuestionList);
+//		assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuestions(lessonId, noOfQuestion, questionLevel).getBody()).size());
+//	}
 
 
 	/**

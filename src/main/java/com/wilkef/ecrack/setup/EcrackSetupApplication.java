@@ -118,6 +118,7 @@ public class EcrackSetupApplication {
 					.antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
 					.antMatchers(HttpMethod.POST, "/user/getMobAuthToken").permitAll()
 					.antMatchers(HttpMethod.GET, "/user/getSessionData").permitAll()
+					.antMatchers(HttpMethod.GET, "/user/inquiry").permitAll()
 					.antMatchers(HttpMethod.GET, "/getInstructors").permitAll()
 					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated();
 		}
