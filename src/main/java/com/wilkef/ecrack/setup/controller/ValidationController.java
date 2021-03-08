@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
+import com.wilkef.ecrack.setup.dto.SMSResponseDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
@@ -52,7 +53,7 @@ public class ValidationController {
 	/** The service output. */
 	@Autowired
 	private ServiceOutputTransformer serviceOutput;
-	
+
 	@Autowired
 	private RegistrationService registrationService;
 
@@ -183,23 +184,43 @@ public class ValidationController {
 		}
 		return response;
 	}
-	
+
 	@PostMapping(value = "/SendOTP/{mobileNo}")
 	public ResponseEntity<Object> sendOTP(@Valid @PathVariable("mobileNo") String mobileNo) {
-		LOG.info("START-Inside sendOTP");
-		LOG.log(Level.INFO, () -> "sendOTP Inputs mobileNumber: " + mobileNo);
+		/*
+		 * LOG.info("START-Inside sendOTP"); LOG.log(Level.INFO, () ->
+		 * "sendOTP Inputs mobileNumber: " + mobileNo); ResponseEntity<Object> response
+		 * = null; List<ValidationDTO> validDto = new ArrayList<>(); try {
+		 * LOG.log(Level.INFO, () -> "Before geting sendOTP information "); validDto =
+		 * validationDao.saveOtp(mobileNo); if (!validDto.isEmpty()) { response =
+		 * ResponseEntity.status(HttpStatus.OK).contentType(MediaType.
+		 * APPLICATION_JSON_UTF8)
+		 * .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true)); } else
+		 * { response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.
+		 * APPLICATION_JSON_UTF8)
+		 * .body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false)); } }
+		 * catch (Exception e) { LOG.log(Level.SEVERE, () ->
+		 * ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage()); return new
+		 * CustomExceptionHandler().handleAllExceptions(e); }
+		 * LOG.info("END-Inside sendOTP"); return response;
+		 */
+
+		LOG.info("START-Inside sendSMSOTP");
+		LOG.log(Level.INFO, () -> "sendSMSOTP Inputs mobileNumber: " + mobileNo);
 		ResponseEntity<Object> response = null;
-		List<ValidationDTO> validDto = new ArrayList<>();
+		SMSResponseDTO validDto = null;
 		try {
-			LOG.log(Level.INFO, () -> "Before geting sendOTP information ");
-			validDto = validationDao.saveOtp(mobileNo);
-			if (!validDto.isEmpty()) {
+			LOG.log(Level.INFO, () -> "Before geting sendSMSOTP information ");
+			validDto = validationDao.saveSMS(mobileNo);
+			System.out.println(validDto);
+			if ("Success".equals(validDto.getStatus())) {
 				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
 			} else {
 				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
 			}
+
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
 			return new CustomExceptionHandler().handleAllExceptions(e);
@@ -207,6 +228,31 @@ public class ValidationController {
 		LOG.info("END-Inside sendOTP");
 		return response;
 	}
+
+//	@PostMapping(value = "/SendSMSOTP/{mobileNo}")
+//	public ResponseEntity<Object> sendSMSOTP(@Valid @PathVariable("mobileNo") String mobileNo) {
+//		LOG.info("START-Inside sendSMSOTP");
+//		LOG.log(Level.INFO, () -> "sendSMSOTP Inputs mobileNumber: " + mobileNo);
+//		ResponseEntity<Object> response = null;
+//		SMSResponseDTO validDto = null;
+//		try {
+//			LOG.log(Level.INFO, () -> "Before geting sendSMSOTP information ");
+//			validDto = validationDao.saveSMS(mobileNo);
+//			if ("Success".equals(validDto.getStatus())) {
+//				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+//						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, true));
+//			} else {
+//				response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+//						.body(serviceOutput.responseOutput(ErrorConstants.IS_SUCCESS, false));
+//			}
+//
+//		} catch (Exception e) {
+//			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+//			return new CustomExceptionHandler().handleAllExceptions(e);
+//		}
+//		LOG.info("END-Inside sendOTP");
+//		return response;
+//	}
 
 	/**
 	 * Verify otp.

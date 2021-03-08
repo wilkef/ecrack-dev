@@ -112,15 +112,15 @@ public class EcrackSetupApplication {
 							PublicApiConstant.GET_BOARD, PublicApiConstant.GET_VALID_EMAIL_ID,
 							PublicApiConstant.GET_VALIDATE_LOGIN, PublicApiConstant.GET_VALIDMOBILE_NO,
 							PublicApiConstant.GET_SEND_OTP, PublicApiConstant.GET_VERIFY_OTP,
-							PublicApiConstant.GET_GRADE_INFO, PublicApiConstant.FORGOT_PWD,
-							PublicApiConstant.FORGOT_PWD_VERIFY_OTP, PublicApiConstant.RESET_PASSWORD)
-					.permitAll()
-					.antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
+							PublicApiConstant.GET_SMS_OTP, PublicApiConstant.GET_GRADE_INFO,
+							PublicApiConstant.FORGOT_PWD, PublicApiConstant.FORGOT_PWD_VERIFY_OTP,
+							PublicApiConstant.RESET_PASSWORD)
+					.permitAll().antMatchers(HttpMethod.POST, "/user/getAuthToken").permitAll()
 					.antMatchers(HttpMethod.POST, "/user/getMobAuthToken").permitAll()
 					.antMatchers(HttpMethod.GET, "/user/getSessionData").permitAll()
 					.antMatchers(HttpMethod.GET, "/user/inquiry").permitAll()
-					.antMatchers(HttpMethod.GET, "/getInstructors").permitAll()
-					.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated();
+					.antMatchers(HttpMethod.GET, "/getInstructors").permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
+					.permitAll().anyRequest().authenticated();
 		}
 
 		@Override

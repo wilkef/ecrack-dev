@@ -5,7 +5,7 @@
  *         related to validation of personal Information
  *
  */
- 
+
 package com.wilkef.ecrack.setup.dao;
 
 import java.util.List;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wilkef.ecrack.setup.dto.AuthDataDTO;
 import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
+import com.wilkef.ecrack.setup.dto.SMSResponseDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 
 /**
@@ -37,7 +38,7 @@ public interface ValidationDao {
 	 * @return the list
 	 */
 	List<ValidationDTO> validateMobileNo(String mobileNo);
-	
+
 	/**
 	 * Save otp.
 	 *
@@ -46,38 +47,39 @@ public interface ValidationDao {
 	 */
 	List<ValidationDTO> saveOtp(String mobileNo);
 
+	SMSResponseDTO saveSMS(String mobileNo);
+
 	/**
 	 * Verify otp.
 	 *
-	 * @param otp the otp
+	 * @param otp      the otp
 	 * @param mobileNo the mobile no
 	 * @return the list
 	 */
 	String verifyOtp(String otp, String mobileNo);
 
-    List<ValidationDTO> validateCredentials( String input);
+	List<ValidationDTO> validateCredentials(String input);
 
 	Boolean validateUserLogin(String username, String password);
-	
+
 	boolean setLoginStatus(int status, String input);
-	
+
 	/**
 	 * Get Loggedin User Data
 	 *
 	 * @param mobileNo the mobile no
 	 * @return AuthDataDTO
 	 */
-	AuthDataDTO getAuthData(String token); 
-	
+	AuthDataDTO getAuthData(String token);
+
 	/**
 	 * Get Loggedin User Data
 	 *
 	 * @param token
 	 * @return AuthDataDTO
 	 */
-	LoggedinUserInfo getLoggedinUserInfo(String token); 
-	
-	
+	LoggedinUserInfo getLoggedinUserInfo(String token);
+
 	/**
 	 * Check if current password is correct
 	 *
@@ -86,5 +88,5 @@ public interface ValidationDao {
 	 * @return boolean
 	 */
 	boolean validateCurrentPassword(String currentPassword, Integer userId);
-	
+
 }

@@ -30,6 +30,8 @@ public class PublicApiConstant {
 
 	public static final String GET_SEND_OTP = "/user/SendOTP/{mobileNo}";
 	
+	public static final String GET_SMS_OTP = "/user/SendSMSOTP/{mobileNo}";
+	
 	public static final String GET_GRADE_INFO = "/grade/gradeInfo/{boardId}";
 
 	public static final String FORGOT_PWD = "/user/forgotPassword/{mobileNo}";

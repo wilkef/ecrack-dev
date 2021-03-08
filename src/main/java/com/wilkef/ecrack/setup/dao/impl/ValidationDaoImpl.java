@@ -14,9 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.ResultSet;
+import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -30,19 +29,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.wilkef.ecrack.setup.constant.ErrorConstants;
 import com.wilkef.ecrack.setup.constant.WilkefConstants;
 import com.wilkef.ecrack.setup.dao.ValidationDao;
 import com.wilkef.ecrack.setup.dto.AuthDataDTO;
 import com.wilkef.ecrack.setup.dto.LoggedinUserInfo;
-import com.wilkef.ecrack.setup.dto.UnitDataDTO;
+import com.wilkef.ecrack.setup.dto.SMSResponseDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.CustomException;
 
@@ -262,10 +261,9 @@ public class ValidationDaoImpl implements ValidationDao {
 		AuthDataDTO authData = new AuthDataDTO();
 		try {
 			token = token.replace(WilkefConstants.AUTH_HEADER_PREFIX, "");
-			Jws<Claims> res = Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes())
-					.parseClaimsJws(token);
+			Jws<Claims> res = Jwts.parser().setSigningKey(WilkefConstants.JWT_SECRET.getBytes()).parseClaimsJws(token);
 			String mobileNumber = res.getBody().getSubject().toString();
-			
+
 			String sql = WilkefConstants.TOKEN_RETURN;
 			appJdbcTemplate.queryForObject(sql, new Object[] { mobileNumber }, (rs, rowNum) -> {
 				authData.setMobileNumber(rs.getString("MobileNumber"));
@@ -329,5 +327,45 @@ public class ValidationDaoImpl implements ValidationDao {
 		}
 		LOG.log(Level.INFO, "End validateCurrentPassword DAO");
 		return validCurrentPassword;
+	}
+
+	@Override
+	public SMSResponseDTO saveSMS(String mobileNo) {
+		SMSResponseDTO smsResponse = null;
+
+		final StringBuilder stringBuffer = new StringBuilder();
+		String smsKey = env.getProperty("app.sms.otp.key");
+		try {
+			Random num = SecureRandom.getInstanceStrong();
+			String samplOtp = String.valueOf(num.nextInt((999999 - 100000) + 1) + 100000);
+			String data = smsKey + "/SMS/+91" + mobileNo + "/" + samplOtp;
+			HttpURLConnection conn = (HttpURLConnection) new URL(env.getProperty("app.sms.otp.url") + data)
+					.openConnection();
+			conn.setDoOutput(true);
+
+			final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String line;
+			while ((line = rd.readLine()) != null) {
+				stringBuffer.append(line);
+			}
+			rd.close();
+			JSONObject obj = new JSONObject(stringBuffer.toString());
+			if (!obj.isEmpty() && obj.has("Status") && obj.opt("Status").toString().equals("Success")) {
+				SqlParameterSource in = new MapSqlParameterSource().addValue("p_mobileNo", mobileNo).addValue("p_otp",
+						samplOtp);
+				SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(appJdbcTemplate)
+						.withProcedureName(WilkefConstants.SAVE_OTP).returningResultSet("ValidotpResultSet",
+								BeanPropertyRowMapper.newInstance(ValidationDTO.class));
+				Map<String, Object> execute = simpleJdbcCall.execute(in);
+				execute.get("ValidotpResultSet");
+			}
+
+			Gson gson = new Gson();
+			smsResponse = gson.fromJson(stringBuffer.toString(), SMSResponseDTO.class);
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+		}
+		return smsResponse;
 	}
 }

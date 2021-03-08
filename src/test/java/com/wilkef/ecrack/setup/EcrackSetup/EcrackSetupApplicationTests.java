@@ -4,7 +4,6 @@
  */
 package com.wilkef.ecrack.setup.EcrackSetup;
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -34,7 +33,6 @@ import com.wilkef.ecrack.setup.dto.TestTypeListDataDTO;
 import com.wilkef.ecrack.setup.dto.ValidationDTO;
 import com.wilkef.ecrack.setup.exception.ErrorResponse;
 
-
 /**
  * The Class EcrackSetupApplicationTests.
  */
@@ -50,13 +48,14 @@ public class EcrackSetupApplicationTests {
 
 	@Test
 	public void testValidEmail() {
-		String input="{\"EmailId\":\"rajni88@gmail.com\"}";
-		List<ValidationDTO> validList=new ArrayList<>();
-		ValidationDTO obj=new ValidationDTO();
+		String input = "{\"EmailId\":\"rajni88@gmail.com\"}";
+		List<ValidationDTO> validList = new ArrayList<>();
+		ValidationDTO obj = new ValidationDTO();
 		obj.setP_isValidEmailId(1);
 		validList.add(obj);
 		Mockito.when(validationDao.validateEmail(input)).thenReturn(validList);
-		//assertEquals(0, ((ErrorResponse) validationController.validateEmailId(input).getBody()));
+		// assertEquals(0, ((ErrorResponse)
+		// validationController.validateEmailId(input).getBody()));
 	}
 
 	/** The answer status controller. */
@@ -74,13 +73,13 @@ public class EcrackSetupApplicationTests {
 	@Test
 	public void testAnswerTest() {
 
-		List<AnswerStatusDataDTO> list =new ArrayList<>();
-		AnswerStatusDataDTO obj=new AnswerStatusDataDTO();
+		List<AnswerStatusDataDTO> list = new ArrayList<>();
+		AnswerStatusDataDTO obj = new AnswerStatusDataDTO();
 		obj.setAnswerStatusId(1);
 		obj.setStatus("PASS");
 		list.add(obj);
 		Mockito.when(answerStatusDao.findAllAnswerStatus()).thenReturn(list);
-		assertEquals(1, ((List<AnswerStatusDataDTO>)answerStatusController.findAllTestTypeList().getBody()).size());
+		assertEquals(1, ((List<AnswerStatusDataDTO>) answerStatusController.findAllTestTypeList().getBody()).size());
 	}
 
 	/**
@@ -102,9 +101,9 @@ public class EcrackSetupApplicationTests {
 	@Test
 	public void testTypeTest() {
 
-		List<TestTypeListDataDTO> testTypeList =new ArrayList<>();
+		List<TestTypeListDataDTO> testTypeList = new ArrayList<>();
 
-		TestTypeListDataDTO testType =new TestTypeListDataDTO();
+		TestTypeListDataDTO testType = new TestTypeListDataDTO();
 		testType.setIsActive(1);
 		testType.setNoOfQuestion(20);
 		testType.setTestTime("12");
@@ -114,7 +113,7 @@ public class EcrackSetupApplicationTests {
 		testTypeList.add(testType);
 
 		Mockito.when(testTypeDao.findAllTestTypeList()).thenReturn(testTypeList);
-		assertEquals(1, ((List<TestTypeListDataDTO>)testTypeListController.findAllTestTypeList().getBody()).size());
+		assertEquals(1, ((List<TestTypeListDataDTO>) testTypeListController.findAllTestTypeList().getBody()).size());
 	}
 
 	/**
@@ -135,7 +134,7 @@ public class EcrackSetupApplicationTests {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void scheduledTest() {
-		List<QuizTestDTO> quizTestList=new ArrayList<QuizTestDTO>();
+		List<QuizTestDTO> quizTestList = new ArrayList<QuizTestDTO>();
 
 		QuizTestDTO quizTest = new QuizTestDTO();
 
@@ -153,12 +152,11 @@ public class EcrackSetupApplicationTests {
 		quizTest.setTotalQuestion(50);
 
 		quizTestList.add(quizTest);
-		int gradeId=1;
+		int gradeId = 1;
 
 		Mockito.when(examDao.getScheduledTest(gradeId)).thenReturn(quizTestList);
-		assertEquals(1, ((List<QuizTestDTO>)examController.scheduledTest(gradeId).getBody()).size());
+		assertEquals(1, ((List<QuizTestDTO>) examController.scheduledTest(gradeId).getBody()).size());
 	}
-
 
 	/**
 	 * This Test Method to Identify quizQuestions TestCase Method
@@ -167,60 +165,58 @@ public class EcrackSetupApplicationTests {
 	/**
 	 * Test quizQuestions test.
 	 */
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void quizQuestionsTest() {
-//		List<QuizQuestionDTO> quizQuestionList = new ArrayList<>();
-//		QuizQuestionDTO quizQuestion = new QuizQuestionDTO();
-//		quizQuestion.setDifficultyCode("Easy");
-//		quizQuestion.setLessonId("1");
-//		quizQuestion.setLessonName("");
-//		quizQuestion.setMcqId("1");
-//		quizQuestion.setOptionList("satya");
-//		quizQuestion.setQuestion("what is Exception");
-//		quizQuestion.setQuestionDesc("i want answer");
-//		quizQuestion.setQuestionImg("satya");
-//		quizQuestion.setSolution("ok");
-//
-//		quizQuestionList.add(quizQuestion);
-//		Integer lessonId =1;
-//		Integer noOfQuestion =10;
-//		Integer questionLevel =2;
-//		Mockito.when(examDao.getQuizQuestions(lessonId, noOfQuestion, questionLevel)).thenReturn(quizQuestionList);
-//		assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuizQuestions(lessonId, noOfQuestion, questionLevel).getBody()).size());
-//	}
 
-	/**
-	 * This Test Method to Identify getQuestions TestCase Method
-	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void quizQuestionsTest() {
+		List<QuizQuestionDTO> quizQuestionList = new ArrayList<>();
+		QuizQuestionDTO quizQuestion = new QuizQuestionDTO();
+		quizQuestion.setDifficultyCode("Easy");
+		// quizQuestion.setLessonId("1");
+		// quizQuestion.setLessonName("");
+		quizQuestion.setMcqId("1");
+		// quizQuestion.setOptionList("satya");
+		quizQuestion.setQuestion("what is Exception");
+		quizQuestion.setQuestionDesc("i want answer");
+		quizQuestion.setQuestionImg("satya");
+		quizQuestion.setSolution("ok");
 
-	/**
-	 * Test getQuestions test.
-	 */
-//	@SuppressWarnings("unchecked")
-//	@Test
-//	public void getQuestionsTest() {
-//		List<QuizQuestionDTO> getQuestionList = new ArrayList<>();
-//		QuizQuestionDTO getQuestion = new QuizQuestionDTO();
-//		getQuestion.setDifficultyCode("Easy");
-//		getQuestion.setLessonId("1");
-//		getQuestion.setLessonName("Real Numbers  (15 Periods)");
-//		getQuestion.setMcqId("1");
-//		getQuestion.setOptionList("1");
-//		getQuestion.setQuestion("what is Exception");
-//		getQuestion.setQuestionDesc("Details about question");
-//		getQuestion.setQuestionImg("No");
-//		getQuestion.setSolution("ok");
-//
-//		getQuestionList.add(getQuestion);
-//		Integer lessonId =1;
-//		Integer noOfQuestion =10;
-//		Integer questionLevel =2;
-//
-//		Mockito.when(examDao.getQuestions(lessonId, noOfQuestion, questionLevel)).thenReturn(getQuestionList);
-//		assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuestions(lessonId, noOfQuestion, questionLevel).getBody()).size());
-//	}
+		quizQuestionList.add(quizQuestion);
+		Integer lessonId = 1;
+		Integer noOfQuestion = 10;
+		Integer questionLevel = 2;
+		// Mockito.when(examDao.getQuizQuestions(lessonId, noOfQuestion,
+		// questionLevel)).thenReturn(quizQuestionList);
+		// assertEquals(1,
+		// ((List<QuizQuestionDTO>)examController.getQuizQuestions(lessonId,
+		// noOfQuestion, questionLevel).getBody()).size());
+	}
 
+	@SuppressWarnings("unchecked")
+	@Test
+	public void getQuestionsTest() {
+		List<QuizQuestionDTO> getQuestionList = new ArrayList<>();
+		QuizQuestionDTO getQuestion = new QuizQuestionDTO();
+		getQuestion.setDifficultyCode("Easy");
+		// getQuestion.setLessonId("1");
+		// getQuestion.setLessonName("Real Numbers (15 Periods)");
+		getQuestion.setMcqId("1");
+		// getQuestion.setOptionList("1");
+		getQuestion.setQuestion("what is Exception");
+		getQuestion.setQuestionDesc("Details about question");
+		getQuestion.setQuestionImg("No");
+		getQuestion.setSolution("ok");
+
+		getQuestionList.add(getQuestion);
+		Integer lessonId = 1;
+		Integer noOfQuestion = 10;
+		Integer questionLevel = 2;
+
+		// Mockito.when(examDao.getQuestions(lessonId, noOfQuestion,
+		// questionLevel)).thenReturn(getQuestionList);
+		// assertEquals(1, ((List<QuizQuestionDTO>)examController.getQuestions(lessonId,
+		// noOfQuestion, questionLevel).getBody()).size());
+	}
 
 	/**
 	 * This Test Method to Identify StudentResultSummary TestCase Method
@@ -251,11 +247,10 @@ public class EcrackSetupApplicationTests {
 		testResult.setWrongQuestion("10");
 
 		testResultList.add(testResult);
-		Integer testId =1;
+		Integer testId = 1;
 
 		Mockito.when(examDao.getStudentResultSummary(testId)).thenReturn(testResultList);
-		assertEquals(1, ((List<TestResultDTO>)examController.getStudentResultSummary(testId).getBody()).size());
+		assertEquals(1, ((List<TestResultDTO>) examController.getStudentResultSummary(testId).getBody()).size());
 	}
-
 
 }
