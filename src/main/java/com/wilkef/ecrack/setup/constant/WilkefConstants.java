@@ -149,36 +149,24 @@ public final class WilkefConstants {
 			+ " FROM Grade g INNER JOIN Subject s \n" + "ON g.GradeId = s.GradeId\n" + "INNER JOIN Unit u\n"
 			+ "ON s.SubjectId = u.SubjectId\n" + "INNER JOIN Lesson l\n" + "ON u.UnitId = l.UnitId\n"
 			+ "WHERE g.GradeId = ?\n" + "AND l.IsActive = 1\n" + "ORDER BY s.SubjectId, u.UnitId, l.LessonId;";
-	
-	public static final String QUESTIONS_FOR_PRACTICE_TEST = "(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n" + 
-			"l.UnitId from Mcq m\n" + 
-			"INNER JOIN \n" + 
-			"Lesson l\n" + 
-			"on m.LessonId = l.LessonId\n" + 
-			"where l.UnitId = :unitId\n" + 
-			"AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 1 ELSE :questionLevel END)\n" + 
-			"ORDER BY RAND()\n" + 
-			"limit :limit)\n" + 
-			"UNION \n" + 
-			"(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n" + 
-			"l.UnitId from Mcq m\n" + 
-			"INNER JOIN \n" + 
-			"Lesson l\n" + 
-			"on m.LessonId = l.LessonId\n" + 
-			"where l.UnitId = :unitId\n" + 
-			"AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 2 ELSE :questionLevel END)\n" + 
-			"ORDER BY RAND()\n" + 
-			"limit :limit)\n" + 
-			"UNION\n" + 
-			"(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n" + 
-			"l.UnitId from Mcq m\n" + 
-			"INNER JOIN \n" + 
-			"Lesson l\n" + 
-			"on m.LessonId = l.LessonId\n" + 
-			"where l.UnitId = :unitId\n" + 
-			"AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 3 ELSE :questionLevel END)\n" + 
-			"ORDER BY RAND()\n" + 
-			"limit :limit\n" + 
-			") \n" + 
-			"ORDER BY RAND()";
+
+	public static final String QUESTIONS_FOR_PRACTICE_TEST = "(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n"
+			+ "l.UnitId from Mcq m\n" + "INNER JOIN \n" + "Lesson l\n" + "on m.LessonId = l.LessonId\n"
+			+ "where l.UnitId = :unitId\n"
+			+ "AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 1 ELSE :questionLevel END)\n"
+			+ "ORDER BY RAND()\n" + "limit :limit)\n" + "UNION \n"
+			+ "(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n"
+			+ "l.UnitId from Mcq m\n" + "INNER JOIN \n" + "Lesson l\n" + "on m.LessonId = l.LessonId\n"
+			+ "where l.UnitId = :unitId\n"
+			+ "AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 2 ELSE :questionLevel END)\n"
+			+ "ORDER BY RAND()\n" + "limit :limit)\n" + "UNION\n"
+			+ "(select m.McqId, m.Question, m.QuestionDesc, m.QuestionImg, m.QuestionOptionsJson, m.DifficultyLevel, \n"
+			+ "l.UnitId from Mcq m\n" + "INNER JOIN \n" + "Lesson l\n" + "on m.LessonId = l.LessonId\n"
+			+ "where l.UnitId = :unitId\n"
+			+ "AND m.DifficultyLevel = (CASE WHEN :questionLevel = 3 THEN 3 ELSE :questionLevel END)\n"
+			+ "ORDER BY RAND()\n" + "limit :limit\n" + ") \n" + "ORDER BY RAND()";
+
+	public static final String QUESTION_SET_SCHEDULED = "SELECT QUESTIONSET FROM TestLine WHERE TESTHEADERID = :testHeaderId";
+
+	public static final String QUESTIONS_BY_MCQID = "SELECT McqId, Question, QuestionDesc, QuestionImg, Solution, DifficultyLevel, QuestionOptionsJson, Answer, IsMultiChoice FROM Mcq WHERE MCQID IN (?)";
 }

@@ -18,8 +18,7 @@ import com.wilkef.ecrack.setup.dto.TestSummaryDTO;
 public interface ExamDao {
 
 	List<ApperedTestListDTO> getApperedTestList(Integer userId);
-	
-	
+
 	/**
 	 * Gets the scheduled test.
 	 *
@@ -70,4 +69,6 @@ public interface ExamDao {
 	String saveQuizTest(Integer userId, Integer lessonId, Integer difficultyLevel, ArrayList<McqTestItemDto> questions);
 
 	TestSummaryDTO getTestResultSummary(String uniqueId);
+
+	List<QuizQuestionDTO> getQuestionsForScheduledTest(int testHeaderId);
 }

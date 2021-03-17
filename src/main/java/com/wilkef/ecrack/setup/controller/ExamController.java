@@ -39,6 +39,7 @@ import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.dto.TestResultDTO;
 import com.wilkef.ecrack.setup.dto.TestSummaryDTO;
 import com.wilkef.ecrack.setup.exception.CustomExceptionHandler;
+import com.wilkef.ecrack.setup.service.ExamService;
 import com.wilkef.ecrack.setup.util.ServiceOutputTransformer;
 
 /**
@@ -64,6 +65,9 @@ public class ExamController {
 
 	@Autowired
 	private HttpServletRequest request;
+
+	@Autowired
+	private ExamService examService;
 
 	/**
 	 * Gets the quiz questions.
@@ -237,15 +241,15 @@ public class ExamController {
 		LOG.info("END-Inside testSummary");
 		return response;
 	}
-	
-	
+
 	@GetMapping(value = "/getApperedTestList")
-	public ResponseEntity<Object> getApperedTestList() { 
+	public ResponseEntity<Object> getApperedTestList() {
 		LOG.info("START-Inside getApperedTestList");
 		ResponseEntity<Object> response = null;
 		List<ApperedTestListDTO> testList = new ArrayList<>();
 		try {
-			LoggedinUserInfo loggedinUserInfo = validationDao.getLoggedinUserInfo(request.getHeader(WilkefConstants.AUTH_HEADER));
+			LoggedinUserInfo loggedinUserInfo = validationDao
+					.getLoggedinUserInfo(request.getHeader(WilkefConstants.AUTH_HEADER));
 			testList = examDao.getApperedTestList(loggedinUserInfo.getUserId());
 			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
 					.body(serviceOutput.apiResponse(Boolean.TRUE, testList));
@@ -257,7 +261,6 @@ public class ExamController {
 		LOG.info("END-Inside getApperedTestList");
 		return response;
 	}
-	
 
 //	/**
 //	 * Gets the quiz questions.
@@ -336,6 +339,23 @@ public class ExamController {
 			return new CustomExceptionHandler().handleAllExceptions(e);
 		}
 		LOG.info("END-Inside getStudentResultSummary");
+		return response;
+	}
+
+	@PostMapping(value = "schedueldTest/fetchQuestions/{testHeaderId}")
+	public ResponseEntity<Object> getQuestions(@Valid @PathVariable Integer testHeaderId) {
+		LOG.info("fetching data for scheduled test.");
+		ResponseEntity<Object> response = null;
+		List<QuizQuestionDTO> questionsForScheduledTest = new ArrayList<>();
+		try {
+			questionsForScheduledTest = examService.getScheduledTestQuestions(testHeaderId);
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.TRUE, questionsForScheduledTest));
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, () -> ErrorConstants.SMTHNG_WNT_WRONG + e.getMessage());
+			response = ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body(serviceOutput.apiResponse(Boolean.FALSE, null, ErrorConstants.SMTHNG_WNT_WRONG));
+		}
 		return response;
 	}
 }

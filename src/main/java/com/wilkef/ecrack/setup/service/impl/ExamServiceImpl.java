@@ -8,21 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wilkef.ecrack.setup.dao.ExamDao;
+import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
 import com.wilkef.ecrack.setup.service.ExamService;
 
-
 /**
- * The Class ExamServiceImpl.
+ * 
  */
 @Service
-public class ExamServiceImpl implements ExamService{
+public class ExamServiceImpl implements ExamService {
 
-	
 	/** The exam dao. */
-	@Autowired 
+	@Autowired
 	private ExamDao examDao;
-	
+
 	/**
 	 * Gets the scheduled test.
 	 *
@@ -32,8 +31,13 @@ public class ExamServiceImpl implements ExamService{
 	@Override
 	public List<QuizTestDTO> getScheduledTest(@Valid Integer gradeId) {
 		return examDao.getScheduledTest(gradeId);
-		
+
 	}
 
-	
+	@Override
+	public List<QuizQuestionDTO> getScheduledTestQuestions(Integer testId) {
+
+		return examDao.getQuestionsForScheduledTest(testId);
+	}
+
 }

@@ -13,7 +13,7 @@ public class QuestionOptionsDTO {
 
 	@Override
 	public String toString() {
-		return "McqOptionsDTO [value=" + value + ", getValue()=" + getValue() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "QuestionOptionsDTO [value=" + value + "]";
 	}
+
 }

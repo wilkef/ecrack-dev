@@ -8,6 +8,8 @@
 package com.wilkef.ecrack.setup.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -435,6 +437,50 @@ public class ExamDaoImpl implements ExamDao {
 			LOG.log(Level.SEVERE, e.getMessage());
 		}
 		return returnVal;
+	}
+
+	@Override
+	public List<QuizQuestionDTO> getQuestionsForScheduledTest(int testHeaderId) {
+		List<QuizQuestionDTO> questionSet = new ArrayList<>();
+
+		Gson gson = new Gson();
+
+		// from test header id get the question set
+		try {
+			SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("testHeaderId", testHeaderId);
+			String questionsString = namedParameterJdbcTemplate.queryForObject(WilkefConstants.QUESTION_SET_SCHEDULED,
+					namedParameters, String.class);
+			List<String> questionInt = Arrays.asList(questionsString.split(","));
+
+			questionInt.forEach(value -> value = value.trim());
+			String inSql = String.join(",", Collections.nCopies(questionInt.size(), "?"));
+
+			questionSet = appJdbcTemplate.query(String.format(
+					"SELECT McqId, Question, QuestionDesc, QuestionImg, Solution, DifficultyLevel, QuestionOptionsJson, Answer, IsMultiChoice FROM Mcq WHERE MCQID IN (%s)",
+					inSql), questionInt.toArray(), (result, rowNum) -> {
+						QuizQuestionDTO item = new QuizQuestionDTO();
+						item.setMcqId(result.getString("McqId"));
+						item.setQuestion(result.getString("Question"));
+						item.setQuestionDesc(result.getString("QuestionDesc"));
+						item.setQuestionImg(result.getString("QuestionImg"));
+						item.setSolution(result.getString("Solution"));
+						item.setDifficultyCode(result.getString("DifficultyLevel"));
+						item.setOptionList(
+								gson.fromJson(result.getString("QuestionOptionsJson"), QuestionOptionsDTO[].class));
+						item.setAnswer(result.getString("Answer"));
+						item.setIsMultiChoice(result.getInt("IsMultiChoice") == 1 ? true : false);
+						return item;
+					});
+
+			return questionSet;
+
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, e.getMessage());
+		}
+
+		// from question set get the corresponding questions from Mcq table and return
+		// the list.
+		return questionSet;
 	}
 
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.wilkef.ecrack.setup.dto.QuizQuestionDTO;
 import com.wilkef.ecrack.setup.dto.QuizTestDTO;
-
 
 /**
  * The Interface ExamService.
@@ -20,7 +20,6 @@ public interface ExamService {
 	 */
 	List<QuizTestDTO> getScheduledTest(@Valid Integer gradeId);
 
-
-
+	List<QuizQuestionDTO> getScheduledTestQuestions(Integer testId);
 
 }
